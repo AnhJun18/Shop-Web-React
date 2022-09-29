@@ -1,6 +1,6 @@
 import React from "react";
 import adminLayout from "../assets/css/login.css";
-class login {
+class login  extends React.Component {
     constructor(props) {
         super(props);
 

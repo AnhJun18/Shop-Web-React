@@ -1,6 +1,6 @@
 import React from "react";
 import adminLayout from "../assets/css/login.css";
-class login {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,4 +50,4 @@ class login {
         )
     }
 }
-export default login
+export default LoginPage

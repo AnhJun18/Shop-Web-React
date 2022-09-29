@@ -1,7 +1,7 @@
 import React from "react";
 import adminLayout from "../admin/adminLayout";
 import ModalComponent from "../components/ModalComponent";
-class TablePage extends React.Component {
+class ProductPage extends React.Component {
     constructor(props){
         super(props);
 
