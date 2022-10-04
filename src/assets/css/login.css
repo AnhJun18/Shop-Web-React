@@ -20,15 +20,6 @@ html {
     display: flex;
     flex-direction: row;
   }
-  .img {
-    width: 550px;
-      height: 660px;
-      position: relative;
-      background-image: url(https://user-images.githubusercontent.com/81856101/191649727-0f28bf04-b4a6-495c-a888-31a195ae7fe5.png);
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: bottom;
-  }
   
   .form {
     z-index: 15;
@@ -60,7 +51,7 @@ html {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 0 0 20px;
+    margin-bottom: 20px;
   }
   .form-group:last-child {
     margin: 0;

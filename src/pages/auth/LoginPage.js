@@ -1,5 +1,6 @@
 import React from "react";
 import adminLayout from "../../assets/css/login.css";
+import { Link } from 'react-router-dom';
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
@@ -11,7 +12,6 @@ class LoginPage extends React.Component {
             <>
                 <div>
                     <div class="bg">
-                        <div class="img"></div>
                         <div class="form">
                             <div class="form-toggle"></div>
                             <div class="form-panel one">
@@ -38,7 +38,7 @@ class LoginPage extends React.Component {
                                         </div>
                                         <p class="form-group text">
                                             Bạn chưa có tài khoản?
-                                            <a class="form-recovery" href="#"> Đăng ký</a>
+                                            <Link class="form-recovery" to="/register"> Đăng ký</Link>
                                         </p>
                                     </form>
                                 </div>

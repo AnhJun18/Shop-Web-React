@@ -1,5 +1,6 @@
 import React from "react";
 import adminLayout from "../../assets/css/login.css";
+import { Link } from 'react-router-dom';
 class login  extends React.Component {
     constructor(props) {
         super(props);
@@ -24,22 +25,22 @@ class login  extends React.Component {
                                             <label for="username">Họ Tên</label>
                                             <input type="text" id="username" name="username" required="required" />
                                         </div>
-                                        <div class="row">
-                                            <div class="form-group col-half right">
-                                                <label for="username">SDT </label>
-                                                <input type="text" id="username" name="username" required="required" />
+                                        <div class="row form-group">
+                                            <div class="col-md-6">
+                                                <label for="phone">SDT </label>
+                                                <input type="text" id="phone" name="phone" required="required" />
                                             </div>
-                                            <div class="form-group col-half">
-                                                <label for="username">Email</label>
-                                                <input type="text" id="Email" name="username" required="required" />
+                                            <div class="col-md-6">
+                                                <label for="email">Email</label>
+                                                <input type="email" id="email" name="email" required="required" />
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="form-group col-half right">
+                                        <div class="row form-group">
+                                            <div class="col-md-6">
                                                 <label for="password">Mật Khẩu</label>
                                                 <input type="password" id="password" name="password" required="required" />
                                             </div>
-                                            <div class="form-group col-half">
+                                            <div class="col-md-6">
                                                 <label for="password">Xác Nhận Mật Khẩu</label>
                                                 <input type="password" id="password" name="password" required="required" />
                                             </div>
@@ -54,7 +55,7 @@ class login  extends React.Component {
                                         </div>
                                         <p class="form-group text">
                                             Bạn đã có tài khoản?
-                                            <a class="form-recovery" href="#"> Đăng nhập</a>
+                                            <Link class="form-recovery" to="/login"> Đăng nhập</Link>
                                         </p>
                                     </form>
                                 </div>
