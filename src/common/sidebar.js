@@ -25,6 +25,11 @@ class Sidebar extends React.Component {
                         </Link>
                     </li>
                     <li className="mb-1">
+                        <Link tag="a" className="" to="/product">
+                            <i className="fa fa-bar-chart"></i> Product
+                        </Link>
+                    </li>
+                    <li className="mb-1">
                         <Link tag="a" className="" to="/blank-page">
                             <i className="fa fa-file-o"></i> Blank Page
                         </Link>
@@ -47,7 +52,7 @@ class Sidebar extends React.Component {
                 <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                     <li><Link className="dropdown-item" to="/profile"><i className="fa fa-user-circle" aria-hidden="true"></i> Profile</Link></li>
                     <li><hr className="dropdown-divider" /></li>
-                    <li><Link className="dropdown-item" to="#"><i className="fa fa-sign-out" aria-hidden="true"></i> Sign out</Link></li>
+                    <li><Link className="dropdown-item" to="/login"><i className="fa fa-sign-out" aria-hidden="true"></i> Sign out</Link></li>
                 </ul>
             </div>
         </div>

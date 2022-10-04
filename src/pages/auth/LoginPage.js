@@ -1,5 +1,5 @@
 import React from "react";
-import adminLayout from "../assets/css/login.css";
+import adminLayout from "../../assets/css/login.css";
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);

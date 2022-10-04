@@ -24,7 +24,7 @@
     --brown-dark: #3E2723;
     --brown-normal: #5D4037;
     /* color */
-    --theme-color: var(--blue-dark);
+    --theme-color: var(--blue-normal);
     --default-letter-spacing: .03em;
     --default-line-height: 21px;
     --content-background-color: var(--light-grey);

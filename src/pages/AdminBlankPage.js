@@ -10,7 +10,7 @@ class AdminBlankPage extends React.Component {
 
     render(){
         return <>
-            <p>Content here..</p>
+            <p></p>
         </>
     }
 }

@@ -157,11 +157,6 @@ html {
     padding: 30px 30px;
     box-sizing: border-box;
   }
-  .row {
-    display: table;
-    clear: both;
-    width: 100%;
-  }
   .col-half {
     width: 48.5%;
     float: left;

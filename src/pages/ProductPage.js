@@ -50,9 +50,9 @@ class ProductPage extends React.Component {
 		    <tr>
 		      <th scope="col" class="col-1">Mã sản phẩm</th>
 		      <th scope="col" class="col-3">Tên sản phẩm</th>
-		      <th scope="col" class="col-1">Hình ảnh minh họa</th>
+		      <th scope="col" class="col-1">Hình ảnh</th>
 		      <th scope="col" class="col-2">Danh mục</th>
-		      <th scope="col" class="col-2">Số lượng đã bán</th>
+		      <th scope="col" class="col-2">Đã bán</th>
               <th scope="col" class="col-2">Tác vụ</th>
 		    </tr>
 		  </thead>
