@@ -1,53 +1,76 @@
 import React from "react";
 import adminLayout from "../../assets/css/login.css";
-import { Link } from 'react-router-dom';
-class LoginPage extends React.Component {
-    constructor(props) {
-        super(props);
+import { Link, Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useRef, useState, useEffect, useContext } from 'react';
+//import AuthContext from '../../context/AuthProvider';
 
-        this.state = {};
-    }
-    render() {
-        return (
-            <>
-                <div>
-                    <div class="bg">
-                        <div class="form">
-                            <div class="form-toggle"></div>
-                            <div class="form-panel one">
-                                <div class="form-header">
-                                    <h1>Đăng nhập</h1>
-                                </div>
-                                <div class="form-content">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="username">Email</label>
-                                            <input type="text" id="Email" name="username" required="required" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password">Mật Khẩu</label>
-                                            <input type="password" id="password" name="password" required="required" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-remember">
-                                                <input type="checkbox" />Nhớ tài khoản
-                                            </label><a class="form-recovery" href="#">Quên mật khẩu?</a>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit">Log In</button>
-                                        </div>
-                                        <p class="form-group text">
-                                            Bạn chưa có tài khoản?
-                                            <Link class="form-recovery" to="/register"> Đăng ký</Link>
-                                        </p>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </>
-        )
-    }
-}
-export default LoginPage
+//import axios from '../../api/axios';
+//const LOGIN_URL = '/api/auth/user/login';
+async function loginUser(credentials) {
+	return fetch('http://localhost:8081/api/auth/user/login', {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json'
+	  },
+	  body: JSON.stringify(credentials)
+	})
+	  .then(data => data.json())
+   }
+
+export default function LoginPage({setToken}) {
+	const [username, setUserName] = useState();
+	const [password, setPassword] = useState();
+
+	const handleSubmit = async e => {
+		e.preventDefault();
+		const token = await loginUser({
+		  username,
+		  password
+		});
+		setToken(token);
+	  }
+
+	return (
+<div>
+  <div className="bg">
+    <div className="form">
+      <div className="form-toggle"></div>
+      <div className="form-panel one">
+        <div className="form-header">
+          <h1>Đăng nhập</h1>
+        </div>
+        <div className="form-content">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="username">Tên đăng nhập</label>
+              <input type="text" id="username" onChange={e => setUserName(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Mật Khẩu</label>
+              <input type="password" id="password" onChange={e => setPassword(e.target.value)} required/>
+            </div>
+            <div className="form-group">
+              <label className="form-remember">
+                <input type="checkbox" />Nhớ tài khoản
+              </label><a className="form-recovery" href="#">Quên mật khẩu?</a>
+            </div>
+            <div className="form-group">
+              <button type="submit">Log In</button>
+            </div>
+            <p className="form-group text">
+              Bạn chưa có tài khoản?
+              <Link className="form-recovery" to="/register"> Đăng ký</Link>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    );
+  };
+
+  LoginPage.propTypes = {
+	setToken: PropTypes.func.isRequired
+  };
