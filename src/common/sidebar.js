@@ -8,7 +8,8 @@ import axiosApiInstance from '../context/interceptor';
 const Sidebar = () => {
     const { user, logout } = useContext(AuthContext);
     const [name, setName] = useState([]);
- 
+    console.log(user);
+    
     useEffect(() => {
       axiosApiInstance
         .get("http://localhost:8081/api/user/profile?name=" + user)
