@@ -12,11 +12,10 @@ export default function useToken() {
     localStorage.setItem('accessToken', userToken.data.accessToken);
     localStorage.setItem('refreshToken', userToken.data.refreshToken);
     setToken(userToken.data.accessToken);
-
   };
 
   return {
     setToken: saveToken,
-    token
+    token: localStorage.getItem('accessToken')
   }
 }

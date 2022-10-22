@@ -1,17 +1,26 @@
-import React from "react";
+import {useContext, useState, useEffect} from "react";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import AuthContext from '../context/AuthProvider';
+import axiosApiInstance from '../context/interceptor';
 
-class Sidebar extends React.Component {
-    constructor(props){
-        super(props)
-
-        this.state = {}
-    }
-
-    render(){
-        return <div className="border-end sidenav" id="sidebar-wrapper">
+const Sidebar = () => {
+    const { user, logout } = useContext(AuthContext);
+    const [name, setName] = useState([]);
+ 
+    useEffect(() => {
+      axiosApiInstance
+        .get("http://localhost:8081/api/user/profile?name=" + user)
+        .then((response) => {
+          setName(response.name);
+          console.log(response)
+        });
+    }, []);
+    return (
+    <>
+        {!user && <Navigate to="/login"></Navigate>}
+        <div className="border-end sidenav" id="sidebar-wrapper">
             <div className="sidebar-heading border-bottom ">
                 <Link to="/">
                     <img alt="Alt content" src={require('./../assets/images/logo.png')} />
@@ -47,16 +56,16 @@ class Sidebar extends React.Component {
             <div className="dropdown fixed-bottom-dropdown">
                 <a href="#" className="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://via.placeholder.com/50" alt="" width="32" height="32" className="rounded-circle me-2" />
-                    <span>Admin</span>
+                    <span>{name}</span>
                 </a>
                 <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                     <li><Link className="dropdown-item" to="/profile"><i className="fa fa-user-circle" aria-hidden="true"></i> Profile</Link></li>
                     <li><hr className="dropdown-divider" /></li>
-                    <li><Link className="dropdown-item" to="/login"><i className="fa fa-sign-out" aria-hidden="true"></i> Sign out</Link></li>
+                    <li><a className="dropdown-item" onClick={() => {logout();}}><i className="fa fa-sign-out" aria-hidden="true"></i> Sign out</a></li>
                 </ul>
             </div>
         </div>
-    }
+    </>)
 }
 
 export default Sidebar;
