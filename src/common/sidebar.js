@@ -11,9 +11,8 @@ const Sidebar = () => {
     const { user, logout } = useContext(AuthContext);
     const [name, setName] = useState([]);
 
-    const navigate = useNavigate();
-    
-    /*useEffect(() => {
+    /*const navigate = useNavigate();
+    useEffect(() => {
       if (!user) navigate("/login");
     })*/
     
