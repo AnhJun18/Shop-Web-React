@@ -1,26 +1,30 @@
 import {useContext, useState, useEffect} from "react";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { Link, Navigate } from 'react-router-dom';
+import axios from '../api/axios';
+import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import AuthContext from '../context/AuthProvider';
 import axiosApiInstance from '../context/interceptor';
 
 const Sidebar = () => {
     const { user, logout } = useContext(AuthContext);
     const [name, setName] = useState([]);
-    console.log(user);
+
+    const navigate = useNavigate();
+    
+    /*useEffect(() => {
+      if (!user) navigate("/login");
+    })*/
     
     useEffect(() => {
       axiosApiInstance
-        .get("http://localhost:8081/api/user/profile?name=" + user)
-        .then((response) => {
-          setName(response.name);
-          console.log(response)
-        });
+        .get(axios.defaults.baseURL + "/api/user/profile")
+        .then(response => setName(response.data.data.user.lastName));
     }, []);
+
     return (
     <>
-        {!user && <Navigate to="/login"></Navigate>}
         <div className="border-end sidenav" id="sidebar-wrapper">
             <div className="sidebar-heading border-bottom ">
                 <Link to="/">

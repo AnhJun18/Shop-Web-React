@@ -10,11 +10,6 @@ import LoginPage from "./pages/auth/LoginPage";
 import { AuthContextProvider } from "./context/AuthProvider";
 
 function App() {
-  /*const { token, setToken } = useToken();
-
-  if(!token) {
-    return <Router><LoginPage setToken={setToken} /></Router>
-  }*/
 
   return (
           <AuthContextProvider>

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../api/axios";
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
  
@@ -17,7 +17,7 @@ export const AuthContextProvider = ({ children }) => {
  
   const login = async (payload) => {
     const apiResponse = await axios.post(
-      "http://localhost:8081/api/auth/user/login",
+      axios.defaults.baseURL + "/api/auth/user/login",
       payload
     );
     localStorage.setItem("tokens", JSON.stringify(apiResponse.data));

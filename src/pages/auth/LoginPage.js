@@ -1,6 +1,7 @@
 import React from "react";
 import adminLayout from "../../assets/css/login.css";
 import {Link, Navigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import {useRef, useState, useEffect, useContext} from 'react';
 import AuthContext from '../../context/AuthProvider';
 
@@ -18,11 +19,14 @@ const LoginPage = () => {
       await login(payload);
     };
 
+    const navigate = useNavigate();
     const { user } = useContext(AuthContext);
+    useEffect(() => {
+      if (user) navigate("/");
+    })
 
     return (
         <div>
-            {user && <Navigate to="/"></Navigate>}
             <div className="bg">
                 <div className="form">
                     <div className="form-toggle"></div>

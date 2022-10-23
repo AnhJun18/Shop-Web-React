@@ -1,10 +1,14 @@
-import axios from "axios";
+import axios from "../api/axios";
  
 const axiosApiInstance = axios.create({});
- 
+
 axiosApiInstance.interceptors.request.use((config) => {
   let tokensData = JSON.parse(localStorage.getItem("tokens"));
-  config.headers.common["Authorization"] = `Bearer ${tokensData.data.accessToken}`;
+  config.headers = { 
+    'Authorization': `Bearer ${tokensData.data.accessToken}`,
+    'Accept': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
   return config;
 });
 
@@ -13,6 +17,7 @@ axiosApiInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
+    console.log(error.response)
     if (error.response.status === 401) {
       const authData = JSON.parse(localStorage.getItem("tokens"));
       const payload = {
@@ -21,7 +26,7 @@ axiosApiInstance.interceptors.response.use(
       };
  
       let apiResponse = await axios.post(
-        "http://localhost:8081​/api​/auth​/user​/refresh",
+        axios.defaults.baseURL + "​/api​/auth​/user​/refresh",
         payload
       );
       localStorage.setItem("tokens", JSON.stringify(apiResponse.data));
@@ -32,6 +37,7 @@ axiosApiInstance.interceptors.response.use(
     } else {
       return Promise.reject(error);
     }
+    return Promise.reject(error);
   }
 );
 
