@@ -42,15 +42,19 @@ axiosApiInstance.interceptors.response.use(
       }
       alert("Da Refresh Token")
       localStorage.setItem("tokens", JSON.stringify(apiResponse.data));
-      error.config.headers[
+      alert("Da set Token moi")
+      error.config.headers = {
+        'Authorization': `Bearer ${apiResponse.data.accessToken}`
+      }
+      /*error.config.headers[
         "Authorization"
-      ] = `Bearer ${apiResponse.data.accessToken}`;
-      return axios(error.config);
+      ] = `Bearer ${apiResponse.data.accessToken}`;*/
+      //return axios(error.config);
+      window.location.href = '/';
 
     } else {
       return Promise.reject(error);
     }
-    return Promise.reject(error);
   }
 );
 
