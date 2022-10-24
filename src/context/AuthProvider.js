@@ -20,8 +20,13 @@ export const AuthContextProvider = ({ children }) => {
       axios.defaults.baseURL + "/api/auth/user/login",
       payload
     );
-    localStorage.setItem("tokens", JSON.stringify(apiResponse.data));
-    navigate("/");
+
+    if(apiResponse.data.data.status === true){
+      localStorage.setItem("tokens", JSON.stringify(apiResponse.data));
+      navigate("/");
+    }
+    else
+      alert((apiResponse.data.data.message));
 
   };
   const logout = async () => {
