@@ -2,6 +2,7 @@ import {useContext, useState, useEffect} from "react";
 import "../../assets/css/profile.css"
 import userProfileLayout from "../../admin/userProfileLayout";
 import axios from '../../api/axios';
+import login from "../auth/RegisterPage";
 
 const ProfilePage = () => {
     const [userName, setUserName] = useState([]);
@@ -19,6 +20,7 @@ const ProfilePage = () => {
             },
         })
             .then(response => response.json().then(res=>{
+                alert(res)
                 setUserName(res.data.user.account.username)
                 setFirstName(res.data.user.firstName)
                 setLastName(res.data.user.lastName)
@@ -30,7 +32,6 @@ const ProfilePage = () => {
     useEffect(() => {
         getProfileUser() ;
     }, []);
-
         return <>
                 <div className="my-3 p-3 bg-body rounded shadow-sm">
                     <h6 className="border-bottom pb-2 mb-0 mb-3">Personal Info</h6>

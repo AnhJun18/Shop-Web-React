@@ -1,4 +1,6 @@
 import axios from "../api/axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
  
 const axiosApiInstance = axios.create({});
 
@@ -18,40 +20,34 @@ axiosApiInstance.interceptors.request.use((config) => {
 });
 
 axiosApiInstance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  response  => response,
   async (error) => {
-    console.log(error.response)
     if (error.response.status === 401) {
-      alert("Access da het han")
+      toast.error("Access Token đã hết hạn")
       const authData = JSON.parse(localStorage.getItem("tokens"));
-      const payload = {
-        accessToken: authData.data.accessToken,
-        refreshToken: authData.data.refreshToken,
-      };
-      let apiResponse = await axios.get(
-        axios.defaults.baseURL + `/api/auth/user/refresh/${authData.data.refreshToken}`
-      );
-      console.log(apiResponse.data.data)
-      if(apiResponse.data.data.status === false){
-        localStorage.clear()
-        window.location.href = "/login";
-        alert("Refresh da het han")
-        return Promise.reject(error);
-      }
-      alert("Da Refresh Token")
-      localStorage.setItem("tokens", JSON.stringify(apiResponse.data));
-      alert("Da set Token moi")
-      error.config.headers = {
-        'Authorization': `Bearer ${apiResponse.data.accessToken}`
-      }
+     if(authData.data.refreshToken){
+       let apiResponse = await axios.get(
+           axios.defaults.baseURL + `/api/auth/user/refresh/${authData.data.refreshToken}`
+       );
+       if(apiResponse.data.data.status && apiResponse){
+         // alert("Da Refresh Token")
+         localStorage.setItem("tokens", JSON.stringify(apiResponse.data));
+         alert("Da set Token moi")
+         error.config.headers = {
+           'Authorization': `Bearer ${apiResponse.data.accessToken}`
+         }
+         window.location.reload()
+       }
+       else {
+         localStorage.clear()
+         window.location.href = "/login";
+         toast.error("Token đã hết hạn. Vui lòng đăng nhập lại")
+       }
+     }
       /*error.config.headers[
         "Authorization"
       ] = `Bearer ${apiResponse.data.accessToken}`;*/
       //return axios(error.config);
-      window.location.href = '/';
-
     } else {
       return Promise.reject(error);
     }

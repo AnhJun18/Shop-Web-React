@@ -17,6 +17,7 @@
     "react-preloader-icon": "^1.0.0",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.0",
+    "react-toastify": "^9.0.8",
     "web-vitals": "^2.1.3"
   },
   "scripts": {

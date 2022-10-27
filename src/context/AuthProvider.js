@@ -1,6 +1,8 @@
 import axios from "../api/axios";
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
  
 const AuthContext = createContext();
  
@@ -26,7 +28,7 @@ export const AuthContextProvider = ({ children }) => {
       navigate("/");
     }
     else
-      alert((apiResponse.data.data.message));
+      toast.error((apiResponse.data.data.message));
 
   };
   const logout = async () => {
