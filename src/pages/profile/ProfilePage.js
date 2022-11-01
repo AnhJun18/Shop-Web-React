@@ -5,11 +5,11 @@ import axios from '../../api/axios';
 import login from "../auth/RegisterPage";
 
 const ProfilePage = () => {
-    const [userName, setUserName] = useState([]);
-    const [email, setEmail] = useState([]);
-    const [firstName, setFirstName] = useState([]);
-    const [lastName, setLastName] = useState([]);
-    const [phone, setPhone] = useState([]);
+    const [userName, setUserName] = useState(['']);
+    const [email, setEmail] = useState(['']);
+    const [firstName, setFirstName] = useState(['']);
+    const [lastName, setLastName] = useState(['']);
+    const [phone, setPhone] = useState(['']);
     
     async function getProfileUser() {
         return await fetch(axios.defaults.baseURL + "/api/user/profile", {
@@ -20,7 +20,6 @@ const ProfilePage = () => {
             },
         })
             .then(response => response.json().then(res=>{
-                alert(res)
                 setUserName(res.data.user.account.username)
                 setFirstName(res.data.user.firstName)
                 setLastName(res.data.user.lastName)
