@@ -1,10 +1,11 @@
 import {useContext, useState, useEffect} from "react";
 import adminLayout from "../admin/adminLayout";
-import ModalComponent from "../components/ModalComponent";
 import axiosApiInstance from "../context/interceptor";
 import {render} from "react-dom";
 import {alignPropType} from "react-bootstrap/types";
 import {  toast } from 'react-toastify';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const ProductPage = () => {
     const [product, setProduct] = useState()
@@ -23,7 +24,7 @@ const ProductPage = () => {
               <td>{p.category.name}</td>
               <td>{p.sold}</td>
               <td>
-                <button type="button" className="btn btn-outline-warning btn-light btn-sm mx-sm-1 px-lg-2" title="Chỉnh sửa"><i className="fa fa-pencil" aria-hidden="true"></i></button>
+                <button type="button" className="btn btn-outline-warning btn-light btn-sm mx-sm-1 px-lg-2" title="Chỉnh sửa" onClick={handleShow}><i className="fa fa-pencil" aria-hidden="true"></i></button>
                 <button type="button" className="btn btn-outline-danger btn-light btn-sm mx-sm-1 px-lg-2" title="Ngừng kinh doanh sản phẩm"><i className="fa fa-times" aria-hidden="true"></i></button>
               </td>
               
@@ -36,7 +37,25 @@ const ProductPage = () => {
         getProduct() ;
     }, [product]);
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
         <div className="table-container" style={{width: '100%'}}>
             <div className="row">
                 <div className="col">
