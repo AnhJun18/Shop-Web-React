@@ -36,7 +36,7 @@ const LoginPage = () => {
                             <h1>Đăng nhập</h1>
                         </div>
                         <div className="form-content">
-                            <form>
+                            <form onSubmit={loginSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="username">Tên đăng nhập</label>
                                     <input type="text" id="username" ref={userName}
