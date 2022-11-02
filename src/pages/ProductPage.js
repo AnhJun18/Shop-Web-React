@@ -4,6 +4,7 @@ import axiosApiInstance from "../context/interceptor";
 
 import {render} from "react-dom";
 import {alignPropType} from "react-bootstrap/types";
+import {toast} from 'react-toastify';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
@@ -18,6 +19,10 @@ const ProductPage = () => {
     const [load, setLoad] = useState(false);
     const [totalPage, setTotalPage] = useState(1)
     const [quantity, setQuantity] = useState(1)
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     async function getProduct(page, size) {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/getpaging${page}&size=${size}`)
@@ -107,7 +112,7 @@ const ProductPage = () => {
                 :
                 <div>Loading</div>
 
-            }
+        }
         </>
     );
 
