@@ -20,6 +20,7 @@ const ProductPage = () => {
 
     const [product_id, setId] = useState();
     const [product_name, setName] = useState();
+    const [product_image, setImage] = useState();
     const [product_category, setCategory] = useState();
     const [product_sold, setSold] = useState();
 
@@ -38,7 +39,7 @@ const ProductPage = () => {
     const handleShow = (e) => {
         setId(parents(e.target).find(function(c){return c.tagName == "TR"}).children[0].innerText)
         setName(parents(e.target).find(function(c){return c.tagName == "TR"}).children[1].innerText)
-        //setImage(parents(e.target).find(function(c){return c.tagName == "TR"}).children[2].innerText)
+        setImage(parents(e.target).find(function(c){return c.tagName == "TR"}).children[2].firstChild.currentSrc)
         setCategory(parents(e.target).find(function(c){return c.tagName == "TR"}).children[3].innerText)
         setSold(parents(e.target).find(function(c){return c.tagName == "TR"}).children[4].innerText)
         setShow(true);
@@ -70,6 +71,59 @@ const ProductPage = () => {
     useEffect(() => {
         getProduct(param.search === '' ? '?page=1' : param.search, 1)
     }, [param]);
+
+
+    const list_cate = ['cate1','cate2','cate3','cate4'];
+
+    const imageTypeRegex = /image\/(png|jpg|jpeg)/gm;
+
+      const [imageFiles, setImageFiles] = useState([]);
+      const [images, setImages] = useState([]);
+    
+      const changeHandler = (e) => {
+        const { files } = e.target;
+        const validImageFiles = [];
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          if (file.type.match(imageTypeRegex)) {
+            validImageFiles.push(file);
+          }
+        }
+        if (validImageFiles.length) {
+          setImageFiles(validImageFiles);
+          return;
+        }
+        alert("Selected images are not of valid type!");
+      };
+    
+      useEffect(() => {
+        const images = [], fileReaders = [];
+        let isCancel = false;
+        if (imageFiles.length) {
+          imageFiles.forEach((file) => {
+            const fileReader = new FileReader();
+            fileReaders.push(fileReader);
+            fileReader.onload = (e) => {
+              const { result } = e.target;
+              if (result) {
+                images.push(result)
+              }
+              if (images.length === imageFiles.length && !isCancel) {
+                setImages(images);
+              }
+            }
+            fileReader.readAsDataURL(file);
+          })
+        };
+        return () => {
+          isCancel = true;
+          fileReaders.forEach(fileReader => {
+            if (fileReader.readyState === 1) {
+              fileReader.abort()
+            }
+          })
+        }
+      }, [imageFiles]);
 
     return (
         <>{
@@ -145,7 +199,25 @@ const ProductPage = () => {
                         <Form.Control type="text" placeholder="Tên sản phẩm" name="name" required value={product_name} onChange={(e)=> setName(e.target.value)}/>
                       </Form.Group>
                       <Form.Group className="mb-2">
-                        <Form.Control type="text" placeholder="Danh mục" name="category" required value={product_category} onChange={(e)=> setCategory(e.target.value)}/>
+                        { product_image ? (<ul class="list-images"><li><img src={product_image}/></li></ul>) : null}
+                        { images.length > 0 ?
+                            <ul class="list-images">
+                              {
+                                images.map((image, index) => {
+                                  return <li key={index}> <img src={image} /> </li>
+                                })
+                              } 
+                            </ul> : null
+                        } 
+                        <Form.Control type="file" id="file" onChange={changeHandler} accept="image/png, image/jpg, image/jpeg" multiple/>
+                      </Form.Group>
+                      <Form.Group className="mb-2">
+                        <Form.Control as="select" name="category" required value={product_category} onChange={(e)=> setCategory(e.target.value)} id="select">
+                          <option value="">Danh mục</option>
+                          {list_cate.map((cate,index) => (
+                            <option value={cate} key={index}>{cate}</option>
+                          ))}
+                        </Form.Control>
                       </Form.Group>
                       <Form.Group className="mb-2">
                         <Form.Control type="number" placeholder="Đã bán" name="sold"  value={product_sold} onChange={(e)=> setSold(e.target.value)}/>
