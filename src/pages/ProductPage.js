@@ -69,7 +69,7 @@ const ProductPage = () => {
     }
 
     useEffect(() => {
-        getProduct(param.search === '' ? '?page=1' : param.search, 1)
+        getProduct(param.search === '' ? '?page=1' : param.search, 2)
     }, [param]);
 
 
