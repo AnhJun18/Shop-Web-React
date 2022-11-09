@@ -19,7 +19,7 @@ const Sidebar = () => {
     useEffect(() => {
       axiosApiInstance
         .get(axios.defaults.baseURL + "/api/user/profile")
-        .then(response => setName(response.data.data.user.lastName));
+        .then(response => setName(response.data.data.userInfo.lastName));
     }, []);
 
     return (

@@ -10,7 +10,7 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     if (localStorage.getItem("tokens")) {
       let tokens = JSON.parse(localStorage.getItem("tokens"));
-      return tokens.data.user.account.username;
+      return tokens.data.userInfo.account.username;
     }
     return null;
   });
