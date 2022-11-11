@@ -1,0 +1,49 @@
+.customerH1{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+form.example input[type=text] {
+    padding: 8px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+  }
+  
+  form.example button {
+    float: left;
+    width: 20%;
+    padding: 8px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+  
+  form.example button:hover {
+    background: #0b7dda;
+  }
+  
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  form.style{
+    /* margin: auto; */
+    width: 350px;
+    margin: 15px;
+  }
+  .flex{
+    display: flex;
+  }
+  .mt22{
+    margin-top: 22px;
+  }
+  .ml30{
+    margin-left: 30px;
+  }
