@@ -6,6 +6,7 @@ import TablePage from './pages/TablePage'
 import ProfilePage from './pages/profile/ProfilePage';
 import AdminBlankPage from './pages/AdminBlankPage';
 import ProductPage from "./pages/ProductPage";
+import CustomerPage from "./pages/CustomerPage";
 import LoginPage from "./pages/auth/LoginPage";
 import { AuthContextProvider } from "./context/AuthProvider";
 
@@ -19,6 +20,7 @@ function App() {
                 <Route exact path='/table' element={<TablePage/>} />
                 <Route exact path='/blank-page' element={<AdminBlankPage/>} />
                 <Route exact path='/product' element={<ProductPage/>} />
+                <Route exact path='/customer' element={<CustomerPage/>} />
                 <Route exact path='/login' element={<LoginPage/>} />
             </Routes>  
           </AuthContextProvider>

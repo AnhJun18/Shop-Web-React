@@ -43,6 +43,11 @@ const Sidebar = () => {
                         </Link>
                     </li>
                     <li className="mb-1">
+                        <Link tag="a" className="" to="/customer">
+                            <i className="fa fa-bar-chart"></i> Customer
+                        </Link>
+                    </li>
+                    <li className="mb-1">
                         <Link tag="a" className="" to="/blank-page">
                             <i className="fa fa-file-o"></i> Blank Page
                         </Link>

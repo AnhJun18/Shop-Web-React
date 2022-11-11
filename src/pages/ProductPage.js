@@ -169,7 +169,7 @@ const ProductPage = () => {
                 <div>
                     <div className="table-container" style={{width: '100%'}}>
                         <div className="row">
-                            <div className="col">
+                            <div className="col" >
                                 <h5 className="pb-2 mb-0">Danh sách sản phẩm</h5>
                             </div>
                             <div className="col text-right">
