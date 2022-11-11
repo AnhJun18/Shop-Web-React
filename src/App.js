@@ -9,6 +9,9 @@ import ProductPage from "./pages/ProductPage";
 import CustomerPage from "./pages/CustomerPage";
 import LoginPage from "./pages/auth/LoginPage";
 import { AuthContextProvider } from "./context/AuthProvider";
+import HomePage from "./pages/HomePage";
+import ShopPage from "./pages/ShopPage";
+import ChoosingPage from "./pages/ChoosingPage";
 
 function App() {
 
@@ -22,6 +25,9 @@ function App() {
                 <Route exact path='/product' element={<ProductPage/>} />
                 <Route exact path='/customer' element={<CustomerPage/>} />
                 <Route exact path='/login' element={<LoginPage/>} />
+                <Route exact path='/home' element={<HomePage/>} />
+                <Route exact path='/shop' element={<ShopPage/>} />
+                <Route exact path='/choosing' element={<ChoosingPage/>} />
             </Routes>  
           </AuthContextProvider>
     )
