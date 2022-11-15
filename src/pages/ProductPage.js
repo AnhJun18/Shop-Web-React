@@ -198,7 +198,7 @@ const ProductPage = () => {
                                         <td className="tdImage w-25">
                                             <img
                                                 src={item.linkImg}
-                                                width="200" height="auto" className="img-fluid img-thumbnail"
+                                                width="50" height="50" className="img-fluid img-thumbnail"
                                                 alt="Sheep"/>
                                         </td>
                                         <td className="tdCategory">{item.category.name}</td>
