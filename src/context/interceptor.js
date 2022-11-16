@@ -8,7 +8,7 @@ axiosApiInstance.interceptors.request.use((config) => {
   let tokensData = JSON.parse(localStorage.getItem("tokens"));
   if(tokensData === null){
     localStorage.clear()
-    //window.location.href = "/login";
+    window.location.href = "/login";
   }
 
   config.headers = {
