@@ -1,18 +1,10 @@
 import React from "react";
 import adminLayout from "../admin/adminLayout"
 
-class AdminBlankPage extends React.Component {
-    constructor(props){
-        super(props);
-
-        this.state = {}
-    }
-
-    render(){
-        return <>
-            <p></p>
-        </>
-    }
+const AdminBlankPage = () => {
+    return (
+        <div></div>
+    )
 }
 
 export default adminLayout(AdminBlankPage);

@@ -1,15 +1,9 @@
 import React from "react";
 import adminLayout from "../admin/adminLayout"
 
-class DashboardPage extends React.Component {
-    constructor(props){
-        super(props);
-
-        this.state = {}
-    }
-
-    render(){
-        return <>
+const DashboardPage = () => {
+  return (
+    <>
             <div className="row">
         <div className="col-xl-3 col-sm-6 mb-3">
           <div className="card text-white bg-primary o-hidden h-100">
@@ -77,7 +71,7 @@ class DashboardPage extends React.Component {
         </div>
       </div>
         </>
-    }
+  )
 }
 
 export default adminLayout(DashboardPage);

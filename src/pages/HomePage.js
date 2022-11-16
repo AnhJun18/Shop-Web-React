@@ -2,15 +2,7 @@ import React from "react";
 import userLayout from "../user/userLayout"
 import "./../assets/css/user-view.css";
 
-
-class HomePage extends React.Component {
-    constructor(props){
-        super(props);
-
-        this.state = {}
-    }
-
-    render(){
+const HomePage = () => {
         return <>
             {/* <!-- Start Banner Hero --> */}
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -213,7 +205,7 @@ class HomePage extends React.Component {
     </section>
     {/* <!-- End Featured Product --> */}
         </>
-    }
+
 }
 
 export default userLayout(HomePage);

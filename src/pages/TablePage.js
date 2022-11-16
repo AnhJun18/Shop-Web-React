@@ -1,13 +1,7 @@
 import React from "react";
 import adminLayout from "../admin/adminLayout";
-class TablePage extends React.Component {
-    constructor(props){
-        super(props);
 
-        this.state = {};
-    }
-
-    render(){
+const TablePage = () => {
         return (
             <>
             <div className="table-container" style={{width: '100%'}}>
@@ -110,7 +104,7 @@ class TablePage extends React.Component {
             </div>
             </>
           );
-    }
+    
 }
 
 export default adminLayout(TablePage);

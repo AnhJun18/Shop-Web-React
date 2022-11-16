@@ -3,14 +3,7 @@ import userLayout from "../user/userLayout"
 import "./../assets/css/user-view.css";
 
 
-class ChoosingPage extends React.Component {
-    constructor(props){
-        super(props);
-
-        this.state = {}
-    }
-
-    render(){
+const ChoosingPage = () => {
         return <>
             {/* <!-- Open Content --> */}
     <section class="bg-light">
@@ -675,7 +668,6 @@ class ChoosingPage extends React.Component {
     </section>
     {/* <!-- End Article --> */}
         </>
-    }
 }
 
 export default userLayout(ChoosingPage);
