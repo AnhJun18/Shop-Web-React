@@ -18,12 +18,16 @@ const ProductPage = () => {
     const [totalPage, setTotalPage] = useState(1)
     const [quantity, setQuantity] = useState(1)
     const [listCate, setListCate] = useState([]);
+    const [editForm, setEditForm] = useState(false);
+    const [modalForm, setModalForm] = useState(false);
+
 
     const [product_id, setId] = useState();
     const [product_name, setName] = useState();
     const [product_image, setImage] = useState();
     const [product_category, setCategory] = useState();
     const [product_sold, setSold] = useState();
+    const [product_describe, setDescribe] = useState();
 
     function parents(node) {
         let current = node,
@@ -38,6 +42,8 @@ const ProductPage = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = (e) => {
+        setModalForm(true);
+        setImage(null);
         setId(parents(e.target).find(function (c) {
             return c.tagName == "TR"
         }).children[0].innerText)
@@ -53,23 +59,62 @@ const ProductPage = () => {
         setSold(parents(e.target).find(function (c) {
             return c.tagName == "TR"
         }).children[4].innerText)
+        setDescribe(parents(e.target).find(function (c) {
+            return c.tagName == "TR"
+        }).children[5].innerText)
+        setShow(true);
+        setEditForm(true);
+    }
+
+    const handleShowInfo = (e) => {
+        setModalForm(false);
+        setImage(null);
+        setId(parents(e.target).find(function (c) {
+            return c.tagName == "TR"
+        }).children[0].innerText)
+        setName(parents(e.target).find(function (c) {
+            return c.tagName == "TR"
+        }).children[1].innerText)
+        setImage(parents(e.target).find(function (c) {
+            return c.tagName == "TR"
+        }).children[2].firstChild.currentSrc)
+        setCategory(parents(e.target).find(function (c) {
+            return c.tagName == "TR"
+        }).children[3].innerText)
+        setSold(parents(e.target).find(function (c) {
+            return c.tagName == "TR"
+        }).children[4].innerText)
+        setDescribe(parents(e.target).find(function (c) {
+            return c.tagName == "TR"
+        }).children[5].innerText)
         setShow(true);
     }
     const handleShowAdd = (e) => {
+        setModalForm(true);
         setShow(true);
+        setEditForm(false);
+        setId(null);
+        setName(null);
+        setDescribe(null);
+        setCategory(null);
+        setSold(null);
+        setImage(null);
+
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
         let tokensData = JSON.parse(localStorage.getItem("tokens"))
         const params = {
-            describe: product_id,
+            describe: product_describe,
             name: product_name,
             category: product_category,
             price: product_sold,
         }
+        const methodForm = editForm ? 'put' : 'post';
+        const urlForm = editForm ? `/api/product/edit/${product_id}` : `/api/product/create`;
         const kq = await axios({
-            method: 'post',
-            url: axiosApiInstance.defaults.baseURL + `/api/product/create`,
+            method: methodForm,
+            url: axiosApiInstance.defaults.baseURL + urlForm,
             params: params,
             headers: {
                 'Authorization': `Bearer ${tokensData.data.accessToken}`,
@@ -80,12 +125,11 @@ const ProductPage = () => {
                 image: imageFiles[0]
             }
         });
-        if(kq.data.status === true){
+        if (kq.data.status === true) {
             toast.success(kq.data.message);
-            getProduct(param.search === '' ? '?page=1' : param.search, 2);
+            getProduct(param.search === '' ? '?page=1' : param.search, 5);
             setShow(false);
-        }
-        else
+        } else
             toast.error(kq.data.message);
 
     }
@@ -105,7 +149,7 @@ const ProductPage = () => {
     }
 
     useEffect(() => {
-        getProduct(param.search === '' ? '?page=1' : param.search, 2)
+        getProduct(param.search === '' ? '?page=1' : param.search, 5)
         getCatagory();
         console.log(listCate)
 
@@ -169,7 +213,7 @@ const ProductPage = () => {
                 <div>
                     <div className="table-container" style={{width: '100%'}}>
                         <div className="row">
-                            <div className="col" >
+                            <div className="col">
                                 <h5 className="pb-2 mb-0">Danh sách sản phẩm</h5>
                             </div>
                             <div className="col text-right">
@@ -187,6 +231,7 @@ const ProductPage = () => {
                                     <th scope="col" className="col-1">Hình ảnh</th>
                                     <th scope="col" className="col-2">Danh mục</th>
                                     <th scope="col" className="col-2">Đã bán</th>
+                                    <th style={{display: 'none'}} scope="col" className="col-2">Mô tả</th>
                                     <th scope="col" className="col-2">Tác vụ</th>
                                 </tr>
                                 </thead>
@@ -202,11 +247,13 @@ const ProductPage = () => {
                                                 alt="Sheep"/>
                                         </td>
                                         <td className="tdCategory">{item.category.name}</td>
-                                        <td className="tdSold">25</td>
+                                        <td className="tdPrice">{item.price}</td>
+                                        <td style={{display: 'none'}} className="tdDescribe">{item.describe}</td>
                                         <td>
                                             <button type="button"
                                                     className="btn btn-outline-primary btn-light btn-sm mx-sm-1 px-lg-2"
-                                                    title="Chi tiết"><i className="fa fa-info" aria-hidden="true"></i>
+                                                    title="Chi tiết" onClick={handleShowInfo}><i className="fa fa-info"
+                                                                                                 aria-hidden="true"></i>
                                             </button>
                                             <button type="button"
                                                     className="btn btn-outline-warning btn-light btn-sm mx-sm-1 px-lg-2"
@@ -226,62 +273,87 @@ const ProductPage = () => {
                         </div>
                         <Pagination refix='product' size={totalPage}/>
                     </div>
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Modal heading</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Form onSubmit={handleSubmit}>
 
-                                <Form.Group className="mb-2">
-                                    <Form.Control type="text" placeholder="Tên sản phẩm" name="name" required
-                                                  value={product_name} onChange={(e) => setName(e.target.value)}/>
-                                </Form.Group>
-                                <Form.Group className="mb-2">
-                                    <Form.Control as="select" name="category" required value={product_category}
-                                                  onChange={(e) => setCategory(e.target.value)} id="select">
-                                        <option value="">Danh mục</option>
-                                        {listCate.map((cate) => (
-                                            <option value={cate.id} key={cate.id}>{cate.name}</option>
-                                        ))}
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group className="mb-2">
-                                    {product_image ? (<ul class="list-images">
-                                        <li><img src={product_image}/></li>
-                                    </ul>) : null}
-                                    {images.length > 0 ?
-                                        <ul class="list-images">
-                                            {
-                                                images.map((image, index) => {
-                                                    return <li key={index}><img src={image}/></li>
-                                                })
-                                            }
-                                        </ul> : null
-                                    }
-                                    <Form.Control type="file" id="file" onChange={changeHandler}
-                                                  accept="image/png, image/jpg, image/jpeg" multiple/>
-                                </Form.Group>
-                                <Form.Group className="mb-2">
-                                    <Form.Control type="text" placeholder="Mô tả" name="id" required
-                                                  value={product_id} onChange={(e) => setId(e.target.value)}/>
-                                </Form.Group>
 
-                                <Form.Group className="mb-2">
-                                    <Form.Control type="number" placeholder="Giá " name="price" value={product_sold}
-                                                  onChange={(e) => setSold(e.target.value)}/>
-                                </Form.Group>
-                                <Button variant="success" type="submit">
-                                    Tạo sản phẩm
+                    {modalForm ?
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Quản lý sản phẩm</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form onSubmit={handleSubmit}>
+
+                                    <Form.Group className="mb-2">
+                                        <Form.Control type="text" placeholder="Tên sản phẩm" name="name" required
+                                                      value={product_name} onChange={(e) => setName(e.target.value)}/>
+                                    </Form.Group>
+                                    <Form.Group className="mb-2">
+                                        <Form.Control as="select" name="category" required value={product_category}
+                                                      onChange={(e) => setCategory(e.target.value)} id="select">
+                                            <option value="">Danh mục</option>
+                                            {listCate.map((cate) => (
+                                                <option value={cate.name} key={cate.id}>{cate.name}</option>
+                                            ))}
+                                        </Form.Control>
+                                    </Form.Group>
+                                    <Form.Group className="mb-2">
+                                        {product_image ? (<ul class="list-images">
+                                            <li><img src={product_image}/></li>
+                                        </ul>) : null}
+                                        {images.length > 0 ?
+                                            <ul class="list-images">
+                                                {
+                                                    images.map((image, index) => {
+                                                        return <li key={index}><img src={image}/></li>
+                                                    })
+                                                }
+                                            </ul> : null
+                                        }
+                                        <Form.Control type="file" id="file" onChange={changeHandler}
+                                                      accept="image/png, image/jpg, image/jpeg" multiple/>
+                                    </Form.Group>
+                                    <Form.Group className="mb-2">
+                                        <Form.Control type="text" placeholder="Mô tả" name="id" required
+                                                      value={product_describe}
+                                                      onChange={(e) => setDescribe(e.target.value)}/>
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-2">
+                                        <Form.Control type="number" placeholder="Giá " name="price" value={product_sold}
+                                                      onChange={(e) => setSold(e.target.value)}/>
+                                    </Form.Group>
+                                    <Button variant="success" type="submit">
+                                        {editForm ? "Chỉnh sửa" : "Tạo sản phẩm"}
+                                    </Button>
+                                </Form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Đóng
                                 </Button>
-                            </Form>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Đóng
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
+                            </Modal.Footer>
+                        </Modal>
+                        :
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Chi tiết sản phẩm</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div>Tên Sản phẩm : <strong>{product_name}</strong></div>
+                                <div>Thuộc danh mục : <strong>{product_category}</strong></div>
+                                <div>Mô tả: <strong>{product_describe}</strong></div>
+                                <div>Giá : <strong>{product_sold}</strong></div>
+                                {product_image ? (<ul class="list-images">
+                                    <li><img src={product_image}/></li>
+                                </ul>) : null}
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Đóng
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    }
                 </div>
                 :
                 <div>Loading</div>
