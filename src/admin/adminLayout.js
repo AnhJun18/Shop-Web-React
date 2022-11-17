@@ -10,7 +10,8 @@ const adminLayout = (ChildComponent) => {
     
             this.state = {
                 pageLoaded: false,
-                saveLeadClickEvent: ""
+                saveLeadClickEvent: "",
+                isActive: true,
             };
         }
 
@@ -22,6 +23,7 @@ const adminLayout = (ChildComponent) => {
             }, 1000);
         }
 
+    
         renderHtml(){
             if(!this.state.pageLoaded){
                 return <div className="loading-page">
@@ -31,16 +33,20 @@ const adminLayout = (ChildComponent) => {
               </div>
             }
 
-            return <div className="d-flex" id="wrapper">
+           
+
+            return <div className="d-flex" id="wrapper" >
                 {/* <!-- Sidebar--> */}
-                <Sidebar/>
+                <Sidebar isActive={this.state.isActive}/>
                 {/* <!-- Page content wrapper--> */}
-                <div className="main" id="page-content-wrapper">
+                <div className={ this.state.isActive?  'main': "main close "} id="page-content-wrapper">
                     {/* <!-- Top navigation--> */}
-                    <Header />
+                    <Header onToggle={()=> {this.setState(({
+                        isActive: !this.state.isActive
+                    }))}} isActive={this.state.isActive}/>
                     {/* <!-- Page content--> */}
                     <div className="container-fluid content-container">
-                        <ChildComponent {...this.props} />
+                        <ChildComponent isActive={this.state.isActive} />
                     </div>
                 </div>
             </div>
