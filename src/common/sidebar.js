@@ -1,4 +1,4 @@
-import {useContext, useState, useEffect} from "react";
+import {useContext, useState, useEffect, useMemo} from "react";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import axios from '../api/axios';
@@ -7,9 +7,10 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from '../context/AuthProvider';
 import axiosApiInstance from '../context/interceptor';
 
-const Sidebar = () => {
+const Sidebar = ({isActive}) => {
     const { user, logout } = useContext(AuthContext);
     const [name, setName] = useState([]);
+    console.log(isActive)
 
     /*const navigate = useNavigate();
     useEffect(() => {
@@ -21,51 +22,62 @@ const Sidebar = () => {
         .get(axios.defaults.baseURL + "/api/user/profile")
         .then(response => setName(response.data.data.userInfo.lastName));
     }, []);
+    const sidebarItems =useMemo(()=> {
+        return [
+            {
+            icon:<i className="fa fa-dashboard me-3"></i>,
+            link: "/",
+            title: "Dashboard",
+        },
+        {
+            icon: <i className="fa fa-product-hunt me-3"></i>,
+            link: "/product",
+            title: "Product",
+        },
+        {
+            icon: <i className="fa fa-user-circle me-3"></i>,
+            link: "/customer",
+            title: "Customer",
+        },
+        {
+            icon: <i className="fa fa-bar-chart me-3"></i>,
+            link: "/",
+            title: "Blank Page",
+        },  {
+            icon: <i className="fa fa-text-width me-3" aria-hidden="true"></i>,
+            link: "/",
+            title: "Table",
+        }
+    ]
+    }, [])
 
     return (
     <>
-        <div className="border-end sidenav" id="sidebar-wrapper">
+        <div className={ isActive?  'sidenav': "sidenav2"} id="sidebar-wrapper">
             <div className="sidebar-heading border-bottom ">
-                <Link to="/">
-                    <img alt="Alt content" src={require('./../assets/images/logo.png')} />
-                </Link>
+                <div className="ms-4 mt-3">
+                    <img alt="" width="120" height="120" src={require('./../assets/images/logo.png')} />
+                </div>
+                {/* <div href="#" className="ms-3 align-items-center text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src={require('./../assets/images/logo.png')} alt="" width="110" height="110" className="rounded-circle me-2" />
+                    <h5></h5>
+                </div> */}
             </div>
-            <PerfectScrollbar className="sidebar-items">
+            <PerfectScrollbar className="sidebar-items mt-3">
                 <ul className="list-unstyled ps-0">
-                    <li className="mb-1">
-                        <Link tag="a" className="" to="/">
-                            <i className="fa fa-dashboard"></i> Dashboard
+                    
+                   {sidebarItems.map(item => <li className="mb-3 ms-3">
+                        <Link key={item.title} tag="a" className="" to={item.link}>
+                           {item.icon}{isActive && item.title}
                         </Link>
-                    </li>
-                    <li className="mb-1">
-                        <Link tag="a" className="" to="/product">
-                            <i className="fa fa-bar-chart"></i> Product
-                        </Link>
-                    </li>
-                    <li className="mb-1">
-                        <Link tag="a" className="" to="/customer">
-                            <i className="fa fa-bar-chart"></i> Customer
-                        </Link>
-                    </li>
-                    <li className="mb-1">
-                        <Link tag="a" className="" to="/blank-page">
-                            <i className="fa fa-file-o"></i> Blank Page
-                        </Link>
-                    </li>
-                    <li className="mb-1">
-                        <Link tag="a" className="" to="/table">
-                        <i className="fa fa-text-width" aria-hidden="true"></i> Table
-                        </Link>
-                    </li>
-
-                    <li className="border-top my-3"></li>
+                    </li>)}
                    
                 </ul>
             </PerfectScrollbar>
-            <div className="dropdown fixed-bottom-dropdown">
+            <div className={ isActive?  "dropdown fixed-bottom-dropdown with200": "dropdown fixed-bottom-dropdown with50"}>
                 <a href="#" className="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://via.placeholder.com/50" alt="" width="32" height="32" className="rounded-circle me-2" />
-                    <span>{name}</span>
+                    <img src="https://via.placeholder.com/50" alt=""  className={ isActive?  "rounded-circle me-2 logoprofile": "rounded-circle me-2 logoprofile2"} />
+                    <span className={ isActive?  "": "fixed-profile"}>{name}</span> 
                 </a>
                 <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                     <li><Link className="dropdown-item" to="/profile"><i className="fa fa-user-circle" aria-hidden="true"></i> Profile</Link></li>

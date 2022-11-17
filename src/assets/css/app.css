@@ -41,9 +41,36 @@ ul ul a {
 }
 
 /* The sidebar menu */
+.fixed-profile {
+  display: none;
+}
+.logo{
+  width: 150px;
+  height: 120px;
+}
+.logoprofile {
+  width: 32px;
+  height: 32px;
+}
+.logoprofile2 {
+  width: 30px;
+  height: 30px;
+}
+.sidenav2 {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 50px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: var(--sidenav-background-color); /* Black */
+  color: var(--sidenav-color);
+  overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-y: hidden;
+}
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 200px; /* Set the width of the sidebar */
+  width: 210px; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -74,16 +101,24 @@ ul ul a {
 }
 
 /* Style page content */
-.main {
-  margin-left: 200px; /* Same as the width of the sidebar */
+.main.close {
+  margin-left: 50px; /* Same as the width of the sidebar */
   padding: 0px 10px;
 }
-
+.main {
+  margin-left: 210px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+}
+.fixed-top-left {
+  left: 210px;
+}
+.fixed-top-left2 {
+  left: 50px;
+}
 .fixed-top {
   position: fixed;
   top: 0;
   right: 0;
-  left: 200px;
   z-index: 1030;
 }
 
@@ -281,7 +316,12 @@ ul ul a {
   color: var(--sidenav-active-color);
   background-color: transparent !important;
 }
-
+.with200 {
+  width: 200px;
+}
+.with50 {
+  width: 50px;
+}
 .fixed-bottom-dropdown{
   font-weight: normal !important;
   position: fixed;
@@ -290,7 +330,6 @@ ul ul a {
   left: 0px;
   right: 0px;
   margin-bottom: 0px;
-  width: 200px;
   border-top: 1px solid rgb(211,211,211);
   padding: 5px 5px;
 }
@@ -466,7 +505,7 @@ button{
 }
 
 .modal-header {
-  border-bottom-color: #EEEEEE;
+  /* border-bottom-color: #EEEEEE; */
   background-color: var(--theme-color);
   color: var(--white);
   border-radius: 0;

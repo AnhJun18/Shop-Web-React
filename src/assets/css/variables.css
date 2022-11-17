@@ -24,7 +24,7 @@
     --brown-dark: #3E2723;
     --brown-normal: #5D4037;
     /* color */
-    --theme-color: var(--blue-normal);
+    --theme-color: var(--blue-grey);
     --default-letter-spacing: .03em;
     --default-line-height: 21px;
     --content-background-color: var(--light-grey);
@@ -36,8 +36,8 @@
     --default-font-light-italic: poppins-light-italic;
     /* font family */
     --sidenav-active-font: var(--default-font-semibold);
-    --sidenav-normal-font: var(--default-font-regular);
+    --sidenav-normal-font: var(--default-font-light);
     --sidenav-color: var(--white);
-    --sidenav-active-color: var(--secondary-color);
+    --sidenav-active-color: var(--grey);
     --sidenav-background-color: var(--theme-color);
 }
