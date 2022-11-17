@@ -629,3 +629,46 @@ table tbody tr:focus-within, table tbody tr:hover {
   height: 100%;
   width: auto
 }
+.item_product {
+  clear:both;
+  border-top:1.5px solid #ddd;
+  padding:10px 0;
+  display:flex;
+}
+.item_product .item_product_left {
+  width:20%;
+}
+.item_product .item_product_left img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover
+}
+.item_product .item_product_right {
+  padding-left:10px;
+  width:80%
+}
+.item_product .item_name {
+  color:#000;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.item_product .item_qty {
+  text-align:right;
+}
+.item_product .item_price {
+  color:var(--theme-color);
+  text-align:right
+}
+.shipping_price, .total_price {
+  float:left;
+  width:100%;
+  padding:10px 0;
+  color:#000;
+  font-weight:700!important;
+  border-top:1.5px solid #ddd
+}
+.ctm {
+  margin-bottom:10px;
+  font-weight:700!important;
+  color:#333;
+}

@@ -36,6 +36,7 @@ const Management = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(orderSelected)
     }
 
 
@@ -59,7 +60,7 @@ const Management = () => {
                         <h5 className="pb-2 mb-0">Quản lý đơn hàng</h5>
                     </div>
                 </div>
-                <table class="table align-items-center mb-0">
+                <table className="table align-items-center mb-0">
                     <thead>
                     <tr>
                         <th>Ngày tạo</th>
@@ -67,7 +68,7 @@ const Management = () => {
                         <th>Thông tin đặt hàng</th>
                         <th>Sđt</th>
                         <th>Trạng thái</th>
-                        <th class="text-right">Thành tiền</th>
+                        <th className="text-right">Thành tiền</th>
                         <th>Xác nhận</th>
                         <th></th>
                     </tr>
@@ -79,7 +80,7 @@ const Management = () => {
                                 {item.id}
                             </td>
                             <td>
-                                {item.createdDate}
+                                {(item.createdDate).slice(0, 19).replace("T", " ")}
                             </td>
                             <td>
                                 {item?.userInfo?.firstName + ' ' + item?.userInfo?.lastName}
@@ -88,18 +89,18 @@ const Management = () => {
                                 {item?.userInfo?.phone}
                             </td>
                             <td>
-                                <span className="badge alert-primary">Label</span>
+                                <span className="badge alert-primary">{item?.status?.name}</span>
                             </td>
                             <td className="text-right">
                                 100.000đ
                             </td>
                             <td className="align-middle">
-                                <button type="button" className="btn btn-outline-primary btn-sm me-2"><i
-                                    className="fa fa-info"/>
+                                <button type="button" className="btn btn-outline-primary btn-sm me-2">
+                                    <i className="fa fa-info"/>
                                 </button>
                                 <button type="button" className="btn btn-outline-secondary btn-sm" onClick={handleShow}>
-                                    <i
-                                        className="fa fa-pencil"/></button>
+                                    <i className="fa fa-pencil"/>
+                                </button>
                             </td>
                         </tr>
                     )}
@@ -111,22 +112,27 @@ const Management = () => {
                         <Modal.Title>Chi tiết đơn hàng</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div>Id: {orderSelected?.id}</div>
-                        <div>name: {orderSelected?.userInfo?.name}</div>
-                        <div>phone: {orderSelected?.userInfo?.phone}</div>
-                        <div>địa chỉ: {orderSelected?.userInfo?.address}</div>
+                        <div class="ctm">
+                            {/*<div className="shop_id">Id: {orderSelected?.id}</div>*/}
+                            <div className="ctm_name">Họ tên: <div class="pull-right">{orderSelected?.userInfo?.firstName + " " + orderSelected?.userInfo?.firstName}</div></div>
+                            <div className="ctm_phone">Điện thoại: <div class="pull-right">{orderSelected?.userInfo?.phone}</div></div>
+                            <div className="ctm_address">Địa chỉ: <div class="pull-right">{orderSelected?.userInfo?.address}</div></div>
+                        </div>
                         {orderSelected?.orderDetails?.map((item) =>
-                            <div>
-                                <div>Id: {item.id}</div>
-                                {item?.productDetail?.infoProduct?.linkImg ? (<ul class="list-images">
-                                    <li><img src={item?.productDetail?.infoProduct?.linkImg}/></li>
-                                </ul>) : null}
-                                <div>Số lượng: {item.amount}</div>
-                                <div>Giá: {item.prices}</div>
+                            <div className="item_product">
+                                {/*<div className="item_id">{item.id}</div>*/}
+                                <div className="item_product_left">
+                                    {item?.productDetail?.infoProduct?.linkImg ? (<div className="item_img"><img src={item?.productDetail?.infoProduct?.linkImg}/></div>) : null}
+                                </div>
+                                <div className="item_product_right">
+                                    <div className="item_name">{item?.productDetail?.infoProduct?.name}</div>
+                                    <div className="item_qty">x{item.amount}</div>
+                                    <div className="item_price">{item.prices}</div>
+                                </div>
                             </div>)}
 
-                            <div><strong>Phi Ship</strong>: {orderSelected?.feeShip}</div>
-                            <div>Tổng Tiền:10000 vnđ </div>
+                            <div className="shipping_price">Phí vận chuyển <div className="pull-right">{orderSelected?.feeShip}</div></div>
+                            <div className="total_price">Tổng Tiền <div className="pull-right">10000 vnđ</div></div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
