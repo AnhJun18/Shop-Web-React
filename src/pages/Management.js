@@ -12,6 +12,7 @@ const Management = () => {
     const [listOrder, setListOrder] = useState([]);
     const [param, setParam] = useState('Chờ Xác Nhận');
     const [orderSelected, setOrderSelected] = useState({});
+    let total = 0;
 
 
     function parents(node) {
@@ -27,6 +28,7 @@ const Management = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = (e) => {
+        total=0;
         setShow(true);
         const idSelected = Number(parents(e.target).find(function (c) {
             return c.tagName == "TR"
@@ -127,12 +129,14 @@ const Management = () => {
                                 <div className="item_product_right">
                                     <div className="item_name">{item?.productDetail?.infoProduct?.name}</div>
                                     <div className="item_qty">x{item.amount}</div>
-                                    <div className="item_price">{item.prices}</div>
+                                    <div className="item_price">{item.prices.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
+                                    <div style={{display : "none"}}>  {total += item.amount * item.prices}</div>
+
                                 </div>
                             </div>)}
 
-                            <div className="shipping_price">Phí vận chuyển <div className="pull-right">{orderSelected?.feeShip}</div></div>
-                            <div className="total_price">Tổng Tiền <div className="pull-right">10000 vnđ</div></div>
+                            <div className="shipping_price">Phí vận chuyển <div className="pull-right">{orderSelected?.feeShip?.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div></div>
+                            <div className="total_price">Tổng Tiền <div className="pull-right">{(orderSelected?.feeShip+total)?.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div></div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
