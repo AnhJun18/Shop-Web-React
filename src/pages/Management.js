@@ -59,10 +59,31 @@ const Management = () => {
             <div>
                 <div className="row">
                     <div className="col">
-                        <h5 className="pb-2 mb-0">Quản lý đơn hàng</h5>
+                        <h5 className="pb-2 mb-2">Quản lý đơn hàng</h5>
                     </div>
                 </div>
-                <table className="table align-items-center mb-0">
+                <div className="row">
+                    <div className="col-lg-4 col-md-5">
+                        <div className="input-group">
+                            <div className="form-outline">
+                                <input type="search" className="form-control" placeholder="Tìm kiếm..." />
+                            </div>
+                            <button type="button" className="btn btn-primary"><i className="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div className="col-lg-2 col-md-3">
+                        <select className="form-control">
+                            <option value="">Đơn hàng</option>
+                        </select>
+                    </div>
+                    <div className="col-lg-4 col-md-4 ms-auto">
+                        <div class="d-flex">
+                            <label class="p-2">Từ</label> <input className="form-control" type="date"/>
+                            <label class="p-2">Tới</label> <input className="form-control" type="date"/>
+                        </div>
+                    </div>
+                </div>
+                <table className="table align-items-center mb-0 mt-2">
                     <thead>
                     <tr>
                         <th>Ngày tạo</th>
@@ -114,11 +135,11 @@ const Management = () => {
                         <Modal.Title>Chi tiết đơn hàng</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div class="ctm">
+                        <div className="ctm">
                             {/*<div className="shop_id">Id: {orderSelected?.id}</div>*/}
-                            <div className="ctm_name">Họ tên: <div class="pull-right">{orderSelected?.userInfo?.firstName + " " + orderSelected?.userInfo?.firstName}</div></div>
-                            <div className="ctm_phone">Điện thoại: <div class="pull-right">{orderSelected?.userInfo?.phone}</div></div>
-                            <div className="ctm_address">Địa chỉ: <div class="pull-right">{orderSelected?.userInfo?.address}</div></div>
+                            <div className="ctm_name">Họ tên: <div className="pull-right">{orderSelected?.userInfo?.firstName + " " + orderSelected?.userInfo?.firstName}</div></div>
+                            <div className="ctm_phone">Điện thoại: <div className="pull-right">{orderSelected?.userInfo?.phone}</div></div>
+                            <div className="ctm_address">Địa chỉ: <div className="pull-right">{orderSelected?.userInfo?.address}</div></div>
                         </div>
                         {orderSelected?.orderDetails?.map((item) =>
                             <div className="item_product">
