@@ -97,7 +97,7 @@ const ShopPage = () => {
                                     <div className="col-md-4">
                                         <div className="card mb-4 product-wap rounded-0">
                                             <div className="card rounded-0">
-                                                <img className="card-img rounded-0 img-fluid" src={item.linkImg}/>
+                                                <img className="img-config card-img rounded-0 img-fluid" src={item.linkImg}/>
                                                 <div
                                                     className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                                     <ul className="list-unstyled">
@@ -116,8 +116,11 @@ const ShopPage = () => {
                                                 </div>
                                             </div>
                                             <div className="card-body">
-                                                <a href="shop-single.html"
-                                                   className="h3 text-decoration-none">{item.name}</a>
+                                                <div className="">
+                                                    <a href="shop-single.html"
+                                                       className="h3 text-decoration-none text-config" title={item.name}>{item.name}</a>
+                                                </div>
+
                                                 <ul className="w-100 list-unstyled d-flex justify-content-between mb-0">
                                                     <li>M/L/X/XL</li>
                                                     <li className="pt-2">
@@ -142,7 +145,7 @@ const ShopPage = () => {
                                                         <i className="text-muted fa fa-star"></i>
                                                     </li>
                                                 </ul>
-                                                <p className="text-center mb-0">{item.price}</p>
+                                                <p className="text-center mb-0">{item.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</p>
                                             </div>
                                         </div>
                                     </div>
