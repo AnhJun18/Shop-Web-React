@@ -13,6 +13,7 @@ import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
 import ChoosingPage from "./pages/ChoosingPage";
 import Management from "./pages/Management";
+import Import from "./pages/ImportPage";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                 <Route exact path='/shop' element={<ShopPage/>} />
                 <Route exact path='/choosing' element={<ChoosingPage/>} />
                 <Route exact path='/order' element={<Management/>} />
+                <Route exact path='/import' element={<Import/>} />
             </Routes>  
           </AuthContextProvider>
     )
