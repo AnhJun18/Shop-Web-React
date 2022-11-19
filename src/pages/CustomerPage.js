@@ -70,7 +70,7 @@ const CustomerPage = () => {
                                     <button type="submit" onclick={handleSearch}><i class="fa fa-search"></i></button>
                             </form>
                         </div>
-                        <div className="d-flex text-muted">
+                        <div className="d-flex text-muted overflow-auto">
                             <table className="table ">
                                 <thead>
                                 <tr>

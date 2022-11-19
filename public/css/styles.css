@@ -101,6 +101,7 @@ hr:not([size]) {
   height: 1px;
 }
 
+
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
@@ -6933,6 +6934,10 @@ textarea.form-control-lg {
   width: 25% !important;
 }
 
+.w-32{
+  width: 32px !important;
+}
+
 .w-50 {
   width: 50% !important;
 }
@@ -11314,4 +11319,17 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+@media (max-width: 768px) {
+
+  .sidenav {
+    padding-top: 100px;
+    margin-left: -2px !important;
+  }
+
+  .main.close{
+    margin-left: 0px !important;
+  }
+
+
 }

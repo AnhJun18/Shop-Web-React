@@ -29,7 +29,7 @@ function App() {
                 <Route exact path='/home' element={<HomePage/>} />
                 <Route exact path='/shop' element={<ShopPage/>} />
                 <Route exact path='/choosing' element={<ChoosingPage/>} />
-                <Route exact path='/manage' element={<Management/>} />
+                <Route exact path='/order' element={<Management/>} />
             </Routes>  
           </AuthContextProvider>
     )

@@ -12,6 +12,7 @@ const Management = () => {
     const [listOrder, setListOrder] = useState([]);
     const [param, setParam] = useState('Chờ Xác Nhận');
     const [orderSelected, setOrderSelected] = useState({});
+    const  [load, setLoad]= useState(false);
     let total = 0;
 
 
@@ -46,6 +47,7 @@ const Management = () => {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/admin/order/status=${param}`);
         setListOrder(result?.data);
         console.log(result)
+        setLoad(true);
     }
 
     useEffect(() => {
@@ -55,7 +57,7 @@ const Management = () => {
 
     return (
         <>{
-
+           load?
             <div>
                 <div className="row">
                     <div className="col">
@@ -83,6 +85,7 @@ const Management = () => {
                         </div>
                     </div>
                 </div>
+                <div className="overflow-auto">
                 <table className="table align-items-center mb-0 mt-2">
                     <thead>
                     <tr>
@@ -118,10 +121,10 @@ const Management = () => {
                                 100.000đ
                             </td>
                             <td className="align-middle">
-                                <button type="button" className="btn btn-outline-primary btn-sm me-2">
+                                <button type="button" className="btn btn-outline-primary btn-sm me-2 w-32">
                                     <i className="fa fa-info"/>
                                 </button>
-                                <button type="button" className="btn btn-outline-secondary btn-sm" onClick={handleShow}>
+                                <button type="button" className="btn btn-outline-secondary btn-sm w-32" onClick={handleShow}>
                                     <i className="fa fa-pencil"/>
                                 </button>
                             </td>
@@ -130,6 +133,7 @@ const Management = () => {
 
                     </tbody>
                 </table>
+                </div>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Chi tiết đơn hàng</Modal.Title>
@@ -166,11 +170,12 @@ const Management = () => {
                     </Modal.Footer>
                 </Modal>
             </div>
+               :
+               <div>Load</div>
 
 
         }
         </>
     );
 
-}
-export default adminLayout(Management);
+};export default adminLayout(Management);

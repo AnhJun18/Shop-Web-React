@@ -222,7 +222,7 @@ const ProductPage = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="d-flex text-muted">
+                        <div className="d-flex text-muted overflow-auto">
                             <table className="table table-image">
                                 <thead>
                                 <tr>
@@ -230,7 +230,8 @@ const ProductPage = () => {
                                     <th scope="col" className="col-3">Tên sản phẩm</th>
                                     <th scope="col" className="col-1">Hình ảnh</th>
                                     <th scope="col" className="col-2">Danh mục</th>
-                                    <th scope="col" className="col-2">Đã bán</th>
+                                    <th scope="col" className="col-1">Đã bán</th>
+                                    <th scope="col" className="col-1">Tồn Kho</th>
                                     <th style={{display: 'none'}} scope="col" className="col-2">Mô tả</th>
                                     <th scope="col" className="col-2">Tác vụ</th>
                                 </tr>
@@ -248,20 +249,21 @@ const ProductPage = () => {
                                         </td>
                                         <td className="tdCategory">{item.category.name}</td>
                                         <td className="tdPrice">{item.price}</td>
+                                        <td className="tdPrice">{item.price}</td>
                                         <td style={{display: 'none'}} className="tdDescribe">{item.describe}</td>
-                                        <td>
+                                        <td style={{whiteSpace: 'nowrap'}}>
                                             <button type="button"
-                                                    className="btn btn-outline-primary btn-light btn-sm mx-sm-1 px-lg-2"
+                                                    className="btn btn-outline-primary btn-light btn-sm mx-sm-1 px-lg-2 w-32"
                                                     title="Chi tiết" onClick={handleShowInfo}><i className="fa fa-info"
                                                                                                  aria-hidden="true"></i>
                                             </button>
                                             <button type="button"
-                                                    className="btn btn-outline-warning btn-light btn-sm mx-sm-1 px-lg-2"
+                                                    className="btn btn-outline-warning btn-light btn-sm mx-sm-1 px-lg-2 w-32"
                                                     title="Chỉnh sửa" onClick={handleShow}><i className="fa fa-pencil"
                                                                                               aria-hidden="true"></i>
                                             </button>
                                             <button type="button"
-                                                    className="btn btn-outline-danger btn-light btn-sm mx-sm-1 px-lg-2"
+                                                    className="btn btn-outline-danger btn-light btn-sm mx-sm-1 px-lg-2 w-32"
                                                     title="Xóa"><i className="fa fa-times"
                                                                    aria-hidden="true"></i>
                                             </button>
