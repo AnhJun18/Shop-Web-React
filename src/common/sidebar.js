@@ -44,12 +44,12 @@ const Sidebar = ({isActive}) => {
                 link: "/",
                 title: "Blank Page",
             }, {
-                icon: <i className="fa fa-text-width me-3" aria-hidden="true"></i>,
-                link: "/",
-                title: "Table",
+                icon: <i className="fa fa-archive me-3" ></i>,
+                link: "/import",
+                title: "Import",
             },
             {
-                icon: <i className="fa fa-bar-chart me-3"></i>,
+                icon: <i className="fa fa-cart-plus me-3"></i>,
                 link: "/order",
                 title: "Order",
             }
