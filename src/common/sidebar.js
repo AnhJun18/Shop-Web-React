@@ -10,7 +10,6 @@ import axiosApiInstance from '../context/interceptor';
 const Sidebar = ({isActive}) => {
     const {user, logout} = useContext(AuthContext);
     const [name, setName] = useState([]);
-    console.log(isActive)
 
     /*const navigate = useNavigate();
     useEffect(() => {
@@ -40,6 +39,11 @@ const Sidebar = ({isActive}) => {
                 title: "Customer",
             },
             {
+                icon: <i className="fa-regular fa-clipboard me-3"></i>,
+                link: "/order",
+                title: "Order",
+            },
+            {
                 icon: <i className="fa fa-bar-chart me-3"></i>,
                 link: "/",
                 title: "Blank Page",
@@ -47,11 +51,6 @@ const Sidebar = ({isActive}) => {
                 icon: <i className="fa fa-text-width me-3" aria-hidden="true"></i>,
                 link: "/",
                 title: "Table",
-            },
-            {
-                icon: <i className="fa fa-bar-chart me-3"></i>,
-                link: "/order",
-                title: "Order",
             }
         ]
     }, [])
