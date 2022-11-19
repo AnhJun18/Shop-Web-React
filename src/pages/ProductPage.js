@@ -137,6 +137,7 @@ const ProductPage = () => {
     async function getProduct(page, size) {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/getpaging${page}&size=${size}`)
         setLoad(true);
+        console.log(result?.data.content)
         setList(result?.data.content)
         setTotalPage(result?.data.totalPages)
     }
@@ -230,7 +231,7 @@ const ProductPage = () => {
                                     <th scope="col" className="col-3">Tên sản phẩm</th>
                                     <th scope="col" className="col-1">Hình ảnh</th>
                                     <th scope="col" className="col-2">Danh mục</th>
-                                    <th scope="col" className="col-1">Đã bán</th>
+                                    <th scope="col" className="col-1">Giá bán</th>
                                     <th scope="col" className="col-1">Tồn Kho</th>
                                     <th style={{display: 'none'}} scope="col" className="col-2">Mô tả</th>
                                     <th scope="col" className="col-2">Tác vụ</th>
@@ -249,7 +250,7 @@ const ProductPage = () => {
                                         </td>
                                         <td className="tdCategory">{item.category.name}</td>
                                         <td className="tdPrice">{item.price}</td>
-                                        <td className="tdPrice">{item.price}</td>
+                                        <td className="tdPrice">122</td>
                                         <td style={{display: 'none'}} className="tdDescribe">{item.describe}</td>
                                         <td style={{whiteSpace: 'nowrap'}}>
                                             <button type="button"
