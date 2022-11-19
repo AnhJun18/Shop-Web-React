@@ -668,6 +668,11 @@ table tbody tr:focus-within, table tbody tr:hover {
   height: 100%;
   width: auto
 }
+
+.detail_order{
+  max-height: 408px;
+}
+
 .item_product {
   clear:both;
   border-top:1.5px solid #ddd;

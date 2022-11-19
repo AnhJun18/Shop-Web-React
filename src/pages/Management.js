@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
 import axiosApiInstance from "../context/interceptor";
-import {Button, Modal} from "react-bootstrap"
+import {Modal, Button} from "react-bootstrap"
 import ReactLoading from "react-loading";
+import {toast} from "react-toastify";
 
 const Management = () => {
 
@@ -12,11 +13,12 @@ const Management = () => {
         const [orderSelected, setOrderSelected] = useState({});
         const [load, setLoad] = useState(false);
         const [loadData, setLoadData] = useState(false);
+        const [rand, setRand] = useState(0);
+
         const status = [
             'Chờ Xác Nhận',
             'Đang Chuẩn Bị Hàng',
-            'Đang Vận Chuyển',
-            'Đang Giao Hàng',
+            'Đang Vận Chuyển', ,
             'Đã Thanh Toán',
             'Đã Hủy']
         let total = 0;
@@ -68,13 +70,46 @@ const Management = () => {
             setListOrder(result?.data?.content);
             setLoad(true);
             setLoadData(true)
-            console.log(result?.data?.content)
         }
+
+        const handleConfirm = async (e) => {
+            let query = null;
+            if (e.target.id === "bt1")
+                query = `/api/admin/order/confirm/id=${orderSelected.id}`
+            if (e.target.id === "bt2")
+                query = `/api/admin/order/delivery/id=${orderSelected.id}`
+            if (e.target.id === "bt3")
+                query = `/api/admin/order/paid_order/id=${orderSelected.id}`
+            const result = await axiosApiInstance.put(axiosApiInstance.defaults.baseURL + query);
+            if (result.data.status) {
+                toast.success(result.data.message)
+                setRand(rand + 1)
+                setShow(false)
+            } else {
+                toast.error(result.data.message)
+            }
+        };
+        const handleCancelOrder = async () => {
+            const confirm = window.confirm("Hủy đơn sẽ ảnh hưởng rất lớn đến khách hàng \n" +
+                "Vui lòng hỏi ý kiến của khách hàng trước khi hủy \n " +
+                "Xác nhận hủy đơn ? ");
+            if (confirm) {
+                const result = await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL + `/api/admin/order/cancel_order/id=${orderSelected.id}`);
+                if (result.data.status) {
+                    toast.success(result.data.message)
+                    setRand(rand + 1)
+                    setShow(false)
+                } else {
+                    toast.error(result.data.message)
+                }
+            }
+
+        };
 
         useEffect(() => {
             getOrder();
 
-        }, [param])
+        }, [param, rand])
 
         return (
             <>{load ?
@@ -143,7 +178,13 @@ const Management = () => {
                                             {item?.phoneReceiver}
                                         </td>
                                         <td>
-                                            <span className="badge alert-primary">{item?.status?.name}</span>
+                                            <span
+                                                className={item?.status?.name === status.at(0) ? "badge  alert-warning" :
+                                                    item?.status?.name === status.at(1) ? "badge  alert-success" :
+                                                        item?.status?.name === status.at(2) ? "badge  alert-secondary" :
+                                                            item?.status?.name === status.at(3) ? "badge  alert-info" :
+                                                                item?.status?.name === status.at(4) ? "badge  alert-primary" :
+                                                                    "badge alert-danger"}>{item?.status?.name}</span>
                                         </td>
                                         <div style={{display: "none"}}>
                                             {total = 0}
@@ -161,18 +202,20 @@ const Management = () => {
                                         </td>
                                         <div style={{display: "none"}}>  {total = 0}</div>
                                         <td className="align-middle">
-                                            <button type="button" className="btn btn-outline-primary btn-sm me-2 w-32">
-                                                <i className="fa fa-info"/>
-                                            </button>
-                                            <button type="button" className="btn btn-outline-secondary btn-sm w-32"
-                                                    onClick={handleShow}>
-                                                <i className="fa fa-pencil"/>
-                                            </button>
+                                            {item?.status?.name === status.at(3) || item?.status?.name === status.at(4) ?
+                                                <button type="button" className="btn btn-outline-secondary btn-sm w-32"
+                                                        onClick={handleShow}>
+                                                    <i className="fa fa-info"/>
+                                                </button> :
+                                                <button type="button" className="btn btn-outline-primary btn-sm me-2 w-32">
+                                                    <i className="fa fa-pencil" onClick={handleShow}/>
+                                                </button>
+                                            }
                                         </td>
                                     </tr>
                                 ) : <div className="ml30 color-dot-light">
-                                        Loading..............
-                                   </div>
+                                    Loading..............
+                                </div>
                             }
 
                             </tbody>
@@ -186,32 +229,35 @@ const Management = () => {
                             <div className="ctm">
                                 {/*<div className="shop_id">Id: {orderSelected?.id}</div>*/}
                                 <div className="ctm_name">Họ tên: <div
-                                    className="pull-right">{orderSelected?.userInfo?.firstName + " " + orderSelected?.userInfo?.firstName}</div>
+                                    className="pull-right">{orderSelected?.nameReceiver}</div>
                                 </div>
                                 <div className="ctm_phone">Điện thoại: <div
-                                    className="pull-right">{orderSelected?.userInfo?.phone}</div></div>
+                                    className="pull-right">{orderSelected?.phoneReceiver}</div></div>
                                 <div className="ctm_address">Địa chỉ: <div
-                                    className="pull-right">{orderSelected?.userInfo?.address}</div></div>
+                                    className="pull-right">{orderSelected?.address}</div></div>
                             </div>
-                            {orderSelected?.orderDetails?.map((item) =>
-                                <div className="item_product">
-                                    {/*<div className="item_id">{item.id}</div>*/}
-                                    <div className="item_product_left">
-                                        {item?.productDetail?.infoProduct?.linkImg ? (
-                                            <div className="item_img"><img src={item?.productDetail?.infoProduct?.linkImg}/>
-                                            </div>) : null}
-                                    </div>
-                                    <div className="item_product_right">
-                                        <div className="item_name">{item?.productDetail?.infoProduct?.name}</div>
-                                        <div className="item_qty">x{item.amount}</div>
-                                        <div className="item_price">{item.prices.toLocaleString('vi', {
-                                            style: 'currency',
-                                            currency: 'VND'
-                                        })}</div>
-                                        <div style={{display: "none"}}>  {total += item.amount * item.prices}</div>
+                            <div className="detail_order overflow-auto">
+                                {orderSelected?.orderDetails?.map((item) =>
+                                    <div className="item_product">
+                                        {/*<div className="item_id">{item.id}</div>*/}
+                                        <div className="item_product_left">
+                                            {item?.productDetail?.infoProduct?.linkImg ? (
+                                                <div className="item_img"><img
+                                                    src={item?.productDetail?.infoProduct?.linkImg}/>
+                                                </div>) : null}
+                                        </div>
+                                        <div className="item_product_right">
+                                            <div className="item_name">{item?.productDetail?.infoProduct?.name}</div>
+                                            <div className="item_qty me-2">x{item.amount}</div>
+                                            <div className="item_price me-2">{item.prices.toLocaleString('vi', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            })}</div>
+                                            <div style={{display: "none"}}>  {total += item.amount * item.prices}</div>
 
-                                    </div>
-                                </div>)}
+                                        </div>
+                                    </div>)}
+                            </div>
 
                             <div className="shipping_price">Phí vận chuyển <div
                                 className="pull-right">{orderSelected?.feeShip?.toLocaleString('vi', {
@@ -225,9 +271,28 @@ const Management = () => {
                             })}</div></div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Duyệt đơn
-                            </Button>
+
+                            {orderSelected?.status?.name === status.at(0) ?
+                                <div>
+                                    <Button className="me-4" variant="danger" id="btnHuy" onClick={handleCancelOrder}>
+                                        Hủy Đơn
+                                    </Button>
+                                    <Button variant="success" id="bt1" onClick={handleConfirm}>
+                                        Duyệt đơn
+                                    </Button>
+                                </div>
+                                : orderSelected?.status?.name === status.at(1) ?
+                                    <Button variant="info" id="bt2" onClick={handleConfirm}>
+                                        Giao hàng
+                                    </Button>
+                                    : orderSelected?.status?.name === status.at(2) ?
+                                        <Button variant="primary" id="bt3" onClick={handleConfirm}>
+                                            Xác nhận thanh toán
+                                        </Button> :
+                                        null
+                            }
+
+
                         </Modal.Footer>
                     </Modal>
                 </div>

@@ -39,7 +39,7 @@ const Sidebar = ({isActive}) => {
                 title: "Customer",
             },
             {
-                icon: <i className="fa-regular fa-clipboard me-3"></i>,
+                icon: <i className="fa fa-cart-plus me-3"></i>,
                 link: "/order",
                 title: "Order",
             },
