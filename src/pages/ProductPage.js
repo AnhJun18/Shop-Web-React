@@ -259,8 +259,8 @@ const ProductPage = () => {
                                         </td>
                                         <td className="tdCategory">{item.category}</td>
                                         <td className="tdPrice">{item.price}</td>
-                                        <td className="tdPrice">{item?.quantityInStock}</td>
                                         <td style={{display: 'none'}} className="tdDescribe">{item.describe}</td>
+                                        <td className="tdPrice">{item?.quantityInStock}</td>
                                         <td style={{whiteSpace: 'nowrap'}}>
                                             <button type="button"
                                                     className="btn btn-outline-primary btn-light btn-sm mx-sm-1 px-lg-2 w-32"
@@ -352,15 +352,27 @@ const ProductPage = () => {
                             </Modal.Header>
                             <Modal.Body>
                                 <div>Tên Sản phẩm : <strong>{product_name}</strong></div>
-                                <div>Thuộc danh mục : <strong>{product_category}</strong></div>
                                 <div>Mô tả: <strong>{product_describe}</strong></div>
-                                <div>Giá : <strong>{product_sold}</strong></div>
-                                {product_image ? (<ul class="list-images">
-                                    <li><img src={product_image}/></li>
-                                </ul>) : null}
+                                <table className="table mt-3">
+                                <thead>
+                                <tr bgcolor="Silver">
+                                    <th scope="col" className="col-2">Size</th>
+                                    <th scope="col" className="col-2">Màu</th>
+                                    <th scope="col" className="col-2">Số lượng</th>
+                                </tr>
+                                </thead>
                                 {productDetail.map(item =>
-                                    <div> {item.size} : {item.color} : {item.current_number}</div>
+                                    <tbody>
+                                    <tr>
+                                        <td>{item.size}</td>
+                                        <td >{item.color}</td>
+                                        <td className="px-4">{item.current_number}</td>
+                                    </tr>
+                                    </tbody>
                                 )}
+                                
+                                </table>
+
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleClose}>
