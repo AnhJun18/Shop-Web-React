@@ -1,11 +1,10 @@
-import {useContext, useState, useEffect, useRef} from "react";
+import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
 import axiosApiInstance from "../context/interceptor";
 import axios from "../api/axios";
-import {render} from "react-dom";
 //import {alignPropType} from "react-bootstrap/types";
 import {toast} from 'react-toastify';
-import {Form, Button, Modal} from "react-bootstrap"
+import {Button, Form, Modal} from "react-bootstrap"
 
 import Pagination from "../components/Pagination";
 import {useLocation} from "react-router-dom";
@@ -20,6 +19,7 @@ const ProductPage = () => {
     const [listCate, setListCate] = useState([]);
     const [editForm, setEditForm] = useState(false);
     const [modalForm, setModalForm] = useState(false);
+    const [productDetail, setProductDetail] = useState([]);
 
 
     const [product_id, setId] = useState();
@@ -45,22 +45,22 @@ const ProductPage = () => {
         setModalForm(true);
         setImage(null);
         setId(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[0].innerText)
         setName(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[1].innerText)
         setImage(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[2].firstChild.currentSrc)
         setCategory(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[3].innerText)
         setSold(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[4].innerText)
         setDescribe(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[5].innerText)
         setShow(true);
         setEditForm(true);
@@ -68,24 +68,29 @@ const ProductPage = () => {
 
     const handleShowInfo = (e) => {
         setModalForm(false);
-        setImage(null);
-        setId(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
-        }).children[0].innerText)
+
+        setImage(null)
+        const tmpID = parents(e.target).find(function (c) {
+            return c.tagName === "TR"
+        }).children[0].innerText;
+        setId(tmpID)
+        getDetails(parents(e.target).find(function (c) {
+            return c.tagName === "TR"
+        }).children[0].innerText);
         setName(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[1].innerText)
         setImage(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[2].firstChild.currentSrc)
         setCategory(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[3].innerText)
         setSold(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[4].innerText)
         setDescribe(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
+            return c.tagName === "TR"
         }).children[5].innerText)
         setShow(true);
     }
@@ -137,22 +142,26 @@ const ProductPage = () => {
     async function getProduct(page, size) {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/getpaging${page}&size=${size}`)
         setLoad(true);
-        console.log(result?.data.content)
         setList(result?.data.content)
         setTotalPage(result?.data.totalPages)
+    }
+
+    async function getDetails(id) {
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${id}`)
+        setLoad(true);
+        setProductDetail(result?.data)
+        console.log(result)
     }
 
     async function getCatagory() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/category/all`)
         setLoad(true);
-        console.log(result)
         setListCate(result?.data)
     }
 
     useEffect(() => {
         getProduct(param.search === '' ? '?page=1' : param.search, 5)
         getCatagory();
-        console.log(listCate)
 
     }, [param]);
 
@@ -248,9 +257,9 @@ const ProductPage = () => {
                                                 width="50" height="50" className="img-fluid img-thumbnail"
                                                 alt="Sheep"/>
                                         </td>
-                                        <td className="tdCategory">{item.category.name}</td>
+                                        <td className="tdCategory">{item.category}</td>
                                         <td className="tdPrice">{item.price}</td>
-                                        <td className="tdPrice">122</td>
+                                        <td className="tdPrice">{item?.quantityInStock}</td>
                                         <td style={{display: 'none'}} className="tdDescribe">{item.describe}</td>
                                         <td style={{whiteSpace: 'nowrap'}}>
                                             <button type="button"
@@ -349,6 +358,9 @@ const ProductPage = () => {
                                 {product_image ? (<ul class="list-images">
                                     <li><img src={product_image}/></li>
                                 </ul>) : null}
+                                {productDetail.map(item =>
+                                    <div> {item.size} : {item.color} : {item.current_number}</div>
+                                )}
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleClose}>
