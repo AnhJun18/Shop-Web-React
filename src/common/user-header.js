@@ -10,7 +10,7 @@ class UserHeader extends React.Component {
     }
 
     render(){
-        return <nav class="navbar header nav-light navbar-expand-lg navbar-light shadow">
+        return <nav class="navbar header nav-light navbar-expand-lg navbar-light shadow fixed-top">
         <div class="container container-navbar d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo-size h1 align-self-center" href="index.html">
@@ -28,10 +28,17 @@ class UserHeader extends React.Component {
                             <a class="nav-link" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
+                            <a class="nav-link" href="/shop">
+                                Shop
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu submenu-level1-children">
+                                <li><a href="">A</a></li>
+                                <li><a href="">B</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="shop.html">Shop</a>
+                            <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contact.html">Contact</a>

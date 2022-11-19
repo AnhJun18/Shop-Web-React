@@ -9,6 +9,8 @@ import axiosApiInstance from "../context/interceptor";
 const ShopPage = () => {
     const [list, setList] = useState([]);
     const [load, setLoad] = useState(false);
+    const [listCate, setListCate] = useState([]);
+
 
     async function getProduct() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
@@ -16,8 +18,15 @@ const ShopPage = () => {
         setList(result?.data)
     }
 
+    async function getCatagory() {
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/category/all`)
+        setLoad(true);
+        setListCate(result?.data)
+    }
+
     useEffect(() => {
         getProduct();
+        getCatagory();
         console.log(list)
     }, []);
 
@@ -30,40 +39,14 @@ const ShopPage = () => {
                         <div className="col-lg-3">
                             <h1 className="h2 pb-4">Danh mục</h1>
                             <ul className="list-unstyled templatemo-accordion">
-                                <li className="pb-3">
-                                    <a className="collapsed d-flex justify-content-between h3 text-decoration-none"
-                                       href="#">
-                                        Gender
-                                        <i className="fa fa-fw fa-chevron-circle-down mt-1"></i>
-                                    </a>
-                                    <ul className="collapse show list-unstyled pl-3">
-                                        <li><a className="text-decoration-none" href="#">Men</a></li>
-                                        <li><a className="text-decoration-none" href="#">Women</a></li>
-                                    </ul>
-                                </li>
-                                <li className="pb-3">
-                                    <a className="collapsed d-flex justify-content-between h3 text-decoration-none"
-                                       href="#">
-                                        Sale
-                                        <i className="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                                    </a>
-                                    <ul id="collapseTwo" className="collapse list-unstyled pl-3">
-                                        <li><a className="text-decoration-none" href="#">Sport</a></li>
-                                        <li><a className="text-decoration-none" href="#">Luxury</a></li>
-                                    </ul>
-                                </li>
-                                <li className="pb-3">
-                                    <a className="collapsed d-flex justify-content-between h3 text-decoration-none"
-                                       href="#">
-                                        Product
-                                        <i className="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                                    </a>
-                                    <ul id="collapseThree" className="collapse list-unstyled pl-3">
-                                        <li><a className="text-decoration-none" href="#">Bag</a></li>
-                                        <li><a className="text-decoration-none" href="#">Sweather</a></li>
-                                        <li><a className="text-decoration-none" href="#">Sunglass</a></li>
-                                    </ul>
-                                </li>
+                                {listCate.map((item) => (
+                                    <li className="pb-3">
+                                        <a className="collapsed d-flex justify-content-between h3 text-decoration-none"
+                                        href="#">
+                                            {item.name}
+                                        </a>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
 
@@ -102,16 +85,7 @@ const ShopPage = () => {
                                                     className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                                     <ul className="list-unstyled">
                                                         <li><a className="btn btn-success text-white"
-                                                               href="shop-single.html"><i
-                                                            className="far fa-heart"></i></a></li>
-                                                        <li><a className="btn btn-success text-white mt-2"
-                                                               href="shop-single.html"><i
-                                                            className="far fa-eye"></i></a>
-                                                        </li>
-                                                        <li><a className="btn btn-success text-white mt-2"
-                                                               href="shop-single.html"><i
-                                                            className="fas fa-cart-plus"></i></a>
-                                                        </li>
+                                                               href="shop-single.html">XEM NGAY!</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
