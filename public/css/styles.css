@@ -3935,6 +3935,37 @@ textarea.form-control-lg {
   list-style: none;
 }
 
+.nav-parent{
+  position: relative;
+
+}
+
+.nav-child{
+  position: absolute;
+  border: none;
+  /*display: block;*/
+  /* margin-top: 16px; */
+  box-shadow: 2px 5px 3px 0px #c0c0c0;
+  border-radius: 0;
+  left: 0;
+  z-index: 1000;
+  top: 40px;
+
+}
+
+.nav-parent:hover >.nav-child{
+display: block;
+}
+
+.nav-parent:hover >.nav-child>li:hover{
+  border: 2px #f2e1e1;
+  border-style: solid;
+}
+
+.nav-parent:hover >.nav-child>li:hover>a{
+  color: inherit;
+}
+
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
@@ -3942,6 +3973,8 @@ textarea.form-control-lg {
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
+
+
 @media (prefers-reduced-motion: reduce) {
   .nav-link {
     transition: none;

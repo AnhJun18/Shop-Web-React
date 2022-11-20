@@ -27,12 +27,12 @@ class UserHeader extends React.Component {
                         <li class="nav-item">
                             <a class="nav-link" href="index.html">Home</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item nav-parent">
                             <a class="nav-link" href="/shop">
                                 Shop
                                 <i class="fa fa-angle-down"></i>
                             </a>
-                            <ul class="dropdown-menu submenu-level1-children">
+                            <ul class="dropdown-menu submenu-level1-children nav-child">
                                 <li><a href="">A</a></li>
                                 <li><a href="">B</a></li>
                             </ul>
