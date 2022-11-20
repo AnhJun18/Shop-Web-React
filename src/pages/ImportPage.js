@@ -46,11 +46,20 @@ const ImportPage = () => {
         e.preventDefault();
     }
 
-    const [rows, newRows] = useState(['new'])
-    const handleAddRow = () => {
-        newRows(prev =>  [...prev, 'add_new'])
+    function importProduct(product, size, color, numberAdd, prices){
+        this.product = product;
+        this.size = size;
+        this.color = color;
+        this.numberAdd = numberAdd;
+        this.prices = prices;
     }
 
+    const [rows, newRows] = useState([{}])
+    const handleAddRow = () => {
+        newRows(prev =>  [...prev, {}])
+        console.log(rows)
+    }
+    
 
     async function getProduct(page, size) {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/getpaging${page}&size=${size}`)
@@ -137,39 +146,39 @@ const ImportPage = () => {
                                 </thead>
                                 <tbody id = "table">
                                 {rows.map((row, index) => (
-                                    <tr>
+                                    <tr key={index}>
                                         <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="category" required >
+                                        <Form.Control as="select" name="product_id" required onChange={e => {rows[index].product = e.target.value}}>
                                             <option value="">Sản phẩm</option>
-                                            <option value="">Sản phẩm 2</option>
-                                            <option value="">Sản phẩm 3</option>
-                                            <option value="">Sản phẩm 4</option>
+                                            <option value="Sản phẩm 2">Sản phẩm 2</option>
+                                            <option value="Sản phẩm 3">Sản phẩm 3</option>
+                                            <option value="Sản phẩm 4">Sản phẩm 4</option>
                                         </Form.Control>
                                     </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="category" required  >
+                                        <Form.Control as="select" name="size" required  onChange={e => {rows[index].size = e.target.value}}>
                                             <option value="">Size</option>
-                                            <option value="">X</option>
-                                            <option value="">M</option>
-                                            <option value="">L</option>
+                                            <option value="X">X</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
                                         </Form.Control>
                                     </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="category" required  id="select">
+                                        <Form.Control as="select" name="color" required  onChange={e => {rows[index].color = e.target.value}}>
                                             <option value="">Màu</option>
-                                            <option value="">Đỏ</option>
-                                            <option value="">Cam</option>
+                                            <option value="Đỏ">Đỏ</option>
+                                            <option value="Cam">Cam</option>
                                         </Form.Control>
                                     </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control type="number" placeholder="Số lượng" name="amount" id="sl1"/>
+                                        <Form.Control type="number" placeholder="Số lượng" name="amount" onChange={e => {rows[index].numberAdd = e.target.value}}/>
                                         </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control type="text" placeholder="Giá " name="price"  id="gia1"/>
+                                        <Form.Control type="text" placeholder="Giá " name="price" onChange={e => {rows[index].prices = e.target.value}}/>
                                         </Form.Group>
                                     </td>
                                     </tr>
