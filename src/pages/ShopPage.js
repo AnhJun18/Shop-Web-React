@@ -312,53 +312,105 @@ const ShopPage = () => {
                 </section>
                 {/* <!--End Brands--> */}
 
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={show} onHide={handleClose} dialogClassName={"modal-xl"}>
                         <Modal.Header closeButton>
                             <Modal.Title>Chi tiết sản phẩm</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <div class="container-fliud">
-                                <div class="wrapper row">
-                                    <div class="preview col-md-6">
-                                        
-                                        <div class="preview-pic tab-content">
-                                        <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
-                                        </div>
-                                        
+                        <div class="container pb-5">
+                            <div class="row">
+                                <div class="col-lg-5 mt-5">
+                                    <div class="card mb-3">
+                                        <img class="card-img img-fluid" src={require('./../assets/images/product_single_10.jpg')} alt="Card image cap" id="product-detail"/>
                                     </div>
-                                    <div class="details col-md-6">
-                                        <h3 class="product-title">men's shoes fashion</h3>
-                                        <div class="rating">
-                                            <div class="stars">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            </div>
-                                            <span class="review-no">41 reviews</span>
-                                        </div>
-                                        <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-                                        <h4 class="price">current price: <span>$180</span></h4>
-                                        <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-                                        <h5 class="sizes">sizes:
-                                            <span class="size" data-toggle="tooltip" title="small">s</span>
-                                            <span class="size" data-toggle="tooltip" title="medium">m</span>
-                                            <span class="size" data-toggle="tooltip" title="large">l</span>
-                                            <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-                                        </h5>
-                                        <h5 class="colors">colors:
-                                            <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-                                            <span class="color green"></span>
-                                            <span class="color blue"></span>
-                                        </h5>
-                                        <div class="action">
-                                            <button class="add-to-cart btn btn-default" type="button">add to cart</button>
-                                            <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                                    
+                                </div>
+                                {/* <!-- col end --> */}
+                                <div class="col-lg-7 mt-5">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h1 class="h2">Active Wear</h1>
+                                            <p class="h3 py-2">$25.00</p>
+                                            <p class="py-2">
+                                                <i class="fa fa-star text-warning"></i>
+                                                <i class="fa fa-star text-warning"></i>
+                                                <i class="fa fa-star text-warning"></i>
+                                                <i class="fa fa-star text-warning"></i>
+                                                <i class="fa fa-star text-secondary"></i>
+                                                <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
+                                            </p>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <h6>Brand:</h6>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <p class="text-muted"><strong>Easy Wear</strong></p>
+                                                </li>
+                                            </ul>
+
+                                            <h6>Description:</h6>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse. Donec condimentum elementum convallis. Nunc sed orci a diam ultrices aliquet interdum quis nulla.</p>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <h6>Avaliable Color :</h6>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <p class="text-muted"><strong>White / Black</strong></p>
+                                                </li>
+                                            </ul>
+
+                                            <h6>Specification:</h6>
+                                            <ul class="list-unstyled pb-3">
+                                                <li>Lorem ipsum dolor sit</li>
+                                                <li>Amet, consectetur</li>
+                                                <li>Adipiscing elit,set</li>
+                                                <li>Duis aute irure</li>
+                                                <li>Ut enim ad minim</li>
+                                                <li>Dolore magna aliqua</li>
+                                                <li>Excepteur sint</li>
+                                            </ul>
+
+                                            <form action="" method="GET">
+                                                <input type="hidden" name="product-title" value="Activewear"/>
+                                                <div class="row">
+                                                    <div class="col-auto">
+                                                        <ul class="list-inline pb-3">
+                                                            <li class="list-inline-item">Size :
+                                                                <input type="hidden" name="product-size" id="product-size" value="S"/>
+                                                            </li>
+                                                            <li class="list-inline-item"><span class="btn btn-success btn-size">S</span></li>
+                                                            <li class="list-inline-item"><span class="btn btn-success btn-size">M</span></li>
+                                                            <li class="list-inline-item"><span class="btn btn-success btn-size">L</span></li>
+                                                            <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <ul class="list-inline pb-3">
+                                                            <li class="list-inline-item text-right">
+                                                                Quantity
+                                                                <input type="hidden" name="product-quanity" id="product-quanity" value="1"/>
+                                                            </li>
+                                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
+                                                            <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
+                                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="row pb-3">
+                                                    <div class="col d-grid">
+                                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
+                                                    </div>
+                                                    <div class="col d-grid">
+                                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         </Modal.Body>
                         <Modal.Footer>
 

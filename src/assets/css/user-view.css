@@ -704,4 +704,8 @@ body, ul, li, p, a, label, input, div {
         margin: 12px 0 !important
     }
 }
+
+.ShopPage .modal-dialog {
+    max-width: 1200px;
+}
   
