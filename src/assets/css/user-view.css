@@ -228,6 +228,38 @@ body, ul, li, p, a, label, input, div {
     color: whitesmoke;
 }
 
+
+.nav-parent{
+    position: relative;
+
+}
+
+.nav-child{
+    position: absolute;
+    border: none;
+    /*display: block;*/
+    /* margin-top: 16px; */
+    box-shadow: 2px 5px 3px 0px #c0c0c0;
+    border-radius: 0;
+    left: 0;
+    z-index: 1000;
+    top: 40px;
+
+}
+
+.nav-parent:hover >.nav-child{
+    display: block;
+}
+
+.nav-parent:hover >.nav-child>li:hover{
+    border: 2px #f2e1e1;
+    border-style: solid;
+}
+
+.nav-parent:hover >.nav-child>li:hover>a{
+    color: inherit;
+}
+
 #templatemo_nav_top {
     min-height: 40px;
 }
