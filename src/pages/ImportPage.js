@@ -46,14 +46,6 @@ const ImportPage = () => {
         e.preventDefault();
     }
 
-    function importProduct(product, size, color, numberAdd, prices){
-        this.product = product;
-        this.size = size;
-        this.color = color;
-        this.numberAdd = numberAdd;
-        this.prices = prices;
-    }
-
     const [rows, newRows] = useState([{}])
     const handleAddRow = () => {
         newRows(prev =>  [...prev, {}])
