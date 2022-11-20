@@ -43,6 +43,7 @@ const ImportPage = () => {
 
     }
     const handleSubmit = async (e) => {
+
         console.log(rows)
     }
 
@@ -119,7 +120,7 @@ const ImportPage = () => {
                                 <Modal.Title>Nhập hàng</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form onSubmit={handleSubmit}>
+                                <Form >
                                 <table className="table ">
                                 <thead>
                                 
