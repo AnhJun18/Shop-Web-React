@@ -280,7 +280,7 @@ const ShopPage = () => {
             </div>
             :
             <div className={"center"}>
-            <ReactLoading type={'bubbles'} color='#fffff'  height={'150px'} width={'100%'} />
+            <ReactLoading type={'bubbles'} color='#fffff'  height={'150px'} width={'10px'} />
             </div>
         }
     </>)
