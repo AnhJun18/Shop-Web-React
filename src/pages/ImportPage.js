@@ -197,7 +197,7 @@ const ImportPage = () => {
                                 {rows.map((row, index) => (
                                     <tr key={index}>
                                         <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="product_id" required onChange={e => {rows[index].product = e.target.value}} value={rows[index].numberAdd}>
+                                        <Form.Control as="select" name="product_id" required onChange={e => {rows[index].product_id = e.target.value}} value={rows[index].numberAdd}>
                                             <option value="">Sản phẩm</option>
                                             { listProduct.map(i =>
                                                 <option value={i?.id} >{i?.name}</option>
