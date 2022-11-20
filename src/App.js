@@ -14,6 +14,7 @@ import ShopPage from "./pages/ShopPage";
 import ChoosingPage from "./pages/ChoosingPage";
 import Management from "./pages/Management";
 import Import from "./pages/ImportPage";
+import Statistical from "./pages/StatisticalPage";
 import CartPage from "./pages/CartPage";
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
                 <Route exact path='/choosing' element={<ChoosingPage/>} />
                 <Route exact path='/order' element={<Management/>} />
                 <Route exact path='/import' element={<Import/>} />
-                <Route exact path='/cart' element={<CartPage/>} />
+                <Route exact path='/statistical' element={<Statistical/>} />
+ 				<Route exact path='/cart' element={<CartPage/>} />
             </Routes>  
           </AuthContextProvider>
     )

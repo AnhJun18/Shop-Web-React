@@ -1,0 +1,49 @@
+.block {
+    width: 100%;
+    height: 40px;
+    display: block;
+    margin-top: 40px;
+    border: 1px solid #a5999d;
+    border-radius: 10px;
+}
+.buttonHead {
+    border: 2px solid #a5999d;
+    width: 115px;
+    height: 39px
+}
+.buttonHead:hover {
+    background-color: rgb(201, 235, 243);
+}
+.screen {
+    width: 100%;
+    height: 400px;
+    display: block;
+    margin-top: 20px;
+    border: 1px solid #a5999d;
+    border-radius: 10px;
+}
+.screenHeader {
+    font-size: 23px;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px 15px 0px ;
+}
+.canopy {
+    display: flex;
+    justify-content: center;
+}
+.basic {
+    margin: 10px;
+}
+.buttonSubmit {
+    margin-left: 100px;
+    background-color: #e7e2e4;
+    border: 2px solid #a5999d;
+    border-radius: 5px;
+}
+.buttonSubmit:hover {
+    background-color: #c6e7ee;
+}
+.active {
+    background-color: rgb(134, 215, 218);
+}

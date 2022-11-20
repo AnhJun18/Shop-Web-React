@@ -51,6 +51,11 @@ const Sidebar = ({isActive}) => {
                 icon: <i className="fa fa-archive me-3" ></i>,
                 link: "/import",
                 title: "Import",
+            },
+            {
+                icon: <i className="fa fa-archive me-3" ></i>,
+                link: "/statistical",
+                title: "Statistical",
             }
         ]
     }, [])
