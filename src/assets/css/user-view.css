@@ -322,6 +322,10 @@ body, ul, li, p, a, label, input, div {
     display: inline-block;
 }
 
+.spinner_input{
+    width: 112px !important;
+}
+
 /* Product */
 .product-wap {
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.10);

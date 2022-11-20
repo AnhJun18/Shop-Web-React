@@ -14,6 +14,7 @@
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.0",
+    "react-bootstrap-input-spinner": "^1.0.2",
     "react-content-loader": "^6.1.0",
     "react-dom": "^17.0.2",
     "react-loading": "^2.0.3",

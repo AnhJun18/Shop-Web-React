@@ -1,51 +1,109 @@
 import {useContext, useState, useEffect, useRef} from "react";
-import { Checkbox } from "@mui/material";
+import {Checkbox} from "@mui/material";
 import React from "react";
 import userLayout from "../user/userLayout"
 import "./../assets/css/user-view.css";
+import axiosApiInstance from "../context/interceptor";
+import InputSpinner from 'react-bootstrap-input-spinner'
+import {toast} from "react-toastify";
 
 const CartPage = () => {
-    
-    const [status, setStatus] = useState(false);
-        return <>
-            {status?
+
+    const [myCart, setMyCart] = useState([]);
+    const [status, setStatus] = useState(true);
+    const [tmp, setTmp] = useState(0);
+
+
+    async function getCart() {
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/cart/all`)
+        setMyCart(result?.data)
+    }
+
+    const handleUpdateCart = (c) => {
+        console.log(c)
+    }
+
+    const handleDeleteItem = async (e) => {
+        const result = await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL + `/api/cart/${e.target.id}`)
+        if(result?.data?.status ===200){
+            toast.success("Sản phẩm đc được xóa khỏi giỏ hàng của bạn!")
+            setTmp(tmp+1)
+        }
+        else
+            toast.error("Lỗi! Vui lòng thử lại")
+    }
+
+    useEffect(() => {
+        getCart()
+    }, [tmp])
+    useEffect(() => {
+        getCart()
+    }, [])
+
+    return <>
+        {status ?
             <div class="container padding-bottom-3x marginTop marginBot">
                 <div class="table-responsive shopping-cart">
                     <h3 className="ms-5 mb-3 mt-1">Giỏ hàng</h3>
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th></th>
-                                <th >Sản phẩm</th>
-                                <th class="text-center">Đơn giá</th>
-                                <th class="text-center">Số Lượng</th>
-                                <th class="text-center">Số tiền</th>
-                                <th></th>
-                            </tr>
+                        <tr>
+                            <th></th>
+                            <th>Sản phẩm</th>
+                            <th class="text-center">Đơn giá</th>
+                            <th class="text-center">Số Lượng</th>
+                            <th class="text-center">Số tiền</th>
+                            <th></th>
+                        </tr>
                         </thead>
                         <tbody>
+                        {myCart.map((item) =>
                             <tr>
                                 <td><input type="checkbox" value={false}></input></td>
                                 <td>
-                                    <div class="product-item">
-                                        <a class="product-thumb" href="#"><img src="https://via.placeholder.com/220x180/FF0000/000000" alt="Product"/></a>
-                                        <div class="product-info">
-                                            <h4 class="product-title"><a href="#">Unionbay Park</a></h4>
-                                            <span><em>Size:</em> 10.5</span>
-                                            <span><em>Color:</em> Dark Blue</span>
+                                    <div className="product-item">
+                                        <a className="product-thumb" href="#"><img
+                                            src={item.product?.infoProduct?.linkImg} alt="Product"/></a>
+                                        <div className="product-info">
+                                            <h4 className="product-title"><a
+                                                href="#">{item.product?.infoProduct?.name}</a></h4>
+                                            <span><em>Size:</em> {item.product?.size}</span>
+                                            <span><em>Color:</em> {item.product?.color}</span>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center text-lg text-medium">$43.90</td>
-                                <td class="text-center">
-                                    <div class="count-input">
-                                        <input type="number" className="form-control" min="1" max="50" ></input>
+                                <td className="text-center text-lg text-medium">{item.product?.infoProduct?.price.toLocaleString('vi', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                })}</td>
+                                <td className="text-center ">
+                                    <div className="count-input spinner_input">
+                                        <InputSpinner
+                                            id="c"
+                                            type={'int'}
+                                            precision={0}
+                                            max={100}
+                                            min={1}
+                                            step={1}
+                                            value={item?.amount}
+                                            onChange={handleUpdateCart}
+                                            variant={'info'}
+                                            size="sm"
+                                        />
                                     </div>
                                 </td>
-                                <td class="text-center text-lg text-medium">$43.90</td>
-                                <td class="text-center"><a class="remove-from-cart" href="#" data-toggle="tooltip" title="" data-original-title="Remove item"><i class="fa fa-trash"></i></a></td>
+                                <td className="text-center text-lg text-medium">{(item.product?.infoProduct?.price * item?.amount).toLocaleString('vi', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                })}</td>
+                                <td className="text-center">
+                                    <button className="remove-from-cart" onClick={handleDeleteItem}
+                                            data-toggle="tooltip" title=""
+                                            data-original-title="Remove item"><i id={item?.product?.id}
+                                        className="fa fa-trash"></i></button>
+                                </td>
                             </tr>
-                           
+                        )}
                         </tbody>
                     </table>
                 </div>
@@ -53,7 +111,8 @@ const CartPage = () => {
                     <div class="column text-lg">Subtotal: <span class="text-medium">$289.68</span></div>
                 </div>
                 <div class="shopping-cart-footer">
-                    <div class="column"><a class="btn btn-outline-secondary" href="/shop"><i class="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
+                    <div class="column"><a class="btn btn-outline-secondary" href="/shop"><i
+                        class="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
                     <div class="column">
                         <a class="btn btn-success" href="#">Tiến hành đặt hàng</a></div>
                 </div>
@@ -62,11 +121,12 @@ const CartPage = () => {
             <div class="container padding-bottom-3x marginTop marginBot">
                 <h3 className="ms-5 mb-3 mt-1">Giỏ hàng</h3>
                 <p className="ms-3 mt-2">Không có sản phẩm trong giỏ hàng</p>
-                <div class="column ms-3"><a class="btn btn-outline-secondary mt-5" href="/shop"><i class="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
-                </div>
-            }
-            
-        </>
+                <div class="column ms-3"><a class="btn btn-outline-secondary mt-5" href="/shop"><i
+                    class="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
+            </div>
+        }
+
+    </>
 
 }
 
