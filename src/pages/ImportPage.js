@@ -1,11 +1,10 @@
-import {useContext, useState, useEffect, useRef} from "react";
+import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
 import axiosApiInstance from "../context/interceptor";
 import axios from "../api/axios";
-import {render} from "react-dom";
 //import {alignPropType} from "react-bootstrap/types";
 import {toast} from 'react-toastify';
-import {Form, Button, Modal} from "react-bootstrap"
+import {Button, Form, Modal} from "react-bootstrap"
 
 import Pagination from "../components/Pagination";
 import {useLocation} from "react-router-dom";
@@ -17,17 +16,17 @@ const ImportPage = () => {
     const [load, setLoad] = useState(false);
     const [totalPage, setTotalPage] = useState(1)
 
-    const listColor=[
-        {"id":0,"color":'Trắng'},{"id":1,"color":'Đen'},
-        {"id":2,"color":'Đỏ'},{"id":3,"color":'Hồng'},
-        {"id":4,"color":'Xanh'},{"id":5,"color":'Tím'}
+    const listColor = [
+        {"id": 0, "color": 'Trắng'}, {"id": 1, "color": 'Đen'},
+        {"id": 2, "color": 'Đỏ'}, {"id": 3, "color": 'Hồng'},
+        {"id": 4, "color": 'Xanh'}, {"id": 5, "color": 'Tím'}
     ];
-    const listSize=[
-        {"id":0,"size":'S'},{"id":1,"size":'M'},
-        {"id":2,"size":'L'},{"id":3,"size":'XL'},
-        {"id":4,"size":'XLL'}
+    const listSize = [
+        {"id": 0, "size": 'S'}, {"id": 1, "size": 'M'},
+        {"id": 2, "size": 'L'}, {"id": 3, "size": 'XL'},
+        {"id": 4, "size": 'XLL'}
     ];
-    const [listProduct,setListProduct]=useState([]);
+    const [listProduct, setListProduct] = useState([]);
 
     function parents(node) {
         let current = node,
@@ -46,34 +45,18 @@ const ImportPage = () => {
     }
 
     const handleShowInfo = (e) => {
-        
+
         setShow(true);
     }
     const handleShowAdd = (e) => {
         setShow(true);
 
     }
-    const p=[
-        {
-            "product_id": 0,
-            "size": "string",
-            "color": "string",
-            "numberAdd": 0,
-            "prices": 0
-        },{
-            "product_id": 0,
-            "size": "string",
-            "color": "string",
-            "numberAdd": 0,
-            "prices": 0
-        }
-
-    ]
     const handleSubmitImport = async (e) => {
         e.preventDefault(false);
         let result = null;
         try {
-            result= await axios({
+            result = await axios({
                 method: 'post',
                 url: axiosApiInstance.defaults.baseURL + '/api/product/detail',
                 headers: {
@@ -83,15 +66,15 @@ const ImportPage = () => {
                 },
                 data: rows
             });
-        }catch (e) {
+        } catch (e) {
             toast.error("Vui lòng nhập đầy đủ và chính xác thông tin");
         }
 
-        if(result?.data?.status ){
+        if (result?.data?.status) {
             toast.success(result?.data?.message);
+            newRows([{}]);
             setShow(false);
-        }
-        else {
+        } else {
             toast.error(result?.data?.message);
 
         }
@@ -99,24 +82,26 @@ const ImportPage = () => {
 
     const [rows, newRows] = useState([{}])
     const handleAddRow = () => {
-        newRows(prev =>  [...prev, {}])
+        newRows(prev => [...prev, {}])
     }
+
     async function getAllProduct() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
-        result?.data?.map(a =>  listProduct.push({"id":a.id,"name":a.name}));
-        console.log(listProduct)
+        result?.data?.map(a => listProduct.push({"id": a.id, "name": a.name}));
     }
 
     async function getProductPaging(page, size) {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/getpaging${page}&size=${size}`)
         setLoad(true);
         setList(result?.data.content)
-        setTotalPage(result?.data.totalPages)
+        setTotalPage(result?.data?.totalPages)
     }
 
+    useEffect(()=>{
+        getAllProduct()
+    },[])
 
     useEffect(() => {
-        getAllProduct()
         getProductPaging(param.search === '' ? '?page=1' : param.search, 5)
 
     }, [param]);
@@ -171,94 +156,106 @@ const ImportPage = () => {
                         </div>
                         <Pagination refix='product' size={totalPage}/>
                     </div>
-                        <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Nhập hàng</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <Form >
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Nhập hàng</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form>
                                 <table className="table ">
-                                <thead>
-                                
-                                    <tr >
-                                    <th scope="col" className="col-3">
-                                        Sản phẩm
-                                        <i className="fa fa-plus ms-3 add_row" onClick={handleAddRow} ></i>
-                                    </th>
-                                    <th scope="col" className="col-2">Size</th>
-                                    <th scope="col" className="col-2">Màu</th>
-                                    <th scope="col" className="col-2">Số lượng</th>
-                                    <th scope="col" className="col-2">Giá nhập</th>
-                                    <th></th>
-                                </tr>
-                                
-                                </thead>
-                                <tbody id = "table">
-                                {rows.map((row, index) => (
-                                    <tr key={index}>
-                                        <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="product_id" required onChange={e => {rows[index].product_id = e.target.value}}>
-                                            <option value="">Sản phẩm</option>
-                                            { listProduct.map(i =>
-                                                {if (rows[index].id == i.id) {
-                                                    <option value={i?.id} selected>{i?.name}</option>
-                                                } else {
-                                                    <option value={i?.id} >{i?.name}</option>
-                                                }}
-                                            )}
-                                        </Form.Control>
-                                    </Form.Group>
-                                    </td>
-                                    <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="size" required  onChange={e => {rows[index].size = e.target.value}}>
-                                            <option value="">Size</option>
-                                            { listSize.map(item =>
-                                                {if (rows[index].size == item?.size) {
-                                                    <option value={item?.size} selected>{item?.size}</option>
-                                                } else {
-                                                    <option value={item?.size}>{item?.size}</option>
-                                                }}
-                                            )}
-                                        </Form.Control>
-                                    </Form.Group>
-                                    </td>
-                                    <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="color" required  onChange={e => {rows[index].color = e.target.value}}>
-                                            <option value="">Màu</option>
-                                            { listColor.map(item =>
-                                                {if (rows[index].size == item?.color) {
-                                                    <option value={item?.color} selected>{item?.color}</option>
-                                                } else {
-                                                    <option value={item?.color}>{item?.color}</option>
-                                                }}
-                                            )}
-                                        </Form.Control>
-                                    </Form.Group>
-                                    </td>
-                                    <td><Form.Group className="mb-2">
-                                        <Form.Control type="number" placeholder="Số lượng" name="amount" onChange={e => {rows[index].numberAdd = e.target.value}} value={rows[index].numberAdd}/>
-                                        </Form.Group>
-                                    </td>
-                                    <td><Form.Group className="mb-2">
-                                        <Form.Control type="text" placeholder="Giá " name="price" onChange={e => {rows[index].prices = e.target.value}} value={rows[index].prices}/>
-                                        </Form.Group>
-                                    </td>
-                                        <td><span onClick={(e) => {rows.splice(index, 1);parents(e.target).find(function(c){return c.tagName === "TR"}).remove()}}><i className="fa fa-times"></i></span></td>
+                                    <thead>
+
+                                    <tr>
+                                        <th scope="col" className="col-3">
+                                            Sản phẩm
+                                            <i className="fa fa-plus ms-3 add_row" onClick={handleAddRow}></i>
+                                        </th>
+                                        <th scope="col" className="col-2">Size</th>
+                                        <th scope="col" className="col-2">Màu</th>
+                                        <th scope="col" className="col-2">Số lượng</th>
+                                        <th scope="col" className="col-2">Giá nhập</th>
+                                        <th></th>
                                     </tr>
+
+                                    </thead>
+                                    <tbody id="table">
+                                    {rows.map((row, index) => (
+                                        <tr key={index}>
+                                            <td><Form.Group className="mb-2">
+                                                <Form.Control as="select" name="product_id" required onChange={e => {
+                                                    rows[index].product_id = e.target.value
+                                                }}>
+                                                    <option value="">Sản phẩm</option>
+                                                    {listProduct.map(i => rows[index].product_id == i.id ?
+                                                        <option value={i?.id} selected>{i?.name}</option>
+                                                        :
+                                                        <option value={i?.id}>{i?.name}</option>
+                                                    )}
+                                                </Form.Control>
+                                            </Form.Group>
+                                            </td>
+                                            <td><Form.Group className="mb-2">
+                                                <Form.Control as="select" name="size" required onChange={e => {
+                                                    rows[index].size = e.target.value
+                                                }}>
+                                                    <option value="">Size</option>
+                                                    {listSize.map(item => rows[index].size == item?.size ?
+                                                        <option value={item?.size} selected>{item?.size}</option>
+                                                        :
+                                                        <option value={item?.size}>{item?.size}</option>
+                                                    )}
+                                                </Form.Control>
+                                            </Form.Group>
+                                            </td>
+                                            <td><Form.Group className="mb-2">
+                                                <Form.Control as="select" name="color" required onChange={e => {
+                                                    rows[index].color = e.target.value
+                                                }}>
+                                                    <option value="">Màu</option>
+                                                    {listColor.map(item =>
+                                                        rows[index].size == item?.color ?
+                                                            <option value={item?.color} selected>{item?.color}</option>
+                                                            :
+                                                            <option value={item?.color}>{item?.color}</option>
+                                                    )}
+                                                </Form.Control>
+                                            </Form.Group>
+                                            </td>
+                                            <td><Form.Group className="mb-2">
+                                                <Form.Control type="number" placeholder="Số lượng" name="amount"
+                                                              onChange={e => {
+                                                                  rows[index].numberAdd = e.target.value
+                                                              }} value={rows[index].numberAdd}/>
+                                            </Form.Group>
+                                            </td>
+                                            <td><Form.Group className="mb-2">
+                                                <Form.Control type="text" placeholder="Giá " name="price"
+                                                              onChange={e => {
+                                                                  rows[index].prices = e.target.value
+                                                              }} value={rows[index].prices}/>
+                                            </Form.Group>
+                                            </td>
+                                            <td><span onClick={(e) => {
+                                                rows.splice(index, 1);
+                                                parents(e.target).find(function (c) {
+                                                    return c.tagName === "TR"
+                                                }).remove()
+                                            }}><i className="fa fa-times"></i></span></td>
+                                        </tr>
                                     ))}
-                                </tbody>
-                            </table>
-                                    <Button variant="success" type="submit" onClick={handleSubmitImport}>
-                                          Tạo đơn nhập
-                                    </Button> 
-                                </Form>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>
-                                    Đóng
+                                    </tbody>
+                                </table>
+                                <Button variant="success" type="submit" onClick={handleSubmitImport}>
+                                    Tạo đơn nhập
                                 </Button>
-                            </Modal.Footer>
-                        </Modal>
+                            </Form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Đóng
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
                 :
                 <div>Loading</div>
