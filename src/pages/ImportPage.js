@@ -132,6 +132,7 @@ const ImportPage = () => {
                                     <th scope="col" className="col-2">Màu</th>
                                     <th scope="col" className="col-2">Số lượng</th>
                                     <th scope="col" className="col-2">Giá nhập</th>
+                                    <th></th>
                                 </tr>
                                 
                                 </thead>
@@ -172,6 +173,7 @@ const ImportPage = () => {
                                         <Form.Control type="text" placeholder="Giá " name="price" onChange={e => {rows[index].prices = e.target.value}}/>
                                         </Form.Group>
                                     </td>
+                                    <td><span onClick={(e) => {newRows(prev => {rows.splice(index);return [...rows]})}}><i className="fa fa-times"></i></span></td>
                                     </tr>
                                     ))}
                                 </tbody>
