@@ -17,6 +17,17 @@ const ImportPage = () => {
     const [load, setLoad] = useState(false);
     const [totalPage, setTotalPage] = useState(1)
 
+    const listColor=[
+        {"id":0,"color":'Trắng'},{"id":1,"color":'Đen'},
+        {"id":2,"color":'Đỏ'},{"id":3,"color":'Hồng'},
+        {"id":4,"color":'Xanh'},{"id":5,"color":'Tím'}
+    ];
+    const listSize=[
+        {"id":0,"size":'S'},{"id":1,"size":'M'},
+        {"id":2,"size":'L'},{"id":3,"size":'XL'},
+        {"id":4,"size":'XLL'}
+    ];
+    const [listProduct,setListProduct]=useState([]);
 
     function parents(node) {
         let current = node,
@@ -42,26 +53,71 @@ const ImportPage = () => {
         setShow(true);
 
     }
-    const handleSubmit = async (e) => {
+    const p=[
+        {
+            "product_id": 0,
+            "size": "string",
+            "color": "string",
+            "numberAdd": 0,
+            "prices": 0
+        },{
+            "product_id": 0,
+            "size": "string",
+            "color": "string",
+            "numberAdd": 0,
+            "prices": 0
+        }
 
-        console.log(rows)
+    ]
+    const handleSubmitImport = async (e) => {
+        e.preventDefault(false);
+        let result = null;
+        try {
+            result= await axios({
+                method: 'post',
+                url: axiosApiInstance.defaults.baseURL + '/api/product/detail',
+                headers: {
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("tokens")).data.accessToken}`,
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                data: rows
+            });
+        }catch (e) {
+            toast.error("Vui lòng nhập đầy đủ và chính xác thông tin");
+        }
+
+        if(result?.data?.status ){
+            toast.success(result?.data?.message);
+            setShow(false);
+        }
+        else {
+            toast.error(result?.data?.message);
+
+        }
     }
 
     const [rows, newRows] = useState([{}])
     const handleAddRow = () => {
         newRows(prev =>  [...prev, {}])
     }
-    
+    async function getAllProduct() {
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
+        result?.data?.map(a =>  listProduct.push({"id":a.id,"name":a.name}));
+        console.log(listProduct)
+    }
 
-    async function getProduct(page, size) {
+    async function getProductPaging(page, size) {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/getpaging${page}&size=${size}`)
         setLoad(true);
         setList(result?.data.content)
         setTotalPage(result?.data.totalPages)
     }
 
+
     useEffect(() => {
-        getProduct(param.search === '' ? '?page=1' : param.search, 5)
+        getAllProduct()
+        getProductPaging(param.search === '' ? '?page=1' : param.search, 5)
 
     }, [param]);
     return (
@@ -143,26 +199,24 @@ const ImportPage = () => {
                                         <td><Form.Group className="mb-2">
                                         <Form.Control as="select" name="product_id" required onChange={e => {rows[index].product = e.target.value}} value={rows[index].numberAdd}>
                                             <option value="">Sản phẩm</option>
-                                            <option value="Sản phẩm 2">Sản phẩm 2</option>
-                                            <option value="Sản phẩm 3">Sản phẩm 3</option>
-                                            <option value="Sản phẩm 4">Sản phẩm 4</option>
+                                            { listProduct.map(i =>
+                                                <option value={i?.id} >{i?.name}</option>
+                                            )}
                                         </Form.Control>
                                     </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
                                         <Form.Control as="select" name="size" required  onChange={e => {rows[index].size = e.target.value}} value={rows[index].numberAdd}>
                                             <option value="">Size</option>
-                                            <option value="X">X</option>
-                                            <option value="M">M</option>
-                                            <option value="L">L</option>
+                                            {listSize?.map(item=><option value={item?.size}>{item?.size}</option>)}
+
                                         </Form.Control>
                                     </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
                                         <Form.Control as="select" name="color" required  onChange={e => {rows[index].color = e.target.value}} value={rows[index].numberAdd}>
                                             <option value="">Màu</option>
-                                            <option value="Đỏ">Đỏ</option>
-                                            <option value="Cam">Cam</option>
+                                            {listColor?.map(item=><option value={item?.color}>{item?.color}</option>)}
                                         </Form.Control>
                                     </Form.Group>
                                     </td>
@@ -174,12 +228,12 @@ const ImportPage = () => {
                                         <Form.Control type="text" placeholder="Giá " name="price" onChange={e => {rows[index].prices = e.target.value}} value={rows[index].numberAdd}/>
                                         </Form.Group>
                                     </td>
-                                    <td><span onClick={(e) => {newRows(prev => {rows.splice(index);return [...rows]})}}><i className="fa fa-times"></i></span></td>
+                                        <td><span onClick={(e) => {rows.splice(index, 1);parents(e.target).find(function(c){return c.tagName === "TR"}).remove()}}><i className="fa fa-times"></i></span></td>
                                     </tr>
                                     ))}
                                 </tbody>
                             </table>
-                                    <Button variant="success" type="submit" onClick={handleSubmit}>
+                                    <Button variant="success" type="submit" onClick={handleSubmitImport}>
                                           Tạo đơn nhập
                                     </Button> 
                                 </Form>
