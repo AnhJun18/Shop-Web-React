@@ -44,9 +44,13 @@ const ImportPage = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-
     }
+
+    const [rows, newRows] = useState(['new'])
+    const handleAddRow = () => {
+        newRows(prev =>  [...prev, 'add_new'])
+    }
+
 
     async function getProduct(page, size) {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/getpaging${page}&size=${size}`)
@@ -118,21 +122,23 @@ const ImportPage = () => {
                                 <Form onSubmit={handleSubmit}>
                                 <table className="table ">
                                 <thead>
-                                <tr>
+                                
+                                    <tr >
                                     <th scope="col" className="col-3">
                                         Sản phẩm
-                                        <i className="fa fa-plus ms-3" ></i>
+                                        <i className="fa fa-plus ms-3 add_row" onClick={handleAddRow} ></i>
                                     </th>
                                     <th scope="col" className="col-2">Size</th>
                                     <th scope="col" className="col-2">Màu</th>
                                     <th scope="col" className="col-2">Số lượng</th>
                                     <th scope="col" className="col-2">Giá nhập</th>
                                 </tr>
+                                
                                 </thead>
                                 <tbody id = "table">
-                                    {/* {importProductDetail.map()} */}
-                                    <tr id="1">
-                                    <td><Form.Group className="mb-2">
+                                {rows.map((row, index) => (
+                                    <tr>
+                                        <td><Form.Group className="mb-2">
                                         <Form.Control as="select" name="category" required >
                                             <option value="">Sản phẩm</option>
                                             <option value="">Sản phẩm 2</option>
@@ -167,6 +173,7 @@ const ImportPage = () => {
                                         </Form.Group>
                                     </td>
                                     </tr>
+                                    ))}
                                 </tbody>
                             </table>
                                     <Button variant="success" type="submit">
