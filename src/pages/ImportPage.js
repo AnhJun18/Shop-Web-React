@@ -43,13 +43,12 @@ const ImportPage = () => {
 
     }
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        console.log(rows)
     }
 
     const [rows, newRows] = useState([{}])
     const handleAddRow = () => {
         newRows(prev =>  [...prev, {}])
-        console.log(rows)
     }
     
 
@@ -177,7 +176,7 @@ const ImportPage = () => {
                                     ))}
                                 </tbody>
                             </table>
-                                    <Button variant="success" type="submit">
+                                    <Button variant="success" type="submit" onClick={handleSubmit}>
                                           Tạo đơn nhập
                                     </Button> 
                                 </Form>
