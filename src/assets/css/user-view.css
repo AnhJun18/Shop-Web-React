@@ -637,7 +637,6 @@ body, ul, li, p, a, label, input, div {
 .shopping-cart-footer {
     display: table;
     width: 100%;
-    padding: 10px 0;
     border-top: 1px solid #e1e7ec
 }
 
