@@ -197,26 +197,41 @@ const ImportPage = () => {
                                 {rows.map((row, index) => (
                                     <tr key={index}>
                                         <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="product_id" required onChange={e => {rows[index].product_id = e.target.value}} value={rows[index].numberAdd}>
+                                        <Form.Control as="select" name="product_id" required onChange={e => {rows[index].product_id = e.target.value}}>
                                             <option value="">Sản phẩm</option>
                                             { listProduct.map(i =>
-                                                <option value={i?.id} >{i?.name}</option>
+                                                {if (rows[index].id == i.id) {
+                                                    <option value={i?.id} selected>{i?.name}</option>
+                                                } else {
+                                                    <option value={i?.id} >{i?.name}</option>
+                                                }}
                                             )}
                                         </Form.Control>
                                     </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="size" required  onChange={e => {rows[index].size = e.target.value}} value={rows[index].numberAdd}>
+                                        <Form.Control as="select" name="size" required  onChange={e => {rows[index].size = e.target.value}}>
                                             <option value="">Size</option>
-                                            {listSize?.map(item=><option value={item?.size}>{item?.size}</option>)}
-
+                                            { listSize.map(item =>
+                                                {if (rows[index].size == item?.size) {
+                                                    <option value={item?.size} selected>{item?.size}</option>
+                                                } else {
+                                                    <option value={item?.size}>{item?.size}</option>
+                                                }}
+                                            )}
                                         </Form.Control>
                                     </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="color" required  onChange={e => {rows[index].color = e.target.value}} value={rows[index].numberAdd}>
+                                        <Form.Control as="select" name="color" required  onChange={e => {rows[index].color = e.target.value}}>
                                             <option value="">Màu</option>
-                                            {listColor?.map(item=><option value={item?.color}>{item?.color}</option>)}
+                                            { listColor.map(item =>
+                                                {if (rows[index].size == item?.color) {
+                                                    <option value={item?.color} selected>{item?.color}</option>
+                                                } else {
+                                                    <option value={item?.color}>{item?.color}</option>
+                                                }}
+                                            )}
                                         </Form.Control>
                                     </Form.Group>
                                     </td>
@@ -225,7 +240,7 @@ const ImportPage = () => {
                                         </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control type="text" placeholder="Giá " name="price" onChange={e => {rows[index].prices = e.target.value}} value={rows[index].numberAdd}/>
+                                        <Form.Control type="text" placeholder="Giá " name="price" onChange={e => {rows[index].prices = e.target.value}} value={rows[index].prices}/>
                                         </Form.Group>
                                     </td>
                                         <td><span onClick={(e) => {rows.splice(index, 1);parents(e.target).find(function(c){return c.tagName === "TR"}).remove()}}><i className="fa fa-times"></i></span></td>
