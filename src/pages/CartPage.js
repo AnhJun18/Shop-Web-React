@@ -6,6 +6,7 @@ import "./../assets/css/user-view.css";
 import axiosApiInstance from "../context/interceptor";
 import InputSpinner from 'react-bootstrap-input-spinner'
 import {toast} from "react-toastify";
+import axios from "../api/axios";
 
 const CartPage = () => {
 
@@ -19,8 +20,24 @@ const CartPage = () => {
         setMyCart(result?.data)
     }
 
-    const handleUpdateCart = (c) => {
-        console.log(c)
+    const handleUpdateCart =  (item, amount) => {
+        const body={
+            "productID": item?.product?.id,
+            "amount": amount
+        }
+         axios({
+                method: 'put',
+                url: axiosApiInstance.defaults.baseURL + `/api/cart/update`,
+                headers: {
+                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("tokens")).data.accessToken}`,
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                data: body
+            });
+
+
+
     }
 
     const handleDeleteItem = async (e) => {
@@ -79,14 +96,13 @@ const CartPage = () => {
                                 <td className="text-center ">
                                     <div className="count-input spinner_input">
                                         <InputSpinner
-                                            id="c"
                                             type={'int'}
                                             precision={0}
                                             max={100}
                                             min={1}
                                             step={1}
                                             value={item?.amount}
-                                            onChange={handleUpdateCart}
+                                            onChange={(e) => handleUpdateCart(item, e)}
                                             variant={'info'}
                                             size="sm"
                                         />
