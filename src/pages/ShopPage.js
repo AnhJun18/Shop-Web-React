@@ -3,6 +3,8 @@ import userLayout from "../user/userLayout"
 import "./../assets/css/user-view.css";
 import ReactLoading from 'react-loading';
 import axiosApiInstance from "../context/interceptor";
+import {Modal, Button} from "react-bootstrap"
+
 
 
 
@@ -22,6 +24,38 @@ const ShopPage = () => {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/category/all`)
         setLoad(true);
         setListCate(result?.data)
+    }
+
+    async function getDetails(id) {
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${id}`)
+        setLoad(true);
+        setProductDetail(result?.data)
+        console.log(result)
+    }
+
+    const [productDetail, setProductDetail] = useState([]);
+    const [productSelected, setProductSelected] = useState({});
+
+
+
+    function parents(node) {
+        let current = node,
+            list = [];
+        while (current.parentNode != null && current.parentNode != document.documentElement) {
+            list.push(current.parentNode);
+            current = current.parentNode;
+        }
+        return list
+    }
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = (e) => {
+        setShow(true);
+        const idSelected = Number(parents(e.target).find(function (c) {
+            return c.tagName == "TR"
+        }).children[0].innerText);
+
     }
 
     useEffect(() => {
@@ -83,10 +117,10 @@ const ShopPage = () => {
                                                 <img className="img-config card-img rounded-0 img-fluid" src={item.linkImg}/>
                                                 <div
                                                     className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                                    <ul className="list-unstyled">
-                                                        <li><a className="btn btn-success text-white"
-                                                               href="shop-single.html">XEM NGAY!</a></li>
-                                                    </ul>
+                                                        <button type="button" className="btn btn-success text-white"
+                                                            onClick={handleShow}>
+                                                            XEM NGAY!
+                                                        </button>
                                                 </div>
                                             </div>
                                             <div className="card-body">
@@ -277,6 +311,62 @@ const ShopPage = () => {
                     </div>
                 </section>
                 {/* <!--End Brands--> */}
+
+                <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Chi tiết sản phẩm</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div class="container-fliud">
+                                <div class="wrapper row">
+                                    <div class="preview col-md-6">
+                                        
+                                        <div class="preview-pic tab-content">
+                                        <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="details col-md-6">
+                                        <h3 class="product-title">men's shoes fashion</h3>
+                                        <div class="rating">
+                                            <div class="stars">
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+                                            <span class="review-no">41 reviews</span>
+                                        </div>
+                                        <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
+                                        <h4 class="price">current price: <span>$180</span></h4>
+                                        <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+                                        <h5 class="sizes">sizes:
+                                            <span class="size" data-toggle="tooltip" title="small">s</span>
+                                            <span class="size" data-toggle="tooltip" title="medium">m</span>
+                                            <span class="size" data-toggle="tooltip" title="large">l</span>
+                                            <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
+                                        </h5>
+                                        <h5 class="colors">colors:
+                                            <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+                                            <span class="color green"></span>
+                                            <span class="color blue"></span>
+                                        </h5>
+                                        <div class="action">
+                                            <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+                                            <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Modal.Body>
+                        <Modal.Footer>
+
+                            
+
+
+                        </Modal.Footer>
+                    </Modal>
             </div>
             :
             <div className={"center"}>
