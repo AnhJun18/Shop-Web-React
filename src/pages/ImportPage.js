@@ -141,7 +141,7 @@ const ImportPage = () => {
                                 {rows.map((row, index) => (
                                     <tr key={index}>
                                         <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="product_id" required onChange={e => {rows[index].product = e.target.value}}>
+                                        <Form.Control as="select" name="product_id" required onChange={e => {rows[index].product = e.target.value}} value={rows[index].numberAdd}>
                                             <option value="">Sản phẩm</option>
                                             <option value="Sản phẩm 2">Sản phẩm 2</option>
                                             <option value="Sản phẩm 3">Sản phẩm 3</option>
@@ -150,7 +150,7 @@ const ImportPage = () => {
                                     </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="size" required  onChange={e => {rows[index].size = e.target.value}}>
+                                        <Form.Control as="select" name="size" required  onChange={e => {rows[index].size = e.target.value}} value={rows[index].numberAdd}>
                                             <option value="">Size</option>
                                             <option value="X">X</option>
                                             <option value="M">M</option>
@@ -159,7 +159,7 @@ const ImportPage = () => {
                                     </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control as="select" name="color" required  onChange={e => {rows[index].color = e.target.value}}>
+                                        <Form.Control as="select" name="color" required  onChange={e => {rows[index].color = e.target.value}} value={rows[index].numberAdd}>
                                             <option value="">Màu</option>
                                             <option value="Đỏ">Đỏ</option>
                                             <option value="Cam">Cam</option>
@@ -167,11 +167,11 @@ const ImportPage = () => {
                                     </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control type="number" placeholder="Số lượng" name="amount" onChange={e => {rows[index].numberAdd = e.target.value}}/>
+                                        <Form.Control type="number" placeholder="Số lượng" name="amount" onChange={e => {rows[index].numberAdd = e.target.value}} value={rows[index].numberAdd}/>
                                         </Form.Group>
                                     </td>
                                     <td><Form.Group className="mb-2">
-                                        <Form.Control type="text" placeholder="Giá " name="price" onChange={e => {rows[index].prices = e.target.value}}/>
+                                        <Form.Control type="text" placeholder="Giá " name="price" onChange={e => {rows[index].prices = e.target.value}} value={rows[index].numberAdd}/>
                                         </Form.Group>
                                     </td>
                                     <td><span onClick={(e) => {newRows(prev => {rows.splice(index);return [...rows]})}}><i className="fa fa-times"></i></span></td>
