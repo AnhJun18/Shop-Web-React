@@ -51,8 +51,6 @@ const ShopPage = () => {
         else
             myList = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
         console.log(myList)
-
-
         setLoad(true);
         setList(myList?.data)
     }
