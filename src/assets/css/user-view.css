@@ -749,3 +749,13 @@ body, ul, li, p, a, label, input, div {
 .loading{
     padding: 150px;;
 }
+
+.carousel-item{
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.home-icon{
+    color: #0da9ef;
+    font-size: 2.5rem;
+    padding-bottom: 5px;
+}
