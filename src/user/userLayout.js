@@ -37,7 +37,7 @@ const userLayout = (ChildComponent) => {
                     {/* <!-- Top navigation--> */}
                     <UserHeader />
                     {/* <!-- Page content--> */}
-                    <div className="container-fluid content-container">
+                    <div className="container-fluid content-container shop-user">
                         <ChildComponent {...this.props} />
                     </div>
                     <UserFooter />
