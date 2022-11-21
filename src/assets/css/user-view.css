@@ -326,6 +326,43 @@ body, ul, li, p, a, label, input, div {
     width: 112px !important;
 }
 
+.price_txt{
+    font-size: 24px!important;
+    color: #ff0000;
+    font-weight: 400 !important;
+    margin-right: 10px;
+}
+
+.swatch input {
+    display: none;
+}
+.swatch label {
+    float: left;
+    min-width: 35px !important;
+    height: 35px !important;
+    margin: 0;
+    text-align: center;
+    line-height: 35px;
+    white-space: nowrap;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    position: relative;
+}
+.color.swatch-element label {
+    background-size: contain !important;
+    padding: 0px 10px 0px 25px;
+}
+.swatch-element label.sd {
+    border: 1px solid #e4393c;
+}
+.swatch .swatch-element {
+    -webkit-transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
+    margin: 0px;
+    display: inline-block;
+    position: relative;
+}
 /* Product */
 .product-wap {
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.10);

@@ -1,17 +1,23 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import userLayout from "../user/userLayout"
 import "./../assets/css/user-view.css";
 import ReactLoading from 'react-loading';
 import axiosApiInstance from "../context/interceptor";
-import {Modal, Button} from "react-bootstrap"
-
-
-
+import {Modal, Button, Form} from "react-bootstrap"
+import InputSpinner from "react-bootstrap-input-spinner";
 
 const ShopPage = () => {
     const [list, setList] = useState([]);
     const [load, setLoad] = useState(false);
+    const [status, setStatus] = useState(0);
     const [listCate, setListCate] = useState([]);
+    const [productDetail, setProductSelected] = useState([]);
+    const [imgSelect, setImgSelect] = useState();
+    const [colorAvail, setColorAvail] = useState(new Set());
+    const [sizeAvail, setSizeAvail] = useState();
+    let size=null;
+    let color=null;
+    let sl=null;
 
 
     async function getProduct() {
@@ -28,14 +34,17 @@ const ShopPage = () => {
 
     async function getDetails(id) {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${id}`)
+        setStatus(1)
         setLoad(true);
-        setProductDetail(result?.data)
-        console.log(result)
+        setProductSelected(result?.data)
+        setSizeAvail(result?.data)
+        const setColor= new Set()
+            result?.data?.forEach(i=>{
+            setColor.add(i?.color)
+            })
+
+       setColorAvail(setColor)
     }
-
-    const [productDetail, setProductDetail] = useState([]);
-    const [productSelected, setProductSelected] = useState({});
-
 
 
     function parents(node) {
@@ -49,19 +58,40 @@ const ShopPage = () => {
     }
 
     const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+        setImgSelect(null);
+        setStatus(0)
+    }
+
     const handleShow = (e) => {
+        setImgSelect(e.target.title)
         setShow(true);
-        const idSelected = Number(parents(e.target).find(function (c) {
-            return c.tagName == "TR"
-        }).children[0].innerText);
+        getDetails(e.target.id)
+
 
     }
 
+    const handleChangeColor = (e)=>{
+        color=e.target.id
+       setSizeAvail(productDetail.filter(i=> i.color===color))
+    }
+    const handleChangeSize= (e)=>{
+        size=e.target.id;
+        console.log(e.target.id)
+    }
+    const handleChangeAmount = (e)=>{
+        sl=e;
+        console.log(e)
+    }
+
+    const handleSubmitAdd = (e)=>{
+        e.preventDefault()
+        console.log(e)
+    }
     useEffect(() => {
         getProduct();
         getCatagory();
-        console.log(list)
     }, []);
 
     return (<>
@@ -76,7 +106,7 @@ const ShopPage = () => {
                                 {listCate.map((item) => (
                                     <li className="pb-3">
                                         <a className="collapsed d-flex justify-content-between h3 text-decoration-none"
-                                        href="#">
+                                           href="#">
                                             {item.name}
                                         </a>
                                     </li>
@@ -114,19 +144,22 @@ const ShopPage = () => {
                                     <div className="col-md-3">
                                         <div className="card mb-3 product-wap rounded-0">
                                             <div className="card rounded-0">
-                                                <img className="img-config card-img rounded-0 img-fluid" src={item.linkImg}/>
+                                                <img className="img-config card-img rounded-0 img-fluid"
+                                                     src={item.linkImg}/>
                                                 <div
                                                     className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                                        <button type="button" className="btn btn-success text-white"
+                                                    <button type="button" className="btn btn-success text-white"
+                                                            title={item.linkImg} id={item?.id}
                                                             onClick={handleShow}>
-                                                            XEM NGAY!
-                                                        </button>
+                                                        XEM NGAY!
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div className="card-body">
                                                 <div className="">
                                                     <a href="shop-single.html"
-                                                       className="h3 text-decoration-none text-config" title={item.name}>{item.name}</a>
+                                                       className="h3 text-decoration-none text-config"
+                                                       title={item.name}>{item.name}</a>
                                                 </div>
 
                                                 <ul className="w-100 list-unstyled d-flex justify-content-between mb-0">
@@ -153,7 +186,10 @@ const ShopPage = () => {
                                                         <i className="text-muted fa fa-star"></i>
                                                     </li>
                                                 </ul>
-                                                <p className="text-center mb-0">{item.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</p>
+                                                <p className="text-center mb-0 price_txt">{item.price.toLocaleString('vi', {
+                                                    style: 'currency',
+                                                    currency: 'VND'
+                                                })}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -312,98 +348,118 @@ const ShopPage = () => {
                 </section>
                 {/* <!--End Brands--> */}
 
-                <Modal show={show} onHide={handleClose} dialogClassName={"modal-xl"}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Chi tiết sản phẩm</Modal.Title>
-                        </Modal.Header>
+                <Modal show={show} onHide={handleClose} size={status ? "lg" : "sm"} centered>
+                    {status ?
                         <Modal.Body>
-                        <div class="container pb-5">
-                            <div class="row">
-                                <div class="col-lg-5 mt-5">
-                                    <div class="card mb-3">
-                                        <img class="card-img img-fluid" src={require('./../assets/images/product_single_10.jpg')} alt="Card image cap" id="product-detail"/>
+                            <div class="container pb-5">
+                                <div class="row">
+                                    <div class="col-lg-5 mt-5">
+                                        <div class="card mb-3">
+                                            <img class="card-img img-fluid"
+                                                 src={productDetail.at(0)?.infoProduct?.linkImg} alt="Card image cap"
+                                                 id="product-detail"/>
+                                        </div>
+
                                     </div>
-                                    
-                                </div>
-                                {/* <!-- col end --> */}
-                                <div class="col-lg-7 mt-5">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h1 class="h2">Active Wear</h1>
-                                            <p class="h3 py-2">$25.00</p>
-                                            <p class="py-2">
-                                                <i class="fa fa-star text-warning"></i>
-                                                <i class="fa fa-star text-warning"></i>
-                                                <i class="fa fa-star text-warning"></i>
-                                                <i class="fa fa-star text-warning"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
-                                            </p>
-                                            <ul class="list-inline">
-                                                <li class="list-inline-item">
-                                                    <h6>Brand:</h6>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>Easy Wear</strong></p>
-                                                </li>
-                                            </ul>
+                                    {/* <!-- col end --> */}
+                                    {<div class="col-lg-7 mt-5">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h1 class="h2">{productDetail.at(0)?.infoProduct?.name}</h1>
+                                                <p class="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
+                                                    style: 'currency',
+                                                    currency: 'VND'
+                                                })}</p>
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">
+                                                        <h6>Avaliable Color :</h6>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <p class="text-muted"><strong>White / Black</strong></p>
+                                                    </li>
+                                                </ul>
 
-                                            <h6>Description:</h6>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse. Donec condimentum elementum convallis. Nunc sed orci a diam ultrices aliquet interdum quis nulla.</p>
-                                            <ul class="list-inline">
-                                                <li class="list-inline-item">
-                                                    <h6>Avaliable Color :</h6>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <p class="text-muted"><strong>White / Black</strong></p>
-                                                </li>
-                                            </ul>
+                                                {<form action="" method="GET">
+                                                    <input type="hidden" name="product-title" value="Activewear"/>
+                                                    <div class="row">
+                                                        <div className="col-auto">
+                                                            Color :
+                                                            {<Form onChange={handleChangeColor}>
+                                                                {Array.from(colorAvail).map((i)=>
+                                                                    <Form.Check
+                                                                        inline
+                                                                        reverse
+                                                                        label={i}
+                                                                        name="group1"
+                                                                        type="radio"
+                                                                        id={i}
+                                                                    />
+                                                                )}
+                                                            </Form>}
+                                                        </div>
 
-                                            <h6>Specification:</h6>
-                                            <ul class="list-unstyled pb-3">
-                                                <li>Lorem ipsum dolor sit</li>
-                                                <li>Amet, consectetur</li>
-                                                <li>Adipiscing elit,set</li>
-                                                <li>Duis aute irure</li>
-                                                <li>Ut enim ad minim</li>
-                                                <li>Dolore magna aliqua</li>
-                                                <li>Excepteur sint</li>
-                                            </ul>
+                                                        <div class="col-auto">
+                                                            Size
+                                                            <Form onChange={handleChangeSize}>
+                                                            {sizeAvail?.map((i)=>
+                                                                <Form.Check
+                                                                    inline
+                                                                    reverse
+                                                                    label={i?.size}
+                                                                    name="group_size"
+                                                                    type="radio"
+                                                                    id={i?.size}
+                                                                />
+                                                            )}
+                                                            </Form>
+                                                        </div>
 
-                                            <form action="" method="GET">
-                                                <input type="hidden" name="product-title" value="Activewear"/>
-                                                <div class="row">
-                                                    <div class="col-auto">
-                                                        <ul class="list-inline pb-3">
-                                                            <li class="list-inline-item">Size :
-                                                                <input type="hidden" name="product-size" id="product-size" value="S"/>
-                                                            </li>
-                                                            <li class="list-inline-item"><span class="btn btn-success btn-size">S</span></li>
-                                                            <li class="list-inline-item"><span class="btn btn-success btn-size">M</span></li>
-                                                            <li class="list-inline-item"><span class="btn btn-success btn-size">L</span></li>
-                                                            <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span></li>
-                                                        </ul>
+                                                        <div class="col-auto flex align-items-center pb-3">
+                                                            <div className="list-inline-item">Color :</div>
+                                                            <div className="count-input spinner_input">
+
+                                                                <InputSpinner
+                                                                    type={'int'}
+                                                                    precision={0}
+                                                                    max={100}
+                                                                    min={1}
+                                                                    step={1}
+                                                                    value={0}
+                                                                    onChange={handleChangeAmount}
+                                                                    variant={'info'}
+                                                                    size="sm"
+                                                                />
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-auto">
-                                                        <ul class="list-inline pb-3">
-                                                            <li class="list-inline-item text-right">
-                                                                Quantity
-                                                                <input type="hidden" name="product-quanity" id="product-quanity" value="1"/>
-                                                            </li>
-                                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                                            <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-                                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
-                                                        </ul>
+                                                    <div class="row pb-3">
+                                                        <div class="col d-grid">
+                                                            <button type="submit" class="btn btn-success btn-lg"
+                                                                    name="submit" value="buy">Buy
+                                                            </button>
+                                                        </div>
+                                                        <div class="col d-grid">
+                                                            <button type="submit" class="btn btn-success btn-lg"
+                                                                    name="submit" onClick={handleSubmitAdd}>Add To Cart
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="row pb-3">
-                                                    <div class="col d-grid">
-                                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
+                                                </form>}
+
                                                     </div>
-                                                    <div class="col d-grid">
-                                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
                                                     </div>
-                                                </div>
+                                                    </div>}
+                                            </div>
+                                        </div>
+                                    </Modal.Body>
+                                        :
+                                        <Modal.Body>
+                                        <div className="container pb-5">
+                                        <img class="card-img img-fluid" src={imgSelect} width="400" alt="Card image cap" id="product-detail"/>
+                                        </div>
+                                        </Modal.Body>
+                                    }
+                                    <Modal.Footer>
                                             </form>
 
                                         </div>
@@ -418,15 +474,15 @@ const ShopPage = () => {
 
 
                         </Modal.Footer>
-                    </Modal>
-            </div>
-            :
-            <div className={"center loading"}>
-            <ReactLoading type={'bubbles'} color='#fffff'  height={'150px'} width={'10px'} />
-            </div>
-        }
-    </>)
+                                    </Modal.Footer>
+                                </Modal>
+                            </div>
+                            :
+                            <div className={"center"}>
+                                <ReactLoading type={'bubbles'} color='#fffff' height={'150px'} width={'10px'}/>
+                            </div>
+                            }
+                        </>)
 
-};
-
-export default userLayout(ShopPage);
+                    }
+;export default userLayout(ShopPage);

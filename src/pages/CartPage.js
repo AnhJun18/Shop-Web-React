@@ -89,7 +89,7 @@ const CartPage = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td className="text-center text-lg text-medium">{item.product?.infoProduct?.price.toLocaleString('vi', {
+                                <td className="text-center text-lg text-medium price_txt">{item.product?.infoProduct?.price.toLocaleString('vi', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</td>
@@ -130,7 +130,7 @@ const CartPage = () => {
                     <div class="column"><a class="btn btn-outline-secondary" href="/shop"><i
                         class="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
                     <div class="column">
-                        <a class="btn btn-success" href="#">Tiến hành đặt hàng</a></div>
+                        <a class="btn btn-success" href="#">Đặt hàng</a></div>
                 </div>
             </div>
             :
