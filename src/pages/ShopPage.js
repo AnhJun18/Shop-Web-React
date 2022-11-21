@@ -87,7 +87,10 @@ const ShopPage = () => {
 
         const handleSubmitAdd = (e) => {
             e.preventDefault()
-            console.log(e)
+            const form=parents(e.target).find(function (c) {
+                return c.tagName === "FORM"})
+            console.log(form?.querySelector("div>div>form"))
+            console.log(form?.querySelectorAll("div>div>form"))
         }
         useEffect(() => {
             getProduct();
