@@ -307,8 +307,8 @@ body, ul, li, p, a, label, input, div {
 
 .img-config.card-img {
     float: left;
-    width: 255px;
-    height: 328px;
+    width: 220px;
+    height: 290px;
     object-fit: cover;
     margin: auto;
 }
@@ -709,3 +709,6 @@ body, ul, li, p, a, label, input, div {
     max-width: 1200px;
 }
   
+.loading{
+    padding: 150px;;
+}

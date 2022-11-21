@@ -111,8 +111,8 @@ const ShopPage = () => {
                             </div>
                             <div className="row">
                                 {list.map((item) => (
-                                    <div className="col-md-4">
-                                        <div className="card mb-4 product-wap rounded-0">
+                                    <div className="col-md-3">
+                                        <div className="card mb-3 product-wap rounded-0">
                                             <div className="card rounded-0">
                                                 <img className="img-config card-img rounded-0 img-fluid" src={item.linkImg}/>
                                                 <div
@@ -421,7 +421,7 @@ const ShopPage = () => {
                     </Modal>
             </div>
             :
-            <div className={"center"}>
+            <div className={"center loading"}>
             <ReactLoading type={'bubbles'} color='#fffff'  height={'150px'} width={'10px'} />
             </div>
         }
