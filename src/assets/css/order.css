@@ -1,8 +1,9 @@
-.margin-left-right{
+.margin-left-right {
     margin-right: 15px;
     margin-left: 10px;
     padding: 20px;
 }
+
 .block-left {
     padding-right: 30px;
     margin-bottom: 20px;
@@ -10,6 +11,7 @@
     background-color: #fff;
     flex: 1.5 0 0%;
 }
+
 .block-right {
     margin-left: 15px;
     margin-bottom: 20px;
@@ -17,6 +19,7 @@
     background-color: #fff;
     flex: 1 0 0%;
 }
+
 .infor {
     width: 90%;
     margin-left: 25px;
@@ -24,33 +27,33 @@
 }
 
 .form__group {
-  position: relative;
-  padding: 15px 0 0;
-  margin-top: 10px;
-  width: 50%;
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 50%;
 }
 
 .form__field {
-  font-family: inherit;
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid #9b9b9b;
-  outline: 0;
-  font-size: 1.3rem;
-  color: #fff;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
 
 }
 
 .form__label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: #9b9b9b;
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #9b9b9b;
 }
 
 /*
@@ -59,165 +62,172 @@ HELPERS
 =====
 */
 
-.ha-screen-reader{
+.ha-screen-reader {
     width: var(--ha-screen-reader-width, 1px);
     height: var(--ha-screen-reader-height, 1px);
     padding: var(--ha-screen-reader-padding, 0);
     border: var(--ha-screen-reader-border, none);
-  
+
     position: var(--ha-screen-reader-position, absolute);
     clip: var(--ha-screen-reader-clip, rect(1px, 1px, 1px, 1px));
     overflow: var(--ha-screen-reader-overflow, hidden);
-  }
-  
-  /*
-  =====
-  RESET STYLES
-  =====
-  */
-  
-  .field__input{ 
+}
+
+/*
+=====
+RESET STYLES
+=====
+*/
+
+.field__input {
     --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);
-    
+
     background-color: transparent;
     border-radius: 0;
     border: none;
-  
+
     -webkit-appearance: none;
     -moz-appearance: none;
-  
+
     font-family: inherit;
     font-size: inherit;
-  }
-  
-  .field__input:focus::-webkit-input-placeholder{
+}
+
+.field__input:focus::-webkit-input-placeholder {
     color: var(--uiFieldPlaceholderColor);
-  }
-  
-  .field__input:focus::-moz-placeholder{
+}
+
+.field__input:focus::-moz-placeholder {
     color: var(--uiFieldPlaceholderColor);
-  }
-  
-  
-  .field{
+}
+
+
+.field {
     --uiFieldBorderWidth: var(--fieldBorderWidth, 2px);
     --uiFieldPaddingRight: var(--fieldPaddingRight, 1rem);
-    --uiFieldPaddingLeft: var(--fieldPaddingLeft, 1rem);   
+    --uiFieldPaddingLeft: var(--fieldPaddingLeft, 1rem);
     --uiFieldBorderColorActive: var(--fieldBorderColorActive, rgba(22, 22, 22, 1));
-  
+
     position: relative;
     font-size: var(--fieldFontSize, 1rem);
-  }
-  
-  .field__input{
+}
+
+.field__input {
     box-sizing: border-box;
     width: var(--fieldWidth, 100%);
     height: var(--fieldHeight, 3.1rem);
     padding: var(--fieldPaddingTop, 1.25rem) var(--uiFieldPaddingRight) var(--fieldPaddingBottom, .5rem) var(--uiFieldPaddingLeft);
-    border-bottom: var(--uiFieldBorderWidth) solid var(--fieldBorderColor, rgba(0, 0, 0, .25));  
-  }
-  
-  .field__input:focus{
+    border-bottom: var(--uiFieldBorderWidth) solid var(--fieldBorderColor, rgba(0, 0, 0, .25));
+}
+
+.field__input:focus {
     outline: none;
-  }
-  
-  .field__input::-webkit-input-placeholder{
+}
+
+.field__input::-webkit-input-placeholder {
     opacity: 0;
     transition: opacity .2s ease-out;
-  }
-  
-  .field__input::-moz-placeholder{
+}
+
+.field__input::-moz-placeholder {
     opacity: 0;
     transition: opacity .2s ease-out;
-  }
-  
-  .field__input:focus::-webkit-input-placeholder{
+}
+
+.field__input:focus::-webkit-input-placeholder {
     opacity: 1;
     transition-delay: .2s;
-  }
-  
-  .field__input:focus::-moz-placeholder{
+}
+
+.field__input:focus::-moz-placeholder {
     opacity: 1;
     transition-delay: .2s;
-  }
-  
-  .field__label-wrap{
+}
+
+.field__label-wrap {
     box-sizing: border-box;
     pointer-events: none;
     cursor: text;
-  
+
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-  }
-  
-  .field__label-wrap::after{
+}
+
+.field__label-wrap::after {
     content: "";
     box-sizing: border-box;
     width: 100%;
     height: 0;
     opacity: 0;
-  
+
     position: absolute;
     bottom: 0;
     left: 0;
-  }
-  
-  .field__input:focus ~ .field__label-wrap::after{
+}
+
+.field__input:focus ~ .field__label-wrap::after {
     opacity: 1;
-  }
-  
-  .field__label{
+}
+
+.field__label {
     position: absolute;
     left: var(--uiFieldPaddingLeft);
     top: calc(50% - .5em);
-  
+
     line-height: 1;
     font-size: var(--fieldHintFontSize, inherit);
-  
-    transition: top .2s cubic-bezier(0.9, -0.15, 0.1, 1.15), opacity .2s ease-out, font-size .2s ease-out;
-  }
-  
-  .field__input:focus ~ .field__label-wrap .field__label,
-  .field__input:not(:placeholder-shown) ~ .field__label-wrap .field__label{
-    --fieldHintFontSize: var(--fieldHintFontSizeFocused, .75rem);
-  
-    top: var(--fieldHintTopHover, .25rem);
-  }
 
-  
-  .field_v1 .field__label-wrap::after{
+    transition: top .2s cubic-bezier(0.9, -0.15, 0.1, 1.15), opacity .2s ease-out, font-size .2s ease-out;
+}
+
+.field__input:focus ~ .field__label-wrap .field__label,
+.field__input:not(:placeholder-shown) ~ .field__label-wrap .field__label {
+    --fieldHintFontSize: var(--fieldHintFontSizeFocused, .75rem);
+
+    top: var(--fieldHintTopHover, .25rem);
+}
+
+
+.field_v1 .field__label-wrap::after {
     border-bottom: var(--uiFieldBorderWidth) solid var(--uiFieldBorderColorActive);
     transition: opacity .2s ease-out;
-  }
-  .image {
+}
+
+.image {
     width: 80px;
     height: 90px;
-  }
-  .display-flex {
+}
+
+.display-flex {
     display: flex;
     align-items: center;
-  }
-  p {
+}
+
+p {
     margin-bottom: 0px;
-  }
-  a.fontSize,
-  p.fontSize {
-    font-size: 14px !important; 
-  }
- .textAlign {
+}
+
+a.fontSize,
+p.fontSize {
+    font-size: 14px !important;
+}
+
+.textAlign {
     text-align: end;
-  }
-  /* infor user */
-  .block-infor-left {
+}
+
+/* infor user */
+.block-infor-left {
     padding-top: 20px;
     margin-bottom: 20px;
     box-sizing: border-box;
     background-color: #fff;
     flex: 0.5 0 0%;
 }
+
 .block-infor-right {
     margin-left: 15px;
     margin-bottom: 20px;
@@ -225,64 +235,89 @@ HELPERS
     background-color: #fff;
     flex: 1.7 0 0%;
 }
+
 .buttonHead {
-  margin-bottom: 10px;
-  border: 0.5px solid #e2e0e1;
-  width: 100%;
-  height: 39px
+    margin-bottom: 10px;
+    border: 0.5px solid #e2e0e1;
+    width: 100%;
+    height: 39px
 }
+
 .buttonHead:hover,
 .buttonStatus:hover {
-  background-color: rgb(201, 235, 243);
+    background-color: rgb(201, 235, 243);
 }
-  .padd {
+
+.padd {
     padding: 20px 35px 20px 20px;
     width: 850px;
-  }
-  .space_around {
+}
+
+.space_around {
     display: grid;
     justify-content: space-around;
-  }
+}
+
 .borderr {
     border-top: 0.0625rem solid #c0bcbc;
-  }
-  .active {
-    background-color: rgb(199, 245, 247);
 }
+
+.buttonStatus.active {
+    background-color: rgb(255, 255, 255);
+}
+
 .buttonStatus {
-  margin-top: 5px;
-  margin-bottom: 10px;
-  border: 0.5px solid #e2e0e1;
-  width: 170px;
-  height: 39px
+    width: 170px;
+    height: 39px;
+    border: 0;
+    border-radius: 2px 8px 0px 0px;
+    border-right: 2px;
+    border-style: groove;
+}
+
+table.status-table {
+    border-bottom: .2rem solid #d8dbe0;
+    border-top: 0;
 
 }
+
+.status-order {
+    background: #f0f0f0;
+    margin-left: -14px;
+    margin-right: -14px;
+}
+
 h6.center {
-  display: flex;
-  margin-top: 25px;
-  justify-content: center;
+    display: flex;
+    margin-top: 25px;
+    justify-content: center;
 }
+
 .buttonBackHome {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0px;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0px;
 }
+
 .imageInfor {
-  width: 50px;
-  height: 60px;
+    width: 50px;
+    height: 60px;
 }
+
 a.fontSizeInfor,
-p.fontSizeInfor   {
-  font-size: 12px !important; 
+p.fontSizeInfor {
+    font-size: 12px !important;
 }
+
 .changePass {
-  text-decoration: underline;
-  color: rgb(81, 180, 238);
-  font-size: 14px !important;
+    text-decoration: underline;
+    color: rgb(81, 180, 238);
+    font-size: 14px !important;
 }
+
 .changePass:hover {
-  color: rgb(7, 121, 121);
-  text-decoration: underline;
+    color: rgb(7, 121, 121);
+    text-decoration: underline;
 }
  
   
