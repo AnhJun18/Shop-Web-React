@@ -210,7 +210,80 @@ HELPERS
  .textAlign {
     text-align: end;
   }
-  
+  /* infor user */
+  .block-infor-left {
+    padding-top: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    background-color: #fff;
+    flex: 0.5 0 0%;
+}
+.block-infor-right {
+    margin-left: 15px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    background-color: #fff;
+    flex: 1.7 0 0%;
+}
+.buttonHead {
+  margin-bottom: 10px;
+  border: 0.5px solid #e2e0e1;
+  width: 100%;
+  height: 39px
+}
+.buttonHead:hover,
+.buttonStatus:hover {
+  background-color: rgb(201, 235, 243);
+}
+  .padd {
+    padding: 20px 35px 20px 20px;
+    width: 850px;
+  }
+  .space_around {
+    display: grid;
+    justify-content: space-around;
+  }
+.borderr {
+    border-top: 0.0625rem solid #c0bcbc;
+  }
+  .active {
+    background-color: rgb(199, 245, 247);
+}
+.buttonStatus {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 0.5px solid #e2e0e1;
+  width: 170px;
+  height: 39px
+
+}
+h6.center {
+  display: flex;
+  margin-top: 25px;
+  justify-content: center;
+}
+.buttonBackHome {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0px;
+}
+.imageInfor {
+  width: 50px;
+  height: 60px;
+}
+a.fontSizeInfor,
+p.fontSizeInfor   {
+  font-size: 12px !important; 
+}
+.changePass {
+  text-decoration: underline;
+  color: rgb(81, 180, 238);
+  font-size: 14px !important;
+}
+.changePass:hover {
+  color: rgb(7, 121, 121);
+  text-decoration: underline;
+}
  
   
   
