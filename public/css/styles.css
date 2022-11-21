@@ -7406,6 +7406,15 @@ textarea.form-control-lg {
   margin-left: auto !important;
 }
 
+.container-fluid.content-container.shop-user{
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+.container.banner{
+  padding-left: 0!important;
+  padding-right: 0!important;
+  max-width: max-content;
+}
 .p-0 {
   padding: 0 !important;
 }
