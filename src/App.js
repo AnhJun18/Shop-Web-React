@@ -17,6 +17,7 @@ import Import from "./pages/ImportPage";
 import Statistical from "./pages/StatisticalPage";
 import CartPage from "./pages/CartPage";
 import TheOrder from "./pages/TheOrderPage";
+import InforUser from "./pages/InforUser";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
                 <Route exact path='/import' element={<Import/>} />
                 <Route exact path='/statistical' element={<Statistical/>} />
                 <Route exact path='/theOrder' element={<TheOrder/>} />
+                <Route exact path='/inforUser' element={<InforUser/>} />
  				<Route exact path='/cart' element={<CartPage/>} />
             </Routes>  
           </AuthContextProvider>
