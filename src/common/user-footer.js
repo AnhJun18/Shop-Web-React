@@ -57,7 +57,7 @@ class UserFooter extends React.Component {
                         <div class="col-md-2 pt-5">
                             <iframe
                                 src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fanhjunit&tabs=timeline&width=340&height=188&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=636594834135031"
-                                width="340" height="188" style={{border:"none",overflow:"hidden", visibility: "visible",width: "720px", height: "130px"}}scrolling="no"
+                                width="340" height="188" style={{border:"none",overflow:"hidden", visibility: "visible",width: "720px", height: "240px"}}scrolling="no"
                                 frameBorder="0" allowFullScreen="true"
                                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 
