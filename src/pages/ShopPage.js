@@ -7,8 +7,13 @@ import {Modal, Button, Form} from "react-bootstrap"
 import InputSpinner from "react-bootstrap-input-spinner";
 import {toast} from "react-toastify";
 import axios from "../api/axios";
+import {useLocation} from "react-router-dom";
 
 const ShopPage = () => {
+
+    let param  = useLocation().pathname.split("/").at(2);
+
+    console.log(param)
     const [list, setList] = useState([]);
     const [load, setLoad] = useState(false);
     const [status, setStatus] = useState(0);
@@ -40,10 +45,19 @@ const ShopPage = () => {
     }
 
     async function getProduct() {
-        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
+        let myList = null
+        if(param)
+            myList= await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/category/${param}`)
+        else
+            myList = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
+        console.log(myList)
+
+
         setLoad(true);
-        setList(result?.data)
+        setList(myList?.data)
     }
+
+
 
     async function getCatagory() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/category/all`)
@@ -156,7 +170,7 @@ return (<>
                             {listCate.map((item) => (
                                 <li className="pb-3">
                                     <a className="collapsed d-flex justify-content-between h3 text-decoration-none"
-                                       href="#">
+                                       href={param?`${item.name}`:`shop/${item.name}`}>
                                         {item.name}
                                     </a>
                                 </li>
@@ -246,21 +260,7 @@ return (<>
                             ))}
                         </div>
                         <div div="row">
-                            <ul className="pagination pagination-lg justify-content-end">
-                                <li className="page-item disabled">
-                                    <a className="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0"
-                                       href="#"
-                                       tabIndex="-1">1</a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"
-                                       href="#">2</a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark"
-                                       href="#">3</a>
-                                </li>
-                            </ul>
+                           
                         </div>
                     </div>
 
@@ -432,8 +432,8 @@ return (<>
                                             {<Form>
                                                 <input type="hidden" name="product-title" value="Activewear"/>
                                                 <div class="row">
-                                                    <div className="col-auto">
-                                                        Color :
+                                                    <div className="col-full">
+                                                        <strong>Color </strong>
                                                         {<Form onChange={handleChangeColor}>
                                                             {Array.from(colorAvail).map((i) =>
                                                                 <Form.Check
@@ -448,8 +448,8 @@ return (<>
                                                         </Form>}
                                                     </div>
 
-                                                    <div class="col-auto">
-                                                        Size
+                                                    <div class="col-full">
+                                                        <strong>Size</strong>
                                                         <Form onChange={handleChangeSize}>
                                                             {sizeAvail?.map((i) =>
                                                                 <Form.Check
@@ -464,8 +464,8 @@ return (<>
                                                         </Form>
                                                     </div>
 
-                                                    <div class="col-auto flex align-items-center pb-3">
-                                                        <div className="list-inline-item">Color :</div>
+                                                    <div class="col-full flex align-items-center pb-3">
+                                                        <div className="list-inline-item">Số lượng</div>
                                                         <div className="count-input spinner_input">
 
                                                             <InputSpinner
@@ -523,5 +523,4 @@ return (<>
 </>)
 
 }
-;
-export default userLayout(ShopPage);
+;export default userLayout(ShopPage);
