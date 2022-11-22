@@ -44,16 +44,16 @@ const Sidebar = ({isActive}) => {
                 title: "Order",
             },
             {
-                icon: <i className="fa fa-bar-chart me-3"></i>,
-                link: "/",
-                title: "Blank Page",
+                icon: <i className="fa fa-tags me-3"></i>,
+                link: "/category",
+                title: "Category",
             }, {
                 icon: <i className="fa fa-archive me-3" ></i>,
                 link: "/import",
                 title: "Import",
             },
             {
-                icon: <i className="fa fa-archive me-3" ></i>,
+                icon: <i className="fa fa-bar-chart me-3" ></i>,
                 link: "/statistical",
                 title: "Statistical",
             }
