@@ -1,108 +1,118 @@
-import {useContext, useState, useEffect, useRef} from "react";
+import {useState, useEffect, useRef} from "react";
 import {Checkbox} from "@mui/material";
 import React from "react";
 import "./../assets/css/order.css";
 // import "./../assets/css/user-view.css";
 import userLayout from "../user/userLayout"
-import axiosApiInstance from "../context/interceptor";
+//import axiosApiInstance from "../context/interceptor";
 import InputSpinner from 'react-bootstrap-input-spinner'
 import {toast} from "react-toastify";
-import axios from "../api/axios";
+//import axios from "../api/axios";
+import {Navigate, useLocation, useNavigate} from "react-router-dom";
+
+/*var carts = '';
+const Cart = (cart) => {
+    console.log(cart)
+    carts = cart
+    return ''
+}
+export {Cart}*/
 
 const TheOrderPage = () => {
-
-    
-
-    return <>
-            <div class="margin-left-right padding-bottom-3x marginTop marginBot row">
-                <div class="table-responsive block-left  ms-2">
+    const location = useLocation();
+    const navigate = useNavigate()
+    const cart = location.state;
+    return <>{
+        location ?
+            <div className="margin-left-right padding-bottom-3x marginTop marginBot row">
+                <div className="table-responsive block-left  ms-2">
                     <h5 className="ms-4 mb-1 mt-3">Thông tin khách hàng</h5>
-                    <div class="field field_v1 ms-4">
-                        <label for="first-name" class="ha-screen-reader">Họ tên</label>
-                        <input id="first-name" class="field__input" placeholder=" "></input>
-                        <span class="field__label-wrap" aria-hidden="true">
-                            <span class="field__label">Họ tên</span>
+                    <div className="field field_v1 ms-4">
+                        <label for="first-name" className="ha-screen-reader">Họ tên</label>
+                        <input id="first-name" className="field__input" placeholder=" "></input>
+                        <span className="field__label-wrap" aria-hidden="true">
+                            <span className="field__label">Họ tên</span>
                         </span>
                     </div>
-                    <div class="field field_v1 ms-4">
-                        <label for="first-name" class="ha-screen-reader">Số điện thoại</label>
-                        <input id="first-name" class="field__input" placeholder=" "></input>
-                        <span class="field__label-wrap" aria-hidden="true">
-                            <span class="field__label">Số điện thoại</span>
+                    <div className="field field_v1 ms-4">
+                        <label for="first-name" className="ha-screen-reader">Số điện thoại</label>
+                        <input id="first-name" className="field__input" placeholder=" "></input>
+                        <span className="field__label-wrap" aria-hidden="true">
+                            <span className="field__label">Số điện thoại</span>
                         </span>
                     </div>
-                    <div class="field field_v1 ms-4 mb-2">
-                        <label for="first-name" class="ha-screen-reader">Địa chỉ</label>
-                        <input id="first-name" class="field__input" placeholder=" "></input>
-                        <span class="field__label-wrap" aria-hidden="true">
-                            <span class="field__label">Địa chỉ</span>
+                    <div className="field field_v1 ms-4 mb-2">
+                        <label for="first-name" className="ha-screen-reader">Địa chỉ</label>
+                        <input id="first-name" className="field__input" placeholder=" "></input>
+                        <span className="field__label-wrap" aria-hidden="true">
+                            <span className="field__label">Địa chỉ</span>
                         </span>
                     </div>
                     <div className="row mb-3">
-                        <div class="field field_v1 ms-4 col">
-                            <label  class="ha-screen-reader">Tỉnh/thành</label>
-                            <select class="field__input" placeholder=" ">
+                        <div className="field field_v1 ms-4 col">
+                            <label  className="ha-screen-reader">Tỉnh/thành</label>
+                            <select className="field__input" placeholder=" ">
                                 <option>Hồ Chí Minh</option>
                             </select>
-                            <span class="field__label-wrap" aria-hidden="true">
-                                <span class="field__label">Tỉnh/thành</span>
+                            <span className="field__label-wrap" aria-hidden="true">
+                                <span className="field__label">Tỉnh/thành</span>
                             </span>
                         </div>
-                        <div class="field field_v1 ms-3 col">
-                            <label  class="ha-screen-reader">Quận/huyện</label>
-                            <select class="field__input" placeholder=" ">
+                        <div className="field field_v1 ms-3 col">
+                            <label  className="ha-screen-reader">Quận/huyện</label>
+                            <select className="field__input" placeholder=" ">
                                 <option>Hồ Chí Minh</option>
                             </select>
-                            <span class="field__label-wrap" aria-hidden="true">
-                                <span class="field__label">Quận/huyện</span>
+                            <span className="field__label-wrap" aria-hidden="true">
+                                <span className="field__label">Quận/huyện</span>
                             </span>
                         </div>
-                        <div class="field field_v1 ms-3 col">
-                            <label  class="ha-screen-reader">Phường/xã</label>
-                            <select class="field__input" placeholder=" ">
+                        <div className="field field_v1 ms-3 col">
+                            <label  className="ha-screen-reader">Phường/xã</label>
+                            <select className="field__input" placeholder=" ">
                                 <option>Hồ Chí Minh</option>
                             </select>
-                            <span class="field__label-wrap" aria-hidden="true">
-                                <span class="field__label">Phường/xã</span>
+                            <span className="field__label-wrap" aria-hidden="true">
+                                <span className="field__label">Phường/xã</span>
                             </span>
                         </div>
                     </div>
                     <h5 className="ms-4 mb-3 mt-1">Phương thức vận chuyển</h5>
 
                     <h5 className="ms-4 mb-2 mt-1">Phương thức thanh toán</h5>
-                    <div class="field field_v1 ms-4 mb-5">
-                        <label for="first-name" class="ha-screen-reader">Phương thức thanh toán</label>
-                        <input class="field__input" placeholder=" " value="Thanh toán khi nhận hàng" disabled="true"></input>
+                    <div className="field field_v1 ms-4 mb-5">
+                        <label for="first-name" className="ha-screen-reader">Phương thức thanh toán</label>
+                        <input className="field__input" placeholder=" " value="Thanh toán khi nhận hàng" disabled="true"></input>
                     </div>
-                    <div class="shopping-cart-footer">
-                        <div ><a class="btn btn-outline-secondary mb-4" href="/shop"><i
-                            class="icon-arrow-left"></i>&nbsp;Giỏ hàng</a></div>
+                    <div className="shopping-cart-footer">
+                        <div ><a className="btn btn-outline-secondary mb-4" href="/cart"><i
+                            className="icon-arrow-left"></i>&nbsp;Giỏ hàng</a></div>
                     </div>  
                 </div> 
-                <div class="table-responsive block-right ">
+                <div className="table-responsive block-right ">
                     <h5 className="ms-4 mb-3 mt-3">Đơn hàng</h5>
-                    <table class="table">
-                        
+                    <table className="table">
                         <tbody>
-                        <tr>
+                        {cart.map((item, index) =>
+                            <tr>
                                 <td>
                                     <div className=" display-flex">
-                                        <a className="" href="#"><img className="image" src={require('./../assets/images/banner_img_02.jpg')} alt="Product"/></a>
-                                        <div className="ms-1 mt-1">
-                                            <p ><a className=" fontSize"
-                                                href="#">Áo</a></p>
-                                            <p className=" fontSize ">Size: L</p>
-                                            <p className=" fontSize ">Color: Black</p>
+                                        <a className="" href="#"><img className="image" src={item?.product?.infoProduct?.linkImg} alt="Product"/></a>
+                                        <div className="ms-2">
+                                        <p><b className=" fontSize">{item?.product?.infoProduct?.name}</b></p>
+                                        <p className=" fontSize ">Size: {item?.product?.size}</p>
+                                        <p className=" fontSize ">Color: {item?.product?.color}</p>
                                         </div>
                                     </div>
                                 </td>
-                                <td className="text-center">2</td>
-                                <td className="text-center">19000</td>
+                                <td className="text-center">{item?.amount}</td>
+                                <td className="text-right">{item?.product?.infoProduct?.price}</td>
                             </tr>
+                        )}
                         </tbody>
                     </table>
                 
-                    <table class="table">
+                    <table className="table">
                         <tbody>
                             <tr>
                                 <td>Tạm tính:</td>
@@ -120,14 +130,15 @@ const TheOrderPage = () => {
                             </tr>
                         </tfoot>
                     </table>
-                    <div class="shopping-cart-footer">
-                    <div class="column">
-                        <a class="btn btn-success" href="#"> Đặt hàng </a></div>
+                    <div className="shopping-cart-footer">
+                    <div className="column">
+                        <a className="btn btn-success" href="#"> Đặt hàng </a></div>
                 </div>
                 </div>
             </div>
-        
-    </>
+        :
+        navigate("/cart")
+}</>
 
 }
 

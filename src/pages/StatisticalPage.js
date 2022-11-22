@@ -1,14 +1,7 @@
-import {useContext, useState, useEffect, useRef} from "react";
+import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
 import "../assets/css/statistical.css";
-import axiosApiInstance from "../context/interceptor";
-import axios from "../api/axios";
-import {render} from "react-dom";
 //import {alignPropType} from "react-bootstrap/types";
-import {toast} from 'react-toastify';
-import {Form, Button, Modal} from "react-bootstrap"
-
-import Pagination from "../components/Pagination";
 import {useLocation} from "react-router-dom";
 
 const StatisticalPage = () => {
@@ -21,6 +14,10 @@ const StatisticalPage = () => {
     const clickTheOrder = (e) => {
         setStatus(2);
 
+    }
+
+    const handlePreviewReport=()=>{
+        window.open("http://localhost:8081/api/report/demo-report", '_blank').focus();
     }
     const clickImportOrder = (e) => {
         setStatus(3);
@@ -45,7 +42,7 @@ const StatisticalPage = () => {
                     <div className="canopy">
                         <p className="basic">Chọn báo cáo tháng: </p>
                         <input type="month"></input>
-                        <button className="buttonSubmit">Xem Báo Cáo</button>
+                        <button className="buttonSubmit" onClick={handlePreviewReport}>Xem Báo Cáo</button>
                     </div>
                     
                 </div>:

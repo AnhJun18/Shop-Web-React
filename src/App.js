@@ -19,6 +19,11 @@ import CartPage from "./pages/CartPage";
 import TheOrder from "./pages/TheOrderPage";
 import InforUser from "./pages/InforUser";
 import CategoryPage from "./pages/CategoryPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+import ForgotPwsPage from "./pages/UserFogotPass";
+import ChangePassword from "./pages/ChangePassword";
+import NotFound from "./components/NotFound";
+
 
 function App() {
 
@@ -32,6 +37,9 @@ function App() {
                 <Route exact path='/product' element={<ProductPage/>} />
                 <Route exact path='/customer' element={<CustomerPage/>} />
                 <Route exact path='/login' element={<LoginPage/>} />
+                <Route exact path='/register' element={<RegisterPage/>} />
+                <Route exact path='/forgot-pass' element={<ForgotPwsPage/>} />
+                <Route exact path='/change-pass' element={<ChangePassword/>} />
                 <Route exact path='/home' element={<HomePage/>} />
                 <Route exact path='/shop' element={<ShopPage/>} />
                 <Route exact path='/shop/:id'  element={<ShopPage/>} />
@@ -43,6 +51,7 @@ function App() {
                 <Route exact path='/inforUser' element={<InforUser/>} />
                 <Route exact path='/category' element={<CategoryPage/>} />
  				<Route exact path='/cart' element={<CartPage/>} />
+                <Route exact path='*' element={<NotFound/>} />
             </Routes>  
           </AuthContextProvider>
     )

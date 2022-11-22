@@ -309,11 +309,11 @@ const ProductPage = () => {
                                         </Form.Control>
                                     </Form.Group>
                                     <Form.Group className="mb-2">
-                                        {product_image ? (<ul class="list-images">
+                                        {product_image ? (<ul className="list-images">
                                             <li><img src={product_image}/></li>
                                         </ul>) : null}
                                         {images.length > 0 ?
-                                            <ul class="list-images">
+                                            <ul className="list-images">
                                                 {
                                                     images.map((image, index) => {
                                                         return <li key={index}><img src={image}/></li>
