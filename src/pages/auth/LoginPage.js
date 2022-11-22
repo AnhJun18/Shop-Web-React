@@ -1,5 +1,7 @@
 import React from "react";
 import adminLayout from "../../assets/css/login.css";
+import userLayout from "../../user/userLayout"
+import "./../../assets/css/user-view.css";
 import {Link, Navigate} from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import {useRef, useState, useEffect, useContext} from 'react';
@@ -67,4 +69,4 @@ const LoginPage = () => {
         </div>
     );
 };
-export default LoginPage;
+export default userLayout(LoginPage);
