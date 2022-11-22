@@ -22,6 +22,7 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import ForgotPwsPage from "./pages/UserFogotPass";
 import ChangePassword from "./pages/ChangePassword";
 import NotFound from "./components/NotFound";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
                 <Route exact path='/theOrder' element={<TheOrder/>} />
                 <Route exact path='/inforUser' element={<InforUser/>} />
  				<Route exact path='/cart' element={<CartPage/>} />
+                <Route exact path='/category' element={<CategoryPage/>} />
                 <Route exact path='*' element={<NotFound/>} />
             </Routes>  
           </AuthContextProvider>
