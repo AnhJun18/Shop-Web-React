@@ -446,7 +446,7 @@ button{
 
 /*******************************
 * MODAL AS LEFT/RIGHT SIDEBAR
-* Add "left" or "right" in modal parent div, after class="modal".
+* Add "left" or "right" in modal parent div, after className="modal".
 * Get free snippets on bootpen.com
 *******************************/
 .modal.left .modal-dialog,
