@@ -21,6 +21,7 @@ import InforUser from "./pages/InforUser";
 import RegisterPage from "./pages/auth/RegisterPage";
 import ForgotPwsPage from "./pages/UserFogotPass";
 import ChangePassword from "./pages/ChangePassword";
+import NotFound from "./components/NotFound";
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
                 <Route exact path='/theOrder' element={<TheOrder/>} />
                 <Route exact path='/inforUser' element={<InforUser/>} />
  				<Route exact path='/cart' element={<CartPage/>} />
+                <Route exact path='*' element={<NotFound/>} />
             </Routes>  
           </AuthContextProvider>
     )

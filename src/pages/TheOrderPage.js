@@ -85,7 +85,7 @@ const TheOrderPage = () => {
                         <input className="field__input" placeholder=" " value="Thanh toán khi nhận hàng" disabled="true"></input>
                     </div>
                     <div className="shopping-cart-footer">
-                        <div ><a className="btn btn-outline-secondary mb-4" href="/shop"><i
+                        <div ><a className="btn btn-outline-secondary mb-4" href="/cart"><i
                             className="icon-arrow-left"></i>&nbsp;Giỏ hàng</a></div>
                     </div>  
                 </div> 
@@ -105,7 +105,7 @@ const TheOrderPage = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td className="text-center">{item?.product?.current_number}</td>
+                                <td className="text-center">{item?.amount}</td>
                                 <td className="text-right">{item?.product?.infoProduct?.price}</td>
                             </tr>
                         )}
