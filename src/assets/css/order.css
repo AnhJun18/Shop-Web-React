@@ -266,7 +266,8 @@ p.fontSize {
 }
 
 .buttonStatus {
-    width: 170px;
+    width: 20%;
+    font-size: 16px;
     height: 39px;
     border: 0;
     border-radius: 2px 8px 0px 0px;
@@ -281,6 +282,7 @@ table.status-table {
 }
 
 .status-order {
+    white-space: nowrap;
     background: #f0f0f0;
     margin-left: -14px;
     margin-right: -14px;
