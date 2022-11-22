@@ -91,7 +91,7 @@ const ImportPage = () => {
     }
 
     async function getProductPaging(page, size) {
-        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/getpaging${page}&size=${size}`)
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/get_paging${page}&size=${size}`)
         setLoad(true);
         setList(result?.data.content)
         setTotalPage(result?.data?.totalPages)

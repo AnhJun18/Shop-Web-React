@@ -140,7 +140,7 @@ const ProductPage = () => {
     }
 
     async function getProduct(page, size) {
-        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/getpaging${page}&size=${size}`)
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/get_paging${page}&size=${size}`)
         setLoad(true);
         setList(result?.data.content)
         setTotalPage(result?.data.totalPages)
@@ -153,15 +153,15 @@ const ProductPage = () => {
         console.log(result)
     }
 
-    async function getCatagory() {
-        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/category/all`)
+    async function getCategory() {
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/category/all`)
         setLoad(true);
         setListCate(result?.data)
     }
 
     useEffect(() => {
         getProduct(param.search === '' ? '?page=1' : param.search, 5)
-        getCatagory();
+        getCategory();
 
     }, [param]);
 

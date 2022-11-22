@@ -14,7 +14,7 @@ axiosApiInstance.interceptors.request.use((config) => {
   config.headers = {
     'Authorization': `Bearer ${tokensData.data.accessToken}`,
     'Accept': 'application/json',
-    'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/json'
   }
   return config;
 });

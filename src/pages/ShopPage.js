@@ -54,8 +54,8 @@ const ShopPage = () => {
         }
 
 
-        async function getCatagory() {
-            const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/category/all`)
+        async function getCategory() {
+            const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/category/all`)
             setLoad(true);
             setListCate(result?.data)
         }
@@ -143,7 +143,7 @@ const ShopPage = () => {
         }
         useEffect(() => {
             getProduct();
-            getCatagory();
+            getCategory();
         }, []);
 
         return (<>
