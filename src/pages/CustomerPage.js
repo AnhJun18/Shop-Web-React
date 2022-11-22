@@ -67,7 +67,7 @@ const CustomerPage = () => {
                             <h5 className="mt22">Tìm kiếm khách hàng: </h5>
                             <form className="example style" action="/action_page.php" >
                                     <input type="text" placeholder="Search" ></input>
-                                    <button type="submit" onclick={handleSearch}><i class="fa fa-search"></i></button>
+                                    <button type="submit" onclick={handleSearch}><i className="fa fa-search"></i></button>
                             </form>
                         </div>
                         <div className="d-flex text-muted overflow-auto">

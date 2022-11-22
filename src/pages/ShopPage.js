@@ -354,37 +354,37 @@ const ShopPage = () => {
                     <Modal show={show} onHide={handleClose} size={status ? "lg" : "sm"} centered>
                         {status ?
                             <Modal.Body>
-                                <div class="container pb-5">
-                                    <div class="row">
-                                        <div class="col-lg-5 mt-5">
-                                            <div class="card mb-3">
-                                                <img class="card-img img-fluid"
+                                <div className="container pb-5">
+                                    <div className="row">
+                                        <div className="col-lg-5 mt-5">
+                                            <div className="card mb-3">
+                                                <img className="card-img img-fluid"
                                                      src={productDetail.at(0)?.infoProduct?.linkImg} alt="Card image cap"
                                                      id="product-detail"/>
                                             </div>
 
                                         </div>
                                         {/* <!-- col end --> */}
-                                        {<div class="col-lg-7 mt-5">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h1 class="h2">{productDetail.at(0)?.infoProduct?.name}</h1>
-                                                    <p class="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
+                                        {<div className="col-lg-7 mt-5">
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <h1 className="h2">{productDetail.at(0)?.infoProduct?.name}</h1>
+                                                    <p className="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
                                                         style: 'currency',
                                                         currency: 'VND'
                                                     })}</p>
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
+                                                    <ul className="list-inline">
+                                                        <li className="list-inline-item">
                                                             <h6>Avaliable Color :</h6>
                                                         </li>
-                                                        <li class="list-inline-item">
-                                                            <p class="text-muted"><strong>White / Black</strong></p>
+                                                        <li className="list-inline-item">
+                                                            <p className="text-muted"><strong>White / Black</strong></p>
                                                         </li>
                                                     </ul>
 
                                                     {<Form >
                                                         <input type="hidden" name="product-title" value="Activewear"/>
-                                                        <div class="row">
+                                                        <div className="row">
                                                             <div className="col-auto">
                                                                 Color :
                                                                 {<Form onChange={handleChangeColor}>
@@ -401,7 +401,7 @@ const ShopPage = () => {
                                                                 </Form>}
                                                             </div>
 
-                                                            <div class="col-auto">
+                                                            <div className="col-auto">
                                                                 Size
                                                                 <Form onChange={handleChangeSize}>
                                                                     {sizeAvail?.map((i) =>
@@ -417,7 +417,7 @@ const ShopPage = () => {
                                                                 </Form>
                                                             </div>
 
-                                                            <div class="col-auto flex align-items-center pb-3">
+                                                            <div className="col-auto flex align-items-center pb-3">
                                                                 <div className="list-inline-item">Color :</div>
                                                                 <div className="count-input spinner_input">
 
@@ -435,14 +435,14 @@ const ShopPage = () => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="row pb-3">
-                                                            <div class="col d-grid">
-                                                                <button type="submit" class="btn btn-success btn-lg"
+                                                        <div className="row pb-3">
+                                                            <div className="col d-grid">
+                                                                <button type="submit" className="btn btn-success btn-lg"
                                                                         name="submit" value="buy">Buy
                                                                 </button>
                                                             </div>
-                                                            <div class="col d-grid">
-                                                                <button type="submit" class="btn btn-success btn-lg"
+                                                            <div className="col d-grid">
+                                                                <button type="submit" className="btn btn-success btn-lg"
                                                                         name="submit" onClick={handleSubmitAdd}>Add To Cart
                                                                 </button>
                                                             </div>
@@ -458,7 +458,7 @@ const ShopPage = () => {
                             :
                             <Modal.Body>
                                 <div className="container pb-5">
-                                    <img class="card-img img-fluid" src={imgSelect} width="400" alt="Card image cap"
+                                    <img className="card-img img-fluid" src={imgSelect} width="400" alt="Card image cap"
                                          id="product-detail"/>
                                 </div>
                             </Modal.Body>

@@ -1,4 +1,4 @@
-import {useContext, useState, useEffect, useRef} from "react";
+import {createContext, useState, useEffect, useRef} from "react";
 import {Checkbox} from "@mui/material";
 import React from "react";
 import userLayout from "../user/userLayout"
@@ -7,17 +7,19 @@ import axiosApiInstance from "../context/interceptor";
 import InputSpinner from 'react-bootstrap-input-spinner'
 import {toast} from "react-toastify";
 import axios from "../api/axios";
+import {Link, Navigate} from 'react-router-dom';
 
 const CartPage = () => {
 
     const [myCart, setMyCart] = useState([]);
     const [status, setStatus] = useState(true);
     const [tmp, setTmp] = useState(0);
-
+    const [checkedState, setCheckedState] = useState([]);
 
     async function getCart() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/cart/all`)
         setMyCart(result?.data)
+        setCheckedState(new Array(result?.data.length).fill(false))
     }
 
     const handleUpdateCart =  (item, amount) => {
@@ -50,40 +52,63 @@ const CartPage = () => {
             toast.error("Lỗi! Vui lòng thử lại")
     }
 
+    
+
     useEffect(() => {
         getCart()
     }, [tmp])
     useEffect(() => {
-        getCart()
-    }, [])
+        getCart();
+    }, []);
+    
 
+    /* tick product to checkout */
+      const [cart, setCart] = useState([]);
+    
+      const handleOnChange = (position) => {
+        const updatedCheckedState = checkedState.map((item, index) =>
+          index === position ? !item : item
+        );
+    
+        setCheckedState(updatedCheckedState);
+        const addCheckout = updatedCheckedState.reduce(
+          (sum, current, index) => {
+            if (current === true) {
+              sum.push(myCart[index]);
+            }
+            return sum;
+          }, []
+        );
+        setCart(addCheckout);
+      };
+      console.log(cart)
     return <>
         {status ?
-            <div class="container padding-bottom-3x marginTop marginBot">
-                <div class="table-responsive shopping-cart">
+        <div>
+            <div className="container padding-bottom-3x marginTop marginBot">
+                <div className="table-responsive shopping-cart">
                     <h3 className="ms-5 mb-3 mt-1">Giỏ hàng</h3>
-                    <table class="table">
+                    <table className="table">
                         <thead>
                         <tr>
                             <th></th>
                             <th>Sản phẩm</th>
-                            <th class="text-center">Đơn giá</th>
-                            <th class="text-center">Số Lượng</th>
-                            <th class="text-center">Số tiền</th>
+                            <th className="text-center">Đơn giá</th>
+                            <th className="text-center">Số Lượng</th>
+                            <th className="text-center">Số tiền</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        {myCart.map((item) =>
+                        {myCart.map((item, index) =>
                             <tr>
-                                <td><input type="checkbox" value={false}></input></td>
+                                <td><input type="checkbox" value={item.product?.infoProduct?.name} onChange={() => handleOnChange(index)} checked={checkedState[index]}></input></td>
                                 <td>
                                     <div className="product-item">
                                         <a className="product-thumb" href="#"><img
                                             src={item.product?.infoProduct?.linkImg} alt="Product"/></a>
                                         <div className="product-info">
-                                            <h4 className="product-title"><a
-                                                href="#">{item.product?.infoProduct?.name}</a></h4>
+                                            <h4 className="product-title"><a href="#">{item.product?.infoProduct?.name}</a></h4>
                                             <span><em>Size:</em> {item.product?.size}</span>
                                             <span><em>Color:</em> {item.product?.color}</span>
                                         </div>
@@ -123,22 +148,25 @@ const CartPage = () => {
                         </tbody>
                     </table>
                 </div>
-                <div class="shopping-cart-footer">
-                    <div class="column text-lg">Subtotal: <span class="text-medium">$289.68</span></div>
+                <div className="shopping-cart-footer">
+                    <div className="column text-lg">Subtotal: <span className="text-medium">$289.68</span></div>
                 </div>
-                <div class="shopping-cart-footer">
-                    <div class="column"><a class="btn btn-outline-secondary" href="/shop"><i
-                        class="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
-                    <div class="column">
-                        <a class="btn btn-success" href="#">Đặt hàng</a></div>
+                <div className="shopping-cart-footer">
+                    <div className="column"><a className="btn btn-outline-secondary" href="/shop"><i
+                        className="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
+                    <div className="column">
+                        <Link className="btn btn-success" to="/theorder" state={cart}>Đặt hàng</Link>
+                    </div>
+                        
                 </div>
             </div>
+        </div> 
             :
-            <div class="container padding-bottom-3x marginTop marginBot">
+            <div className="container padding-bottom-3x marginTop marginBot">
                 <h3 className="ms-5 mb-3 mt-1">Giỏ hàng</h3>
                 <p className="ms-3 mt-2">Không có sản phẩm trong giỏ hàng</p>
-                <div class="column ms-3"><a class="btn btn-outline-secondary mt-5" href="/shop"><i
-                    class="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
+                <div className="column ms-3"><a className="btn btn-outline-secondary mt-5" href="/shop"><i
+                    className="icon-arrow-left"></i>&nbsp;Back to Shopping</a></div>
             </div>
         }
 

@@ -139,10 +139,10 @@ const Management = () => {
                             </select>
                         </div>
                         <div className="col-lg-4 col-md-4 ms-auto">
-                            <div class="d-flex">
-                                <label class="p-2">Từ</label> <input className="form-control" id="fromDate" type="date"
+                            <div className="d-flex">
+                                <label className="p-2">Từ</label> <input className="form-control" id="fromDate" type="date"
                                                                      onChange={handleSearch}/>
-                                <label class="p-2">Tới</label> <input className="form-control" id="toDate" type="date"
+                                <label className="p-2">Tới</label> <input className="form-control" id="toDate" type="date"
                                                                       onChange={handleSearch}/>
                             </div>
                         </div>
