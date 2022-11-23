@@ -30,15 +30,16 @@ const StatisticalPage = () => {
     return (
         <>{
             load ?
-            <div>
-                <div className="block ">
+            <div className="container padding-bottom-3x">
+                <div className="marginTop">
                     <button className={status==1? "ms-2 buttonHead active": "ms-2 buttonHead"} onClick={clickTurnover}>Doanh thu</button>
-                    <button className={status==2? "ms-1 buttonHead active": "ms-2 buttonHead"} onClick={clickTheOrder}>Đơn đặt</button>
-                    <button className={status==3? "ms-1 buttonHead active": "ms-2 buttonHead"} onClick={clickImportOrder}>Đơn nhập</button>
+                    <button className={status==2? "ms-2 buttonHead active": "ms-2 buttonHead"} onClick={clickTheOrder}>Đơn đặt</button>
+                    <button className={status==3? "ms-2 buttonHead active": "ms-2 buttonHead"} onClick={clickImportOrder}>Đơn nhập</button>
                 </div>
+
                 {status ==1 ?
-                <div className="screen">
-                    <h3 className="screenHeader">Thống Kê Doanh Thu Theo Tháng</h3>
+                <div className="screen py-2 bg-white">
+                    <h3 className="screenHeader mb-5">Thống Kê Doanh Thu Theo Tháng</h3>
                     <div className="canopy">
                         <p className="basic">Chọn báo cáo tháng: </p>
                         <input type="month"></input>
@@ -47,16 +48,16 @@ const StatisticalPage = () => {
                     
                 </div>:
                 status == 2 ?
-                <div className="screen">
-                    <h3 className="screenHeader">Thống Kê Đơn Đặt Theo Tháng</h3>
+                <div className="screen py-2 bg-white">
+                    <h3 className="screenHeader mb-5">Thống Kê Đơn Đặt Theo Tháng</h3>
                     <div className="canopy">
                         <p className="basic">Chọn báo cáo tháng: </p>
                         <input type="month"></input>
                         <button className="buttonSubmit">Xem Báo Cáo</button>
                     </div>
                 </div>:
-                <div className="screen">
-                    <h3 className="screenHeader">Thống Kê Đơn Nhập Theo Tháng</h3>
+                <div className="screen py-2 bg-white">
+                    <h3 className="screenHeader mb-5">Thống Kê Đơn Nhập Theo Tháng</h3>
                     <div className="canopy">
                         <p className="basic">Chọn báo cáo tháng: </p>
                         <input type="month"></input>
