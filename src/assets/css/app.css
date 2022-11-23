@@ -131,6 +131,10 @@ ul ul a {
     left: 0px;
   }
 
+  div.info{
+    padding-bottom: 10px;
+  }
+  
   .fixed-bottom-dropdown {
     display: none !important;
   }

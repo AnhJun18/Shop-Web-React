@@ -223,6 +223,10 @@ body, ul, li, p, a, label, input, div {
     padding-right: 15px !important;
 }
 
+p.content{
+    text-align: justify;
+}
+
 .navbar.header {
     height: 72px;
     color: whitesmoke;

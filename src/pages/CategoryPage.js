@@ -42,21 +42,21 @@ const CategoryPage = () => {
             const query = form === "add" ? await axiosApiInstance.post(axiosApiInstance.defaults.baseURL + `/api/category`, payload) :
                 await axiosApiInstance.put(axiosApiInstance.defaults.baseURL + `/api/category/update/${id}`, payload)
             if (query?.data.status === 200)
-                 toast.success(query?.data.message)
+                toast.success(query?.data.message)
             else
-                toast.error(query?.data?.message+"! Vui lòng thử lại")
+                toast.error(query?.data?.message + "! Vui lòng thử lại")
             setChange(!change)
             setShow(false)
         }
 
-    const handleDelete = async (e) => {
-        const query =  await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL + `/api/category/delete/${e.target.id}`)
-        if (query?.data.status === 200)
-             toast.success(query?.data.message)
-        else
-            toast.error(query?.data.message+"! Vui lòng thử lại")
-        setChange(!change)
-    }
+        const handleDelete = async (e) => {
+            const query = await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL + `/api/category/delete/${e.target.id}`)
+            if (query?.data.status === 200)
+                toast.success(query?.data.message)
+            else
+                toast.error(query?.data.message + "! Vui lòng thử lại")
+            setChange(!change)
+        }
 
 
         useEffect(() => {
@@ -96,14 +96,15 @@ const CategoryPage = () => {
                                                 <td style={{whiteSpace: 'nowrap'}}>
                                                     <button type="button"
                                                             className="btn btn-outline-warning btn-light btn-sm mx-sm-1 px-lg-2 w-32"
-                                                            title="Chỉnh sửa"><i id={item.id} title={item.name}
-                                                                                 className="fa fa-pencil" aria-hidden="true"
-                                                                                 onClick={handleInfo}></i>
+                                                            title="Chỉnh sửa" id={item.id} title={item.name}
+                                                            onClick={handleInfo}>
+                                                    <i className="fa fa-pencil" aria-hidden="true"></i>
                                                     </button>
 
-                                                    <button type="button"
+                                                    <button type="button" id={item.id} title={item.name} onClick={handleDelete}
                                                             className="btn btn-outline-danger btn-light btn-sm mx-sm-1 px-lg-2 w-32"
-                                                            title="Xóa"><i id={item.id} title={item.name} className="fa fa-times" onClick={handleDelete}
+                                                            title="Xóa"><i
+                                                                           className="fa fa-times"
                                                                            aria-hidden="true"></i>
                                                     </button>
                                                 </td>

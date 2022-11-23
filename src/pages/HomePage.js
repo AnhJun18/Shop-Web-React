@@ -175,47 +175,45 @@ const HomePage = () => {
         {/* <!-- End Banner Hero --> */}
 
         {/*Start Chinh sach*/}
-        <section class="container py-5">
-            <div class="row text-center pt-3">
-                <div class="col-md-3">
+        <section class="container ">
+            <div class="row text-center pt-3 ">
+                <div class="col-md-3 info">
                     <h2 class="home-icon">
                         <i class="fa fa-truck"></i>
                     </h2>
-                    <h3 class="h3 text-decoration-none">
+                    <h3 class="h6 text-decoration-none">
                         GIAO HÀNG TOÀN QUỐC
                     </h3>
                     <p class="content">Thời gian giao hàng linh động từ 3 - 4 - 5 ngày tùy khu vực, đôi khi sẽ nhanh hơn
-                        hoặc chậm hơn. Mong Quý Khách hàng thông cảm và cố gắng đợi hàng giúp shop.</p>
+                        hoặc chậm hơn. Mong Quý Khách hàng thông cảm.</p>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 info">
                     <h2 class="home-icon">
                         <i class="fa fa-refresh"></i>
                     </h2>
-                    <h3 class="h3 text-decoration-none">
+                    <h3 class="h6 text-decoration-none">
                         CHÍNH SÁCH ĐỔI TRẢ HÀNG
                     </h3>
                     <p class="content">Sản phẩm được phép đổi hàng trong vòng 36h nếu phát sinh lỗi từ nhà sản
                         xuất &#40;Yêu cầu: hình ảnh phần bị lỗi rõ nét, chi tiết và đầy đủ&#41;.</p>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 info">
                     <h2 class="home-icon">
                         <i class="fa fa-truck"></i>
                     </h2>
-                    <h3 class="h3 text-decoration-none">
+                    <h3 class="h6 text-decoration-none">
                         GIAO HÀNG NHẬN TIỀN VÀ KIỂM KÊ ĐƠN HÀNG
                     </h3>
-                    <p class="content">Được phép kiểm hàng trước khi thanh toán. Lưu ý: Trường hợp Quý Khách hàng đã
-                        nhận hàng về nhà, vui lòng quay video unbox đơn hàng trong tình trạng nguyên vẹn để có căn cứ
-                        xác thực đơn hàng gặp phải vấn đề, trường hợp không có video shop không thể hỗ trợ.</p>
+                    <p class="content">Được phép kiểm hàng trước khi thanh toán.</p>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 info">
                     <h2 class="home-icon">
                         <i class="fa fa-phone"></i>
                     </h2>
-                    <h3 class="h3 text-decoration-none">
+                    <h3 class="h6 text-decoration-none">
                         ĐẶT HÀNG ONLINE VÀ KIỂM TRA ĐƠN HÀNG VUI LÒNG LIÊN HỆ
                     </h3>
                     <p class="content">Hotline: 012 345 6789.</p>
