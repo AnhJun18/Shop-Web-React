@@ -42,7 +42,7 @@ function App() {
                 <Route exact path='/home' element={<HomePage/>} />
                 <Route exact path='/shop' element={<ShopPage/>} />
                 <Route exact path='/shop/:id'  element={<ShopPage/>} />
-                <Route exact path='/choosing' element={<ChoosingPage/>} />
+                <Route exact path='/product/:id' element={<ChoosingPage/>} />
                 <Route exact path='/order' element={<Management/>} />
                 <Route exact path='/import' element={<Import/>} />
                 <Route exact path='/statistical' element={<Statistical/>} />

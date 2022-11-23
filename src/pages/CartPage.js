@@ -15,6 +15,9 @@ const CartPage = () => {
     const [status, setStatus] = useState(true);
     const [tmp, setTmp] = useState(0);
     const [checkedState, setCheckedState] = useState([]);
+    const [total, setTotal] = useState(0);
+    const [cart, setCart] = useState([]);
+
 
     async function getCart() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/cart/all`)
@@ -22,23 +25,22 @@ const CartPage = () => {
         setCheckedState(new Array(result?.data.length).fill(false))
     }
 
-    const handleUpdateCart =  (item, amount) => {
-        const body={
+    const handleUpdateCart =  async (item, amount) => {
+        const body = {
             "productID": item?.product?.id,
             "amount": amount
         }
-         axios({
-                method: 'put',
-                url: axiosApiInstance.defaults.baseURL + `/api/cart/update`,
-                headers: {
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("tokens")).data.accessToken}`,
-                    'Accept': '*/*',
-                    'Content-Type': 'application/json'
-                },
-                data: body
-            });
-
-
+       await axios({
+            method: 'put',
+            url: axiosApiInstance.defaults.baseURL + `/api/cart/update`,
+            headers: {
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem("tokens")).data.accessToken}`,
+                'Accept': '*/*',
+                'Content-Type': 'application/json'
+            },
+            data: body
+        });
+        setTmp(tmp+1)
 
     }
 
@@ -52,7 +54,15 @@ const CartPage = () => {
             toast.error("Lỗi! Vui lòng thử lại")
     }
 
-    
+
+    const getTotal = ()=>{
+        let t=0
+        cart.forEach(i=>{
+            t+=i.amount*i?.product?.infoProduct?.price
+        })
+        setTotal(t)
+    }
+
 
     useEffect(() => {
         getCart()
@@ -60,11 +70,12 @@ const CartPage = () => {
     useEffect(() => {
         getCart();
     }, []);
+    useEffect(() => {
+        getTotal()
+    }, [cart])
     
 
     /* tick product to checkout */
-      const [cart, setCart] = useState([]);
-    
       const handleOnChange = (position) => {
         const updatedCheckedState = checkedState.map((item, index) =>
           index === position ? !item : item
@@ -81,7 +92,7 @@ const CartPage = () => {
         );
         setCart(addCheckout);
       };
-      console.log(cart)
+
     return <>
         {status ?
         <div>
@@ -149,7 +160,11 @@ const CartPage = () => {
                     </table>
                 </div>
                 <div className="shopping-cart-footer">
-                    <div className="column text-lg">Subtotal: <span className="text-medium">$289.68</span></div>
+
+                    <div className="column text-lg"><strong>Tổng tiền: </strong><span className="text-medium">{total.toLocaleString('vi', {
+                        style: 'currency',
+                        currency: 'VND'
+                    })}</span></div>
                 </div>
                 <div className="shopping-cart-footer">
                     <div className="column"><a className="btn btn-outline-secondary" href="/shop"><i

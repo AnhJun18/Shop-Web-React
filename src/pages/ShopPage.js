@@ -195,7 +195,7 @@ const ShopPage = () => {
                                     {list.map((item) => (
                                         <div className="col-md-3">
                                             <div className="card mb-3 product-wap rounded-0">
-                                                <div className="card rounded-0">
+                                                <div className="card rounded-0"  >
                                                     <img className="img-config card-img rounded-0 img-fluid"
                                                          src={item.linkImg}/>
                                                     <div
@@ -209,7 +209,7 @@ const ShopPage = () => {
                                                 </div>
                                                 <div className="card-body">
                                                     <div className="">
-                                                        <a href="shop-single.html"
+                                                        <a href={`/product/${item?.id}`}
                                                            className="h3 text-decoration-none text-config"
                                                            title={item.name}>{item.name}</a>
                                                     </div>
