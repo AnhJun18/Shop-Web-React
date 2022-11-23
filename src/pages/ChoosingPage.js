@@ -7,125 +7,53 @@ import {Modal, Button, Form} from "react-bootstrap"
 import InputSpinner from "react-bootstrap-input-spinner";
 import {toast} from "react-toastify";
 import axios from "../api/axios";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 
 const ChoosingPage = () => {
-    const productDetail = [
-        {
-            "id": 17,
-            "infoProduct": {
-                "id": 7,
-                "name": "Áo Khoác Lá Cổ 12VAHDT",
-                "linkImg": "https://firebasestorage.googleapis.com/v0/b/fir-myshop-lpa.appspot.com/o/e9e26a04-2ab2-4aed-b5b4-a34590b97470jpg?alt=media",
-                "category": {
-                    "id": 1,
-                    "name": "Áo khoác"
-                },
-                "describe": "Chất liệu: Poly.  Áo khoác Form Rộng",
-                "price": 169000,
-                "sold": 4
-            },
-            "size": "XL",
-            "color": "Black-White",
-            "current_number": 3
-        },
-        {
-            "id": 18,
-            "infoProduct": {
-                "id": 7,
-                "name": "Áo Khoác Lá Cổ 12VAHDT",
-                "linkImg": "https://firebasestorage.googleapis.com/v0/b/fir-myshop-lpa.appspot.com/o/e9e26a04-2ab2-4aed-b5b4-a34590b97470jpg?alt=media",
-                "category": {
-                    "id": 1,
-                    "name": "Áo khoác"
-                },
-                "describe": "Chất liệu: Poly.  Áo khoác Form Rộng",
-                "price": 169000,
-                "sold": 4
-            },
-            "size": "L",
-            "color": "Black-White",
-            "current_number": 6
-        },
-        {
-            "id": 19,
-            "infoProduct": {
-                "id": 7,
-                "name": "Áo Khoác Lá Cổ 12VAHDT",
-                "linkImg": "https://firebasestorage.googleapis.com/v0/b/fir-myshop-lpa.appspot.com/o/e9e26a04-2ab2-4aed-b5b4-a34590b97470jpg?alt=media",
-                "category": {
-                    "id": 1,
-                    "name": "Áo khoác"
-                },
-                "describe": "Chất liệu: Poly.  Áo khoác Form Rộng",
-                "price": 169000,
-                "sold": 4
-            },
-            "size": "M",
-            "color": "Black-White",
-            "current_number": 5
-        },
-        {
-            "id": 20,
-            "infoProduct": {
-                "id": 7,
-                "name": "Áo Khoác Lá Cổ 12VAHDT",
-                "linkImg": "https://firebasestorage.googleapis.com/v0/b/fir-myshop-lpa.appspot.com/o/e9e26a04-2ab2-4aed-b5b4-a34590b97470jpg?alt=media",
-                "category": {
-                    "id": 1,
-                    "name": "Áo khoác"
-                },
-                "describe": "Chất liệu: Poly.  Áo khoác Form Rộng",
-                "price": 169000,
-                "sold": 4
-            },
-            "size": "S",
-            "color": "Black-White",
-            "current_number": 1
-        },
-        {
-            "id": 58,
-            "infoProduct": {
-                "id": 7,
-                "name": "Áo Khoác Lá Cổ 12VAHDT",
-                "linkImg": "https://firebasestorage.googleapis.com/v0/b/fir-myshop-lpa.appspot.com/o/e9e26a04-2ab2-4aed-b5b4-a34590b97470jpg?alt=media",
-                "category": {
-                    "id": 1,
-                    "name": "Áo khoác"
-                },
-                "describe": "Chất liệu: Poly.  Áo khoác Form Rộng",
-                "price": 169000,
-                "sold": 4
-            },
-            "size": "S",
-            "color": "Ð?",
-            "current_number": 13
-        },
-        {
-            "id": 62,
-            "infoProduct": {
-                "id": 7,
-                "name": "Áo Khoác Lá Cổ 12VAHDT",
-                "linkImg": "https://firebasestorage.googleapis.com/v0/b/fir-myshop-lpa.appspot.com/o/e9e26a04-2ab2-4aed-b5b4-a34590b97470jpg?alt=media",
-                "category": {
-                    "id": 1,
-                    "name": "Áo khoác"
-                },
-                "describe": "Chất liệu: Poly.  Áo khoác Form Rộng",
-                "price": 169000,
-                "sold": 4
-            },
-            "size": "L",
-            "color": "Ðen",
-            "current_number": 12
-        }
-    ]
-    
-    const [imgSelect, setImgSelect] = useState();
+    let param = useLocation().pathname.split("/").at(2);
+    const [productDetail,setProduct] = useState([])
     const [colorAvail, setColorAvail] = useState(new Set());
     const [sizeAvail, setSizeAvail] = useState();
     const [item, setItem] = useState({})
+    const [order, setOrder] = useState([{}]
+    )
+    async function getProduct() {
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${param}`);
+        setProduct(result?.data)
+        const setColor = new Set()
+        result?.data?.forEach(i => {
+            setColor.add(i?.color)
+        })
+
+        setColorAvail(setColor)
+    }
+
+    useEffect(()=>{
+            getProduct()
+    },[])
+    useEffect(()=>{
+        getProduct()
+    },[param])
+
+
+    const handleAddCart = async (id, amount) => {
+        const body = {
+            "productID": id,
+            "amount": amount
+        }
+        const result = await axios({
+            method: 'post',
+            url: axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`,
+            headers: {
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem("tokens")).data.accessToken}`,
+                'Accept': '*/*',
+                'Content-Type': 'application/json'
+            },
+            data: body
+        });
+        return result
+    }
 
     const handleChangeColor = (e) => {
         item.color = e.target.id
@@ -141,6 +69,44 @@ const ChoosingPage = () => {
         item.sl = e
         setItem(item)
         console.log(e)
+    }
+
+    const buyNow = (e)=>{
+        if(item.color && item.size){
+            order.amount=item.size
+            order.product=productDetail.find(i=> i.color === item.color && i.size === item.size)
+            setOrder(order)
+            console.log(order)
+        }else {
+            toast.error("Vui lòng chọn đủ thông tin")
+        }
+        e.preventDefault()
+    }
+
+    const handleSubmitAdd = async (e) => {
+        e.preventDefault()
+        const newItem = productDetail.find(i => i?.color === item.color && i?.size == item.size)
+        if (newItem) {
+            if (newItem?.current_number < item?.sl)
+                toast.error("Sản phẩm không đủ số lượng bạn cần! \n Vui lòng giảm số lượng!")
+            else {
+                let kq = null;
+                try {
+                    kq = await handleAddCart(newItem?.id, item.sl ? item?.sl : 1)
+                } catch (e) {
+
+                }
+                if (kq?.data?.status === 200) {
+                    setItem({})
+                    toast.success("Sản phẩm đã được thêm vao giỏ hàng của bạn!", {position: "top-center"})
+                } else {
+                    toast.error("Thất bại! Vui lòng thử lại")
+                }
+            }
+
+        } else {
+            toast.error("Vui lòng chọn màu và kích thước phù hợp!")
+        }
     }
 
 useEffect(() => {
@@ -198,7 +164,7 @@ useEffect(() => {
                                     <div class="col-full">
                                         <strong>Size</strong>
                                         <Form onChange={handleChangeSize}>
-                                            {sizeAvail?.map((i) =>
+                                           {sizeAvail?.map((i) =>
                                                 <Form.Check
                                                     inline
                                                     reverse
@@ -231,13 +197,11 @@ useEffect(() => {
                                 </div>
                                 <div class="row pb-3">
                                     <div class="col d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg"
-                                                name="submit" value="buy">Buy
-                                        </button>
+                                      <Link class="btn btn-success btn-lg" to="/theorder" state={order} onClick={buyNow}>Mua ngay</Link>
                                     </div>
                                     <div class="col d-grid">
                                         <button type="submit" class="btn btn-success btn-lg"
-                                                name="submit" >Add To Cart
+                                                name="submit" onClick={handleSubmitAdd}>Thêm giỏ hàng
                                         </button>
                                     </div>
                                 </div>
