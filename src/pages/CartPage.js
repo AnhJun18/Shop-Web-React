@@ -30,7 +30,7 @@ const CartPage = () => {
             "productID": item?.product?.id,
             "amount": amount
         }
-       await axios({
+        axios({
             method: 'put',
             url: axiosApiInstance.defaults.baseURL + `/api/cart/update`,
             headers: {
@@ -40,8 +40,13 @@ const CartPage = () => {
             },
             data: body
         });
-        setTmp(tmp+1)
 
+        cart.forEach(i=>{
+            if (i.idCart===item?.idCart)
+                i.amount=amount
+        })
+        getTotal(item?.idCart);
+        setCart(cart)
     }
 
     const handleDeleteItem = async (e) => {
@@ -55,7 +60,7 @@ const CartPage = () => {
     }
 
 
-    const getTotal = ()=>{
+    const getTotal = (itemChange)=>{
         let t=0
         cart.forEach(i=>{
             t+=i.amount*i?.product?.infoProduct?.price
@@ -73,7 +78,8 @@ const CartPage = () => {
     useEffect(() => {
         getTotal()
     }, [cart])
-    
+    useEffect(() => {
+    }, [myCart])
 
     /* tick product to checkout */
       const handleOnChange = (position) => {
@@ -112,6 +118,7 @@ const CartPage = () => {
                         </thead>
                         <tbody>
                         {myCart.map((item, index) =>
+
                             <tr>
                                 <td><input type="checkbox" value={item.product?.infoProduct?.name} onChange={() => handleOnChange(index)} checked={checkedState[index]}></input></td>
                                 <td>

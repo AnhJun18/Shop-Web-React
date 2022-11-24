@@ -236,7 +236,7 @@ const Management = () => {
                                 <div className="ctm_address">Địa chỉ: <div
                                     className="pull-right">{orderSelected?.address}</div></div>
                             </div>
-                            <div className="detail_order overflow-auto">
+                            <div className="detail_order overflow-auto w-100">
                                 {orderSelected?.orderDetails?.map((item) =>
                                     <div className="item_product">
                                         {/*<div className="item_id">{item.id}</div>*/}

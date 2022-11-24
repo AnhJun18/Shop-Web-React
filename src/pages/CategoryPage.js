@@ -24,8 +24,8 @@ const CategoryPage = () => {
 
         const handleInfo = (e) => {
             setForm("edit")
-            setName(e.target.title)
-            setID(e.target.id)
+            setName(e.currentTarget.title)
+            setID(e.currentTarget.id)
             setShow(true);
         }
         const handleShowAdd = (e) => {
@@ -50,7 +50,7 @@ const CategoryPage = () => {
         }
 
         const handleDelete = async (e) => {
-            const query = await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL + `/api/category/delete/${e.target.id}`)
+            const query = await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL + `/api/category/delete/${e.currentTarget.id}`)
             if (query?.data.status === 200)
                 toast.success(query?.data.message)
             else
