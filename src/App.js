@@ -1,6 +1,6 @@
 import 'font-awesome/css/font-awesome.min.css';
 import './assets/css/app.css';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import DashboardPage from './pages/DashboardPage';
 import TablePage from './pages/TablePage'
 import ProfilePage from './pages/profile/ProfilePage';
@@ -17,42 +17,52 @@ import Import from "./pages/ImportPage";
 import Statistical from "./pages/StatisticalPage";
 import CartPage from "./pages/CartPage";
 import TheOrder from "./pages/TheOrderPage";
-import InforUser from "./pages/InforUser";
-import RegisterPage from "./pages/auth/RegisterPage";
-import ForgotPwsPage from "./pages/UserFogotPass";
-import ChangePassword from "./pages/ChangePassword";
 import NotFound from "./components/NotFound";
 import CategoryPage from "./pages/CategoryPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+import InforUser from "./pages/InforUser";
+import UserFogotPass from "./pages/UserFogotPass";
 
 function App() {
-
-  return (
-          <AuthContextProvider>
+    const useName = localStorage.getItem('useName');
+    return (
+        <AuthContextProvider>
             <Routes>
-                <Route exact path='/' element={<DashboardPage/>} />
-                <Route exact path='/profile' element={<ProfilePage/>} />
-                <Route exact path='/table' element={<TablePage/>} />
-                <Route exact path='/blank-page' element={<AdminBlankPage/>} />
-                <Route exact path='/product' element={<ProductPage/>} />
-                <Route exact path='/customer' element={<CustomerPage/>} />
-                <Route exact path='/login' element={<LoginPage/>} />
-                <Route exact path='/register' element={<RegisterPage/>} />
-                <Route exact path='/forgot-pass' element={<ForgotPwsPage/>} />
-                <Route exact path='/change-pass' element={<ChangePassword/>} />
-                <Route exact path='/home' element={<HomePage/>} />
-                <Route exact path='/shop' element={<ShopPage/>} />
-                <Route exact path='/shop/:id'  element={<ShopPage/>} />
-                <Route exact path='/product/:id' element={<ChoosingPage/>} />
-                <Route exact path='/order' element={<Management/>} />
-                <Route exact path='/import' element={<Import/>} />
-                <Route exact path='/statistical' element={<Statistical/>} />
-                <Route exact path='/theOrder' element={<TheOrder/>} />
-                <Route exact path='/inforUser' element={<InforUser/>} />
- 				<Route exact path='/cart' element={<CartPage/>} />
-                <Route exact path='/category' element={<CategoryPage/>} />
-                <Route exact path='*' element={<NotFound/>} />
-            </Routes>  
-          </AuthContextProvider>
+                <Route path='/login' element={<LoginPage/>} />
+                {useName === 'admin' ?
+                    <>
+                        <Route path='/' element={<DashboardPage/>} />
+                        <Route path='/profile' element={<ProfilePage/>} />
+                        <Route path='/table' element={<TablePage/>} />
+                        <Route path='/order' element={<Management/>} />
+                        <Route path='/category' element={<CategoryPage/>} />
+                        <Route path='/product' element={<ProductPage/>} />
+                        <Route path='/customer' element={<CustomerPage/>} />
+                        <Route path='/import' element={<Import/>} />
+                        <Route path='/statistical' element={<Statistical/>} />
+
+                    </>
+                    :(useName === 'user' ?
+                        <>
+                            <Route path='/' element={<HomePage/>} />
+                            <Route path='/register' element={<RegisterPage/>} />
+                            <Route path='/profile' element={<InforUser/>} />
+                            <Route path='/forgot-pass' element={<UserFogotPass/>} />
+                            <Route path='/home' element={<HomePage/>} />
+                            <Route path='/shop' element={<ShopPage/>}/>
+                            <Route path='/product/:id' element={<ChoosingPage/>} />
+                            <Route path='/cart' element={<CartPage/>} />
+                            <Route path='/theOrder' element={<TheOrder/>} />
+                        </>
+                        :
+                        <>
+                            <Route path='*' element={<NotFound/>} />
+                        </>)
+
+                }
+                <Route path='*' element={<NotFound/>} />
+            </Routes>
+        </AuthContextProvider>
     )
 }
 
