@@ -119,15 +119,18 @@ const CategoryPage = () => {
                                         <Modal.Title>Danh mục</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
+                                    <Form onSubmit={handleSubmit}> 
                                         <Form.Group className="mb-2">
                                             <Form.Control type="text" placeholder="Tên danh mục" name="name" required
                                                           value={category_name} onChange={(e) => setName(e.target.value)}/>
                                         </Form.Group>
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button variant="success" onClick={handleSubmit}>
+                                        <Button variant="success" type="submit">
                                             {form === "edit" ? "Cập nhật" : "Thêm"}
                                         </Button>
+                                    </Form>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        
                                     </Modal.Footer>
                                 </Modal>
                             }

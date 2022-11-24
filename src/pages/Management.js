@@ -207,8 +207,8 @@ const Management = () => {
                                                         onClick={handleShow}>
                                                     <i className="fa fa-info"/>
                                                 </button> :
-                                                <button type="button" className="btn btn-outline-primary btn-sm me-2 w-32">
-                                                    <i className="fa fa-pencil" onClick={handleShow}/>
+                                                <button type="button" onClick={handleShow} className="btn btn-outline-primary btn-sm me-2 w-32">
+                                                    <i className="fa fa-pencil" />
                                                 </button>
                                             }
                                         </td>

@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
+import {Button, Form, Modal} from "react-bootstrap"
 import "../assets/css/statistical.css";
 //import {alignPropType} from "react-bootstrap/types";
 import {useLocation} from "react-router-dom";
@@ -38,15 +39,15 @@ const StatisticalPage = () => {
                 </div>
 
                 {status ==1 ?
-                <div className="screen py-2 bg-white">
+                <Form onSubmit={handlePreviewReport} className="screen py-2 bg-white">
                     <h3 className="screenHeader mb-5">Thống Kê Doanh Thu Theo Tháng</h3>
                     <div className="canopy">
                         <p className="basic">Chọn báo cáo tháng: </p>
-                        <input type="month"></input>
-                        <button className="buttonSubmit" onClick={handlePreviewReport}>Xem Báo Cáo</button>
-                    </div>
-                    
-                </div>:
+                        <input type="month" required></input>
+                        <button className="buttonSubmit" type="submit">Xem Báo Cáo</button>
+                </div>
+                </Form>
+                :
                 status == 2 ?
                 <div className="screen py-2 bg-white">
                     <h3 className="screenHeader mb-5">Thống Kê Đơn Đặt Theo Tháng</h3>

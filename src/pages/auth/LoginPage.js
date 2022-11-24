@@ -55,7 +55,7 @@ const LoginPage = () => {
                                     </label><a className="form-recovery" href="#">Quên mật khẩu?</a>
                                 </div>
                                 <div className="form-group">
-                                    <button variant="primary" type="button" onClick={loginSubmit}>Log In</button>
+                                    <button variant="primary" type="submit">Log In</button>
                                 </div>
                                 <p className="form-group text">
                                     Bạn chưa có tài khoản?

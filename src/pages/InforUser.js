@@ -102,7 +102,7 @@ const InforUser = () => {
                                     <div className="field field_v1 col">
                                         <label htmlFor="first-name" className="ha-screen-reader">Số điện
                                             thoại</label>
-                                        <input id="phone" className="field__input" onChange={handleChangProfile}
+                                        <input id="phone" className="field__input"  required="required" onChange={handleChangProfile}
                                                defaultValue={profile?.phone}
                                                placeholder=" "></input>
                                         <span className="field__label-wrap" aria-hidden="true">
@@ -151,7 +151,7 @@ const InforUser = () => {
                                     <span className="field__label">Địa chỉ</span>
                                 </span>
                                 </div>
-                                <button>Thay đổi thông tin
+                                <button type="submit">Thay đổi thông tin
                                 </button>
                                 <a className="changePass" onClick={clickChangePass}> Đổi mật khẩu</a>
 
