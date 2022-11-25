@@ -52,5 +52,11 @@
   "devDependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2"
-  }
+  },
+  "engines": {
+    "node": "14.17.3",
+    "npm": "6.14.13"
+  },
+  "stack": "heroku-20"
+
 }
