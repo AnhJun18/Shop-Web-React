@@ -40,9 +40,6 @@ const InforUser = () => {
     const handleChangProfile = (e) => {
         const id = e.target.id
         infoChange[id] = e.currentTarget.value
-        console.log(e.currentTarget.value)
-        console.log(infoChange)
-
     }
 
     useEffect(() => {
@@ -60,6 +57,18 @@ const InforUser = () => {
     }
     const clickStatus = (e) => {
         setTmp(e.target.id)
+    }
+
+    const updateProfile = async () => {
+        console.log(infoChange)
+        if(Object.keys(infoChange).length !== 0){
+            const result = await axiosApiInstance.put(axiosApiInstance.defaults.baseURL + `/api/user/profile`,infoChange)
+            if(result?.data.status===200)
+               toast.success("Thông tin đã được cập nhật")
+            else
+                toast.error("Cập nhật thất bại!")
+
+        }
     }
 
     return <>
@@ -140,7 +149,7 @@ const InforUser = () => {
                                 </span>
                                 </div>
                                 <div className="col-10 mt-3 mb-3 m-auto">
-                                    <button className="btn btn-success w-100" > Đổi thông tin  </button>
+                                    <button className="btn btn-success w-100"  onClick={updateProfile}> Cập nhật thông tin </button>
                                 </div>
                                 <Link className="changePass" to="/change-pass"> Đổi mật khẩu</Link>
 
