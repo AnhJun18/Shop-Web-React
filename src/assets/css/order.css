@@ -313,14 +313,42 @@ p.fontSizeInfor {
 .changePass {
     text-decoration: underline;
     color: rgb(81, 180, 238);
-    font-size: 14px !important;
+    font-size: 15px !important;
 }
 
 .changePass:hover {
     color: rgb(7, 121, 121);
     text-decoration: underline;
 }
- 
+.radio-wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    zoom: 1;
+    display: flex;
+    justify-content: space-around;
+}
+.form-wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+.borderForm {
+    width: 90%;
+    border-style: ridge;
+    border-radius: 20px;
+    background-color: #fffbfb;
+    padding: 15px 14px 15px 0px
+}
+.radio-lable {
+    display: flex;
+    align-items: center;
+    
+}
+.radio-input {
+    padding-right: 0.75em;
+}
+span.font {
+    font-size: 15px;
+}
   
   
   

@@ -2,6 +2,7 @@ import {useContext, useState, useEffect, useRef} from "react";
 import {Checkbox} from "@mui/material";
 import React from "react";
 import {Button, Form, Modal} from "react-bootstrap"
+import {Link, Navigate} from 'react-router-dom';
 import "./../assets/css/order.css";
 import userLayout from "../user/userLayout"
 import axiosApiInstance from "../context/interceptor";
@@ -21,9 +22,6 @@ const InforUser = () => {
     const [tmp, setTmp] = useState(listST.at(0));
 
     let total;
-    const clickChangePass = (e) => {
-        setModalForm(true);
-    }
 
     async function getProfile() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/user/profile`);
@@ -118,17 +116,7 @@ const InforUser = () => {
                                     </span>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="field field_v1 col-6">
-                                        <label htmlFor="first-name" className="ha-screen-reader">Ngày sinh</label>
-                                        <input type="date" className="field__input" onChange={handleChangProfile}
-                                               placeholder=" "></input>
-                                        <span className="field__label-wrap" aria-hidden="true">
-                                        <span className="field__label">Ngày sinh</span>
-                                    </span>
-                                    </div>
-
-                                </div>
+                                
                                 <div className="display-flex">
                                     <p className="mt-3 ms-2">Giới tính:</p>
                                     <input type="radio" id="gender" value="Nam" name="fav_language"
@@ -151,18 +139,14 @@ const InforUser = () => {
                                     <span className="field__label">Địa chỉ</span>
                                 </span>
                                 </div>
-                                <button type="submit">Thay đổi thông tin
-                                </button>
-                                <a className="changePass" onClick={clickChangePass}> Đổi mật khẩu</a>
+                                <div className="col-10 mt-3 mb-3 m-auto">
+                                    <button className="btn btn-success w-100" > Đổi thông tin  </button>
+                                </div>
+                                <Link className="changePass" to="/change-pass"> Đổi mật khẩu</Link>
 
 
                             </div>
-                            {
-                                modalForm ?
-                                    <Modal show={true} onHide={handleClose}></Modal>
-                                    :
-                                    <Modal show={false} onHide={handleClose}></Modal>
-                            }
+                            
                         </div>
 
                         :
@@ -242,7 +226,7 @@ const InforUser = () => {
                                     <h6 className="center">Bạn không có đơn đặt hàng trong trạng thái này</h6>
                                     <div class="shopping-cart-footer">
                                         <div class="buttonBackHome">
-                                            <a class="btn btn-success" href="#"> Tiếp tục mua sắm </a></div>
+                                        <Link class="btn btn-success" to="/shop"> Tiếp tục mua sắm </Link></div>
                                     </div>
                                 </div>
                             :

@@ -25,6 +25,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
     useEffect(() => {
+        console.log(user)
       if (user) navigate("/");
     })
 

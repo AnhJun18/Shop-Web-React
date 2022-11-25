@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class UserHeader extends React.Component {
     constructor(props){
@@ -13,9 +14,9 @@ class UserHeader extends React.Component {
         return <nav class="navbar header nav-light navbar-expand-lg navbar-light shadow fixed-top">
         <div class="container container-navbar d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand text-success logo-size h1 align-self-center" href="index.html">
-                Zay
-            </a>
+            <Link class="navbar-brand text-success logo-size h1 align-self-center mt-3" to="/home">
+                PTIT
+            </Link>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,19 +31,8 @@ class UserHeader extends React.Component {
                         <li class="nav-item nav-parent">
                             <a class="nav-link" href="/shop">
                                 Shop
-                                <i class="fa fa-angle-down"></i>
                             </a>
-                            <ul class="dropdown-menu submenu-level1-children nav-child">
-                                <li><a href="">Áo khoác</a></li>
-                                <li><a href="">Áo Sơ Mi</a></li>
-                                <li><a href="">Áo Sơ Mi</a></li>
-
-                                <li><a href="">Áo Sơ Mi</a></li>
-
-                                <li><a href="">Áo Sơ Mi</a></li>
-
-
-                            </ul>
+                           
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">About</a>
