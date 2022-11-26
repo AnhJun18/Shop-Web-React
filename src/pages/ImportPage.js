@@ -58,7 +58,7 @@ const ImportPage = () => {
         try {
             result = await axios({
                 method: 'post',
-                url: axiosApiInstance.defaults.baseURL + '/api/product/detail',
+                url: axiosApiInstance.defaults.baseURL + '/api/warehouse/import',
                 headers: {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem("tokens")).data.accessToken}`,
                     'Accept': '*/*',
