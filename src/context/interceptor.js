@@ -8,7 +8,9 @@ axiosApiInstance.interceptors.request.use((config) => {
   let tokensData = JSON.parse(localStorage.getItem("tokens"));
   if(tokensData === null){
     localStorage.clear()
+    toast.info("Vui lòng đăng nhập để tiếp tục!",{autoClose:5000})
     window.location.href = "/login";
+
   }
 
   config.headers = {

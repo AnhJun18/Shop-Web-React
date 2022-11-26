@@ -19,7 +19,7 @@ const ChoosingPage = () => {
     const [order, setOrder] = useState([{}]
     )
     async function getProduct() {
-        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${param}`);
+        const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${param}`);
         setProduct(result?.data)
         const setColor = new Set()
         result?.data?.forEach(i => {
@@ -42,16 +42,8 @@ const ChoosingPage = () => {
             "productID": id,
             "amount": amount
         }
-        const result = await axios({
-            method: 'post',
-            url: axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`,
-            headers: {
-                'Authorization': `Bearer ${JSON.parse(localStorage.getItem("tokens")).data.accessToken}`,
-                'Accept': '*/*',
-                'Content-Type': 'application/json'
-            },
-            data: body
-        });
+        const result = await axiosApiInstance.post( axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`, body);
+        console.log(result)
         return result
     }
 

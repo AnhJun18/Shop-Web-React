@@ -26,33 +26,24 @@ const HomePage = () => {
             "productID": id,
             "amount": amount
         }
-        const result = await axios({
-            method: 'post',
-            url: axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`,
-            headers: {
-                'Authorization': `Bearer ${JSON.parse(localStorage.getItem("tokens")).data.accessToken}`,
-                'Accept': '*/*',
-                'Content-Type': 'application/json'
-            },
-            data: body
-        });
+        const result = await axiosApiInstance.post( axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`, body );
         return result
     }
 
     async function getProduct() {
-        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
+        const result = await axios.get( axiosApiInstance.defaults.baseURL + `/api/product/all`);
         setLoad(true);
         setList(result?.data)
     }
 
     async function getCategory() {
-        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/category/all`)
+        const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/category/all`)
         setLoad(true);
         setListCate(result?.data)
     }
 
     async function getDetails(id) {
-        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${id}`)
+        const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${id}`)
         setStatus(1)
         setLoad(true);
         setProductSelected(result?.data)
@@ -298,7 +289,7 @@ const HomePage = () => {
                                 </div>
                                 <div className="card-body">
                                     <div className="">
-                                        <a href="shop-single.html"
+                                        <a href={`/product/${item?.id}`}
                                            className="h3 text-decoration-none text-config"
                                            title={item.name}>{item.name}</a>
                                     </div>

@@ -29,25 +29,16 @@ const ShopPage = () => {
                 "productID": id,
                 "amount": amount
             }
-            const result = await axios({
-                method: 'post',
-                url: axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`,
-                headers: {
-                    'Authorization': `Bearer ${JSON.parse(localStorage.getItem("tokens")).data.accessToken}`,
-                    'Accept': '*/*',
-                    'Content-Type': 'application/json'
-                },
-                data: body
-            });
+            const result = await axiosApiInstance.post( axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`, body );
             return result
         }
 
         async function getProduct() {
             let myList = null
             if (param)
-                myList = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/category/${param}`)
+                myList = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/category/${param}`)
             else
-                myList = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
+                myList = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
             console.log(myList)
             setLoad(true);
             setList(myList?.data)
@@ -55,7 +46,7 @@ const ShopPage = () => {
 
 
         async function getCategory() {
-            const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/category/all`)
+            const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/category/all`)
             setLoad(true);
             setListCate(result?.data)
         }

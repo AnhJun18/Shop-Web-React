@@ -61,7 +61,7 @@ class UserHeader extends React.Component {
                     <span class="nav-icon position-relative text-decoration-none padding-notify" href="#">
                         <span id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-fw fa-user text-dark mr-3"></i><i class="fa fa-angle-down text-dark"></i></span>
                         <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/inforUser">Thông tin tài khoản</a></li>
+                            <li><a class="dropdown-item" href="/profile">Thông tin tài khoản</a></li>
                             <li><a class="dropdown-item" href="/change-pass">Đổi mật khẩu</a></li>
                             <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
                         </ul>

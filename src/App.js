@@ -24,12 +24,14 @@ import InforUser from "./pages/InforUser";
 import UserFogotPass from "./pages/UserFogotPass";
 
 function App() {
-    const useName = localStorage.getItem('useName');
+    const permission = JSON.parse(localStorage.getItem('tokens'));
+    console.log(permission)
+
     return (
         <AuthContextProvider>
             <Routes>
                 <Route path='/login' element={<LoginPage/>} />
-                {useName === 'admin' ?
+                {permission === 'admin' ?
                     <>
                         <Route path='/' element={<DashboardPage/>} />
                         <Route path='/profile' element={<ProfilePage/>} />
@@ -40,25 +42,23 @@ function App() {
                         <Route path='/customer' element={<CustomerPage/>} />
                         <Route path='/import' element={<Import/>} />
                         <Route path='/statistical' element={<Statistical/>} />
-
                     </>
-                    :(useName === 'user' ?
+                    :(
                         <>
                             <Route path='/' element={<HomePage/>} />
+                            <Route path='/home' element={<HomePage/>} />
                             <Route path='/register' element={<RegisterPage/>} />
                             <Route path='/profile' element={<InforUser/>} />
                             <Route path='/forgot-pass' element={<UserFogotPass/>} />
                             <Route path='/home' element={<HomePage/>} />
-                            <Route path='/shop' element={<ShopPage/>}/>
                             <Route path='/product/:id' element={<ChoosingPage/>} />
                             <Route path='/cart' element={<CartPage/>} />
                             <Route path='/theOrder' element={<TheOrder/>} />
-                        </>
-                        :
-                        <>
-                            <Route path='*' element={<NotFound/>} />
+                            <Route path='/home' element={<HomePage/>} />
+                            <Route path='/' element={<HomePage/>} />
+                            <Route path='/product/:id' element={<ChoosingPage/>} />
+                            <Route path='/shop' element={<ShopPage/>}/>
                         </>)
-
                 }
                 <Route path='*' element={<NotFound/>} />
             </Routes>
