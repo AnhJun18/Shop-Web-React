@@ -14,7 +14,8 @@ const LoginPage = () => {
     const password = useRef("");
     const {login}= useContext(AuthContext)
    
-    const loginSubmit = async () => {
+    const loginSubmit = async (e) => {
+        e.preventDefault()
       let payload = {
         username: userName.current.value,
         password: password.current.value
@@ -56,7 +57,7 @@ const LoginPage = () => {
                                     </label><a className="form-recovery" href="#">Quên mật khẩu?</a>
                                 </div>
                                 <div className="form-group">
-                                    <button variant="primary" type="submit">Log In</button>
+                                    <button variant="primary" type="submit" >Log In</button>
                                 </div>
                                 <p className="form-group text">
                                     Bạn chưa có tài khoản?
