@@ -4,6 +4,7 @@ import {Button, Form, Modal} from "react-bootstrap"
 import "../assets/css/statistical.css";
 //import {alignPropType} from "react-bootstrap/types";
 import {useLocation} from "react-router-dom";
+import axiosApiInstance from "../context/interceptor";
 
 const StatisticalPage = () => {
     const param = useLocation();
@@ -18,7 +19,7 @@ const StatisticalPage = () => {
     }
 
     const handlePreviewReport=()=>{
-        window.open("http://localhost:8081/api/report/demo-report", '_blank').focus();
+        window.open(axiosApiInstance.defaults.baseURL +"/api/report/demo-report", '_blank').focus();
     }
     const clickImportOrder = (e) => {
         setStatus(3);

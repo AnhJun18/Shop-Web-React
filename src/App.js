@@ -1,14 +1,13 @@
 import 'font-awesome/css/font-awesome.min.css';
 import './assets/css/app.css';
-import { Route, Routes, Navigate } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import DashboardPage from './pages/DashboardPage';
 import TablePage from './pages/TablePage'
 import ProfilePage from './pages/profile/ProfilePage';
-import AdminBlankPage from './pages/AdminBlankPage';
 import ProductPage from "./pages/ProductPage";
 import CustomerPage from "./pages/CustomerPage";
 import LoginPage from "./pages/auth/LoginPage";
-import { AuthContextProvider } from "./context/AuthProvider";
+import {AuthContextProvider} from "./context/AuthProvider";
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
 import ChoosingPage from "./pages/ChoosingPage";
@@ -22,16 +21,16 @@ import CategoryPage from "./pages/CategoryPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import InforUser from "./pages/InforUser";
 import UserFogotPass from "./pages/UserFogotPass";
+import jwt_decode from 'jwt-decode'
 
 function App() {
-    const permission = JSON.parse(localStorage.getItem('tokens'));
-    console.log(permission)
-
+    const tokens = JSON.parse(localStorage.getItem('tokens'));
+    const permission=(tokens?(jwt_decode(tokens?.data?.accessToken)?.authorities):null)
     return (
         <AuthContextProvider>
             <Routes>
                 <Route path='/login' element={<LoginPage/>} />
-                {permission === 'admin' ?
+                {permission === 'ROLE_ADMIN' ?
                     <>
                         <Route path='/' element={<DashboardPage/>} />
                         <Route path='/profile' element={<ProfilePage/>} />
