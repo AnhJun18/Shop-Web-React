@@ -1,11 +1,52 @@
-import React from "react";
+import React, {useEffect} from "react";
 import userLayout from "../../user/userLayout"
 import "./../../assets/css/user-view.css";
-import {Link, Navigate} from 'react-router-dom';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
+import axios from "../../api/axios";
+import {toast} from 'react-toastify';
+import axiosApiInstance from "../../context/interceptor";
+
 
 
 
 const RegisterPage = () => {
+    const navigate = useNavigate();
+
+    const  handleSubmit=async (event) => {
+        event.preventDefault()
+        if (event.target.elements.password.value !== event.target.elements.passwordRepeat.value) {
+            toast.error("Xác nhận lại mật khẩu không khớp")
+            return
+        }
+        console.log('/api/auth/user/register')
+        const payload = {
+            firstName: event.target.elements.firstName.value,
+            lastName: event.target.elements.lastName.value,
+            userName: event.target.elements.username.value,
+            phone: event.target.elements.phone.value,
+            email: event.target.elements.email.value,
+            gender: "Nam",
+            address: "",
+            roleName: "ROLE_USER",
+            password: event.target.elements.password.value
+        }
+        console.log(axiosApiInstance.defaults.baseURL  + '/api/auth/user/register')
+        const result = await axios.post(axiosApiInstance.defaults.baseURL  + '/api/auth/user/register',payload)
+        if(result.data.data.status){
+            toast.success("Tạo tài khoản thành công")
+            navigate("/login")
+        }
+        else
+            toast.error(result.data.data.message)
+    }
+
+
+
+
+    useEffect(()=>{
+
+    },[])
+
     return <>
         <div>
             <div class="bg">
@@ -17,9 +58,20 @@ const RegisterPage = () => {
                             <h1>Đăng Ký</h1>
                         </div>
                         <div class="form-content">
-                            <form>
+                            <form onSubmit={handleSubmit}>
+                                <div className="row form-group">
+                                    <div className="col-md-6">
+                                        <label htmlFor="">Họ Đệm</label>
+                                        <input type="text" id="firstName" name="firstName" required="required"/>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <label htmlFor="lastName">Tên</label>
+                                        <input type="lastName" id="lastName" name="" required="required"/>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
-                                    <label for="username">Họ Tên</label>
+                                    <label for="username">Tên đăng nhập</label>
                                     <input type="text" id="username" name="username" required="required" />
                                 </div>
                                 <div class="row form-group">
@@ -28,7 +80,7 @@ const RegisterPage = () => {
                                         <input type="text" id="phone" name="phone" required="required" />
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="email">Email</label>
+                                        <label for="">Email</label>
                                         <input type="email" id="email" name="email" required="required" />
                                     </div>
                                 </div>
@@ -39,7 +91,7 @@ const RegisterPage = () => {
                                     </div>
                                     <div class="col-md-6">
                                         <label for="password">Xác Nhận Mật Khẩu</label>
-                                        <input type="password" id="password" name="password" required="required" />
+                                        <input type="password" id="passwordRepeat" name="passwordRepeat" required="required" />
                                     </div>
                                 </div>
                                 <div class="form-group">
