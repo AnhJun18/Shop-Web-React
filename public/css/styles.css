@@ -651,6 +651,19 @@ progress {
     max-width: 720px;
   }
 }
+
+@media (max-width: 992px) {
+  .container.my-nav {
+    margin-top: -9px;
+    height: 60px;
+  }
+  div.nav-header{
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+  }
+}
+
 @media (min-width: 992px) {
   .container-lg, .container-md, .container-sm, .container {
     max-width: 960px;
@@ -5997,6 +6010,7 @@ textarea.form-control-lg {
   width: 100%;
   overflow: hidden;
 }
+
 .carousel-inner::after {
   display: block;
   clear: both;

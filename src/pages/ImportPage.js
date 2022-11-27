@@ -14,6 +14,7 @@ const ImportPage = () => {
 
     const [list, setList] = useState([]);
     const [load, setLoad] = useState(false);
+    const [listImport, setListImport] = useState([]);
     const [totalPage, setTotalPage] = useState(1)
 
     const listColor = [
@@ -97,8 +98,15 @@ const ImportPage = () => {
         setTotalPage(result?.data?.totalPages)
     }
 
+    async function getListImport(page, size) {
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/warehouse/history_import`)
+        setLoad(true);
+        setListImport(result.data)
+    }
+
     useEffect(()=>{
         getAllProduct()
+        getListImport()
     },[])
 
     useEffect(() => {
@@ -127,18 +135,21 @@ const ImportPage = () => {
                                     <th scope="col" className="col-3">Mã phiếu nhập</th>
                                     <th scope="col" className="col-4">Ngày nhập</th>
                                     <th scope="col" className="col-3">Tổng đơn</th>
-                                    <th scope="col" className="col-2">Tác vụ</th>
+                                    <th scope="col" className="col-2">Tổng tiền </th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {list.map((item) => (
+                                {listImport.map((item) => (
                                     <tr key={item.id}>
-                                        <th scope="row">{item.id}</th>
-                                        <td className="tdName">{item.name}</td>
-                                        <td className="tdName">{item.name}</td>
-                                        <td style={{display: 'none'}} className="tdDescribe">{item.describe}</td>
+                                        <th scope="row">{item?.id}</th>
+                                        <td className="tdName">{item?.createdDate}</td>
+                                        <td className="tdName">{item?.totalAmount}</td>
+                                        <td className="tdDescribe">{item?.totalMoney.toLocaleString('vi', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        })}</td>
                                         <td style={{whiteSpace: 'nowrap'}}>
-                                            <button type="button"
+                                           {/* <button type="button"
                                                     className="btn btn-outline-primary btn-light btn-sm mx-sm-1 px-lg-2 w-32"
                                                     title="Chi tiết" onClick={handleShowInfo}><i className="fa fa-info"
                                                                                                  aria-hidden="true"></i>
@@ -147,14 +158,14 @@ const ImportPage = () => {
                                                     className="btn btn-outline-warning btn-light btn-sm mx-sm-1 px-lg-2 w-32"
                                                     title="Chỉnh sửa" onClick={handleShow}><i className="fa fa-pencil"
                                                                                               aria-hidden="true"></i>
-                                            </button>
+                                            </button>*/}
                                         </td>
                                     </tr>))}
 
                                 </tbody>
                             </table>
                         </div>
-                        <Pagination refix='product' size={totalPage}/>
+                        {/*<Pagination refix='product' size={totalPage}/>*/}
                     </div>
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Header closeButton>

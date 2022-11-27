@@ -228,7 +228,7 @@ p.content{
 }
 
 .navbar.header {
-    height: 72px;
+    height: 60px;
     color: whitesmoke;
 }
 
@@ -262,6 +262,17 @@ p.content{
 
 .nav-parent:hover >.nav-child>li:hover>a{
     color: inherit;
+}
+
+.container.my-nav{
+    height: 60px;
+}
+
+.user-header{
+    background: inherit;
+    padding-left: 51px;
+    padding-right: 68px;
+    margin: 0px !important;
 }
 
 #templatemo_nav_top {
