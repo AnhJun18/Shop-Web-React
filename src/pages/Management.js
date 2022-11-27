@@ -151,8 +151,8 @@ const Management = () => {
                         <table className="table align-items-center mb-0 mt-2">
                             <thead>
                             <tr>
-                                <th>Ngày tạo</th>
                                 <th>Mã đơn hàng</th>
+                                <th>Ngày tạo</th>
                                 <th>Thông tin đặt hàng</th>
                                 <th>Sđt</th>
                                 <th>Trạng thái</th>

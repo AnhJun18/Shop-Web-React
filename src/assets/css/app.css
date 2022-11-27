@@ -18,7 +18,11 @@ table, td, tr, th {
   border: 0;
   border-spacing: 0;
 }
-  
+
+a.link-item{
+  text-decoration: underline;
+}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

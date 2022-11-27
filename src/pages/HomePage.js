@@ -136,10 +136,10 @@ const HomePage = () => {
                 <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
                 <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
             </ol>
-            <div class="carousel-inner ">
+            <div class="carousel-inner info-shop">
                 <div class="carousel-item active">
                     <div class="container banner">
-                        <div class="row pt-4">
+                        <div class="row">
                             <img src="https://theme.hstatic.net/200000305259/1000963148/14/slide_index_2.jpg?v=74"
                                  alt=""/>
                         </div>
@@ -147,7 +147,7 @@ const HomePage = () => {
                 </div>
                 <div class="carousel-item ">
                     <div class="container banner">
-                        <div class="row pt-4">
+                        <div class="row">
                             <img src="https://theme.hstatic.net/200000305259/1000963148/14/slide_index_1.jpg?v=74"
                                  alt=""/>
                         </div>

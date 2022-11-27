@@ -1,7 +1,8 @@
 import axios from "../api/axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
- 
+import {useNavigate} from "react-router-dom";
+
 const axiosApiInstance = axios.create({});
 
 axiosApiInstance.interceptors.request.use((config) => {
@@ -10,7 +11,6 @@ axiosApiInstance.interceptors.request.use((config) => {
     localStorage.clear()
     toast.info("Vui lòng đăng nhập để tiếp tục!",{autoClose:5000})
     window.location.href = "/login";
-
   }
 
   config.headers = {
