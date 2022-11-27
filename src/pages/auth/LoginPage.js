@@ -1,12 +1,8 @@
-import React from "react";
-import adminLayout from "../../assets/css/login.css";
+import React, {useContext, useEffect, useRef} from "react";
 import userLayout from "../../user/userLayout"
 import "./../../assets/css/user-view.css";
-import {Link, Navigate} from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-import {useRef, useState, useEffect, useContext} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import AuthContext from '../../context/AuthProvider';
-import {toast} from "react-toastify";
 
 const LoginPage = () => {
 

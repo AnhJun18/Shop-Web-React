@@ -265,7 +265,7 @@ p.content{
 }
 
 .container.my-nav{
-    height: 60px;
+    height: 54px;
 }
 
 .user-header{
@@ -547,7 +547,7 @@ p.content{
     }
 
     #template-mo-zay-hero-carousel .carousel-item {
-        min-height: 30rem !important;
+        min-height: 27rem !important;
     }
 
     .product-wap .h3, .product-wap li, .product-wap i, .product-wap p {

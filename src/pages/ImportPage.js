@@ -79,6 +79,7 @@ const ImportPage = () => {
             toast.error(result?.data?.message);
 
         }
+        getListImport()
     }
 
     const [rows, newRows] = useState([{}])
@@ -98,7 +99,7 @@ const ImportPage = () => {
         setTotalPage(result?.data?.totalPages)
     }
 
-    async function getListImport(page, size) {
+    async function getListImport() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/warehouse/history_import`)
         setLoad(true);
         setListImport(result.data)

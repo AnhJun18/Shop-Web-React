@@ -28,6 +28,15 @@ code {
     monospace;
 }
 
+.header-login{
+  width: 86px;
+  height: 35px;
+  color: white;
+  line-height: 20px;
+  background: #3583d0;
+  color: #f6fcf9;
+}
+
 img {
   max-width: 100%;
 }

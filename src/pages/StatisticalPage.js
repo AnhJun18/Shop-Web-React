@@ -44,7 +44,7 @@ const StatisticalPage = () => {
                     <h3 className="screenHeader mb-5">Thống Kê Doanh Thu Theo Tháng</h3>
                     <div className="canopy">
                         <p className="basic">Chọn báo cáo tháng: </p>
-                        <input type="month" required></input>
+                        <input type="date" required></input>
                         <button className="buttonSubmit" type="submit">Xem Báo Cáo</button>
                 </div>
                 </Form>
@@ -54,7 +54,7 @@ const StatisticalPage = () => {
                     <h3 className="screenHeader mb-5">Thống Kê Đơn Đặt Theo Tháng</h3>
                     <div className="canopy">
                         <p className="basic">Chọn báo cáo tháng: </p>
-                        <input type="month"></input>
+                        <input type="date"></input>
                         <button className="buttonSubmit">Xem Báo Cáo</button>
                     </div>
                 </div>:
@@ -62,7 +62,7 @@ const StatisticalPage = () => {
                     <h3 className="screenHeader mb-5">Thống Kê Đơn Nhập Theo Tháng</h3>
                     <div className="canopy">
                         <p className="basic">Chọn báo cáo tháng: </p>
-                        <input type="month"></input>
+                        <input type="date"></input>
                         <button className="buttonSubmit">Xem Báo Cáo</button>
                     </div>
                 </div>
