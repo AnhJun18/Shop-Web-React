@@ -53,14 +53,14 @@ const LoginPage = () => {
                                 <div className="form-group">
                                     <label className="form-remember">
                                         <input type="checkbox"/>Nhớ tài khoản
-                                    </label><a className="form-recovery" href="#">Quên mật khẩu?</a>
+                                    </label><a className="form-recovery link-item" href="/forgot-pass">Quên mật khẩu?</a>
                                 </div>
                                 <div className="form-group">
                                     <button variant="primary" type="submit" >Log In</button>
                                 </div>
                                 <p className="form-group text">
                                     Bạn chưa có tài khoản?
-                                    <Link className="form-recovery" to="/register"> Đăng ký</Link>
+                                    <Link className="form-recovery link-item"  to="/register"> Đăng ký</Link>
                                 </p>
                             </form>
                         </div>

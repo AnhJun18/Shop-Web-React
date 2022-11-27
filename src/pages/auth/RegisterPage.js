@@ -1,12 +1,10 @@
 import React, {useEffect} from "react";
 import userLayout from "../../user/userLayout"
 import "./../../assets/css/user-view.css";
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from "../../api/axios";
 import {toast} from 'react-toastify';
 import axiosApiInstance from "../../context/interceptor";
-
-
 
 
 const RegisterPage = () => {

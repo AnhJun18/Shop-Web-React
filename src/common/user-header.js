@@ -12,17 +12,18 @@ class UserHeader extends React.Component {
 
     render(){
         return <nav class="navbar header nav-light navbar-expand-lg navbar-light shadow fixed-top">
-        <div class="container container-navbar d-flex justify-content-between align-items-center">
+        <div class="container container-navbar my-nav d-flex justify-content-between align-items-center">
+           <div className="nav-header">
+               <Link class="navbar-brand text-success logo-size h1 align-self-center " to="/home">
+                   PTIT
+               </Link>
+               <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                   <span class="navbar-toggler-icon"></span>
+               </button>
+           </div>
 
-            <Link class="navbar-brand text-success logo-size h1 align-self-center mt-3" to="/home">
-                PTIT
-            </Link>
 
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="align-self-center mgt-16  mgd-16 collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+            <div class="align-self-center mgt-16 user-header mgd-16 collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
