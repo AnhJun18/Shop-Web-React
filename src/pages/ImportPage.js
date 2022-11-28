@@ -132,7 +132,7 @@ const ImportPage = () => {
                                 <tr>
                                     <th scope="col" className="col-3">Mã phiếu nhập</th>
                                     <th scope="col" className="col-4">Ngày nhập</th>
-                                    <th scope="col" className="col-3">Tổng đơn</th>
+                                    <th scope="col" className="col-3">Tổng số sản phẩm</th>
                                     <th scope="col" className="col-2">Tổng tiền </th>
                                 </tr>
                                 </thead>

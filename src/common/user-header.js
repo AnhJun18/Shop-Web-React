@@ -1,21 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import Button from 'react-bootstrap/Button';
+import AuthContext from "../context/AuthProvider";
 
-class UserHeader extends React.Component {
-    constructor(props){
-        super(props)
-        const tokens = JSON.parse(localStorage.getItem('tokens'));
-        const permission=(tokens?(jwt_decode(tokens?.data?.accessToken)?.authorities):null)
-        this.state = {
+const UserHeader =()=> {
 
-        }
-    }
-
-
-    render(){
-        return <nav class="navbar header nav-light navbar-expand-lg navbar-light shadow fixed-top">
+    const {logout} = useContext(AuthContext);
+    return <nav class="navbar header nav-light navbar-expand-lg navbar-light shadow fixed-top">
         <div class="container container-navbar my-nav d-flex justify-content-between align-items-center">
            <div className="nav-header">
                <Link class="navbar-brand text-success logo-size h2 align-self-center " to="/home">
@@ -69,7 +60,8 @@ class UserHeader extends React.Component {
                         <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item" href="/profile">Thông tin tài khoản</a></li>
                             <li><a class="dropdown-item" href="/change-pass">Đổi mật khẩu</a></li>
-                            <li><a class="dropdown-item" onClick={()=>{localStorage.clear();window.location.href("/login")}}>Đăng xuất</a></li>
+                            <li><a class="dropdown-item" onClick={() => {
+                                logout();}}>Đăng xuất</a></li>
                         </ul>
                     </span>
                     </div>:
@@ -82,7 +74,7 @@ class UserHeader extends React.Component {
 
         </div>
     </nav>
-    }
+
 }
 
 export default UserHeader;

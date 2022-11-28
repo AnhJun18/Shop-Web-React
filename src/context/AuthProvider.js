@@ -25,7 +25,7 @@ export const AuthContextProvider = ({ children }) => {
 
     if(apiResponse.data.data.status === true){
       localStorage.setItem("tokens", JSON.stringify(apiResponse.data));
-      navigate("/");
+      window.location.href = "/";
     }
     else
       toast.error((apiResponse.data.data.message));
