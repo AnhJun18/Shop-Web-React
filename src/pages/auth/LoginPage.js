@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useRef} from "react";
+import adminLayout from "../../assets/css/login.css";
 import userLayout from "../../user/userLayout"
 import "./../../assets/css/user-view.css";
 import {Link, useNavigate} from 'react-router-dom';
@@ -18,12 +19,6 @@ const LoginPage = () => {
       }
       await login(payload);
     };
-
-    const navigate = useNavigate();
-    const { user } = useContext(AuthContext);
-    useEffect(() => {
-
-    })
 
     return (
         <div>

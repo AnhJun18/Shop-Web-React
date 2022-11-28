@@ -2,11 +2,8 @@ import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
 import axiosApiInstance from "../context/interceptor";
 import axios from "../api/axios";
-//import {alignPropType} from "react-bootstrap/types";
 import {toast} from 'react-toastify';
 import {Button, Form, Modal} from "react-bootstrap"
-
-import Pagination from "../components/Pagination";
 import {useLocation} from "react-router-dom";
 
 const ImportPage = () => {

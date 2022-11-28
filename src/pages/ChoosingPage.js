@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import userLayout from "../user/userLayout"
 import "./../assets/css/user-view.css";
-import ReactLoading from 'react-loading';
 import axiosApiInstance from "../context/interceptor";
-import {Modal, Button, Form} from "react-bootstrap"
+import {Form} from "react-bootstrap"
 import InputSpinner from "react-bootstrap-input-spinner";
 import {toast} from "react-toastify";
 import axios from "../api/axios";

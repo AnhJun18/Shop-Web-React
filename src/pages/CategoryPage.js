@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
 import axiosApiInstance from "../context/interceptor";
 import {Button, Form, Modal} from "react-bootstrap"
-import {useLocation} from "react-router-dom";
 import {toast} from "react-toastify";
 
 const CategoryPage = () => {
@@ -98,14 +97,15 @@ const CategoryPage = () => {
                                                             className="btn btn-outline-warning btn-light btn-sm mx-sm-1 px-lg-2 w-32"
                                                             title="Chỉnh sửa" id={item.id} title={item.name}
                                                             onClick={handleInfo}>
-                                                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                                                        <i className="fa fa-pencil" aria-hidden="true"></i>
                                                     </button>
 
-                                                    <button type="button" id={item.id} title={item.name} onClick={handleDelete}
+                                                    <button type="button" id={item.id} title={item.name}
+                                                            onClick={handleDelete}
                                                             className="btn btn-outline-danger btn-light btn-sm mx-sm-1 px-lg-2 w-32"
                                                             title="Xóa"><i
-                                                                           className="fa fa-times"
-                                                                           aria-hidden="true"></i>
+                                                        className="fa fa-times"
+                                                        aria-hidden="true"></i>
                                                     </button>
                                                 </td>
                                             </tr>))}
@@ -119,18 +119,19 @@ const CategoryPage = () => {
                                         <Modal.Title>Danh mục</Modal.Title>
                                     </Modal.Header>
                                     <Modal.Body>
-                                    <Form onSubmit={handleSubmit}> 
-                                        <Form.Group className="mb-2">
-                                            <Form.Control type="text" placeholder="Tên danh mục" name="name" required
-                                                          value={category_name} onChange={(e) => setName(e.target.value)}/>
-                                        </Form.Group>
-                                        <Button variant="success" type="submit">
-                                            {form === "edit" ? "Cập nhật" : "Thêm"}
-                                        </Button>
-                                    </Form>
+                                        <Form onSubmit={handleSubmit}>
+                                            <Form.Group className="mb-2">
+                                                <Form.Control type="text" placeholder="Tên danh mục" name="name" required
+                                                              value={category_name}
+                                                              onChange={(e) => setName(e.target.value)}/>
+                                            </Form.Group>
+                                            <Button variant="success" type="submit">
+                                                {form === "edit" ? "Cập nhật" : "Thêm"}
+                                            </Button>
+                                        </Form>
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        
+
                                     </Modal.Footer>
                                 </Modal>
                             }

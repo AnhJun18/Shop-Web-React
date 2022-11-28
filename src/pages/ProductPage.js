@@ -2,10 +2,8 @@ import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
 import axiosApiInstance from "../context/interceptor";
 import axios from "../api/axios";
-//import {alignPropType} from "react-bootstrap/types";
 import {toast} from 'react-toastify';
 import {Button, Form, Modal} from "react-bootstrap"
-
 import Pagination from "../components/Pagination";
 import {useLocation} from "react-router-dom";
 
@@ -354,23 +352,23 @@ const ProductPage = () => {
                                 <div>Tên Sản phẩm : <strong>{product_name}</strong></div>
                                 <div>Mô tả: <strong>{product_describe}</strong></div>
                                 <table className="table mt-3">
-                                <thead>
-                                <tr bgcolor="Silver">
-                                    <th scope="col" className="col-2">Size</th>
-                                    <th scope="col" className="col-2">Màu</th>
-                                    <th scope="col" className="col-2">Số lượng</th>
-                                </tr>
-                                </thead>
-                                {productDetail.map(item =>
-                                    <tbody>
-                                    <tr>
-                                        <td>{item.size}</td>
-                                        <td >{item.color}</td>
-                                        <td className="px-4">{item.current_number}</td>
+                                    <thead>
+                                    <tr bgcolor="Silver">
+                                        <th scope="col" className="col-2">Size</th>
+                                        <th scope="col" className="col-2">Màu</th>
+                                        <th scope="col" className="col-2">Số lượng</th>
                                     </tr>
-                                    </tbody>
-                                )}
-                                
+                                    </thead>
+                                    {productDetail.map(item =>
+                                        <tbody>
+                                        <tr>
+                                            <td>{item.size}</td>
+                                            <td>{item.color}</td>
+                                            <td className="px-4">{item.current_number}</td>
+                                        </tr>
+                                        </tbody>
+                                    )}
+
                                 </table>
 
                             </Modal.Body>

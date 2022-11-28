@@ -10,7 +10,7 @@ import {toast} from "react-toastify";
 const ChangePwsPage = () => {
     let param = useLocation().pathname;
     let code = param.split('=').pop()
-    const navigate= useNavigate()
+    const navigate = useNavigate()
     const [allow, setAllow] = useState(false)
     const [message, setMessage] = useState()
     const [error, setError] = useState(false)
@@ -28,13 +28,12 @@ const ChangePwsPage = () => {
             "verifyCode": code,
             "password": pass
         }
-        const result = await axios.post(axiosApiInstance.defaults.baseURL + `/api/auth/user/reset-password`,payload)
+        const result = await axios.post(axiosApiInstance.defaults.baseURL + `/api/auth/user/reset-password`, payload)
         console.log(result.data.data.status)
-        if(result.data.data.status){
+        if (result.data.data.status) {
             navigate("/login")
             toast.success("Mật khẩu đã được đổi. Bạn có thể đăng nhập")
-        }
-        else
+        } else
             toast.error(result.data.data.message)
 
     }

@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
 import axiosApiInstance from "../context/interceptor";
-import {Modal, Button} from "react-bootstrap"
+import {Button, Modal} from "react-bootstrap"
 import ReactLoading from "react-loading";
 import {toast} from "react-toastify";
 
@@ -141,9 +141,9 @@ const Management = () => {
                         <div className="col-lg-4 col-md-4 ms-auto">
                             <div className="d-flex">
                                 <label className="p-2">Từ</label> <input className="form-control" id="fromDate" type="date"
-                                                                     onChange={handleSearch}/>
+                                                                         onChange={handleSearch}/>
                                 <label className="p-2">Tới</label> <input className="form-control" id="toDate" type="date"
-                                                                      onChange={handleSearch}/>
+                                                                          onChange={handleSearch}/>
                             </div>
                         </div>
                     </div>
@@ -207,8 +207,9 @@ const Management = () => {
                                                         onClick={handleShow}>
                                                     <i className="fa fa-info"/>
                                                 </button> :
-                                                <button type="button" onClick={handleShow} className="btn btn-outline-primary btn-sm me-2 w-32">
-                                                    <i className="fa fa-pencil" />
+                                                <button type="button" onClick={handleShow}
+                                                        className="btn btn-outline-primary btn-sm me-2 w-32">
+                                                    <i className="fa fa-pencil"/>
                                                 </button>
                                             }
                                         </td>

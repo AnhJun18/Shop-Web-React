@@ -1,12 +1,7 @@
-import {useContext, useState, useEffect, useRef} from "react";
+import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
 import axiosApiInstance from "../context/interceptor";
 import "../assets/css/customer.css";
-import axios from "../api/axios";
-import {render} from "react-dom";
-//import {alignPropType} from "react-bootstrap/types";
-import {toast} from 'react-toastify';
-import {Form, Button, Modal} from "react-bootstrap"
 
 import Pagination from "../components/Pagination";
 import {useLocation} from "react-router-dom";
@@ -17,23 +12,6 @@ const CustomerPage = () => {
     const [list, setList] = useState([]);
     const [load, setLoad] = useState(false);
     const [totalPage, setTotalPage] = useState(1)
-
-    const [customer_name, setName] = useState();
-    const [customer_gender, setGender] = useState();
-    const [customer_phone, setPhone] = useState();
-    const [customer_email, setEmail] = useState();
-    const [customer_address, setAddress] = useState();
-    const [customer_username, setUsername] = useState();
-
-    function parents(node) {
-        let current = node,
-            list = [];
-        while (current.parentNode != null && current.parentNode != document.documentElement) {
-            list.push(current.parentNode);
-            current = current.parentNode;
-        }
-        return list
-    }
 
     const [show, setShow] = useState(false);
     const handleSearch = async (e) => {

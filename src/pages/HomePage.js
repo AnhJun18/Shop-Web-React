@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import userLayout from "../user/userLayout"
 import "./../assets/css/user-view.css";
-import ReactLoading from 'react-loading';
 import axiosApiInstance from "../context/interceptor";
-import {Modal, Button, Form} from "react-bootstrap"
+import {Form, Modal} from "react-bootstrap"
 import InputSpinner from "react-bootstrap-input-spinner";
 import axios from "../api/axios";
 import {toast} from "react-toastify";
@@ -26,12 +25,12 @@ const HomePage = () => {
             "productID": id,
             "amount": amount
         }
-        const result = await axiosApiInstance.post( axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`, body );
+        const result = await axiosApiInstance.post(axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`, body);
         return result
     }
 
     async function getProduct() {
-        const result = await axios.get( axiosApiInstance.defaults.baseURL + `/api/product/all`);
+        const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/all`);
         setLoad(true);
         setList(result?.data)
     }
@@ -227,35 +226,35 @@ const HomePage = () => {
                     <div class="col-md-3 py-2">
                         <div className="card rounded-0">
                             <a href="shop/Áo Thun"><img className="card-img rounded-0 img-fluid"
-                                            src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_1.jpg?v=12"/></a>
+                                                        src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_1.jpg?v=12"/></a>
                         </div>
                     </div>
 
                     <div class="col-md-3 py-2">
                         <div className="card rounded-0">
                             <a href="shop/Áo Thun"><img className="card-img rounded-0 img-fluid"
-                                            src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_2.jpg?v=12"/></a>
+                                                        src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_2.jpg?v=12"/></a>
                         </div>
                     </div>
 
                     <div class="col-md-3 py-2">
                         <div className="card rounded-0">
                             <a href="shop/Áo Thun"><img className="card-img rounded-0 img-fluid"
-                                            src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_3.jpg?v=12"/></a>
+                                                        src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_3.jpg?v=12"/></a>
                         </div>
                     </div>
 
                     <div class="col-md-3 py-2">
                         <div className="card rounded-0">
                             <a href="shop/Áo Thun"><img className="card-img rounded-0 img-fluid"
-                                            src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_4.jpg?v=12"/></a>
+                                                        src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_4.jpg?v=12"/></a>
                         </div>
                     </div>
 
                     <div class="col-md-3 py-2">
                         <div className="card rounded-0">
                             <a href="shop/Áo Thun"><img className="card-img rounded-0 img-fluid"
-                                            src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_5.jpg?v=12"/></a>
+                                                        src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_5.jpg?v=12"/></a>
                         </div>
                     </div>
                 </div>
@@ -404,7 +403,7 @@ const HomePage = () => {
                                                 </div>
 
                                                 <div class="col-full flex align-items-center pb-3">
-                                                <strong className="me-3">Số lượng</strong>
+                                                    <strong className="me-3">Số lượng</strong>
                                                     <div className="count-input spinner_input">
 
                                                         <InputSpinner

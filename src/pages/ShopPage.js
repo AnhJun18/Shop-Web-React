@@ -3,7 +3,7 @@ import userLayout from "../user/userLayout"
 import "./../assets/css/user-view.css";
 import ReactLoading from 'react-loading';
 import axiosApiInstance from "../context/interceptor";
-import {Modal, Button, Form} from "react-bootstrap"
+import {Form, Modal} from "react-bootstrap"
 import InputSpinner from "react-bootstrap-input-spinner";
 import {toast} from "react-toastify";
 import axios from "../api/axios";
@@ -29,7 +29,7 @@ const ShopPage = () => {
                 "productID": id,
                 "amount": amount
             }
-            const result = await axiosApiInstance.post( axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`, body );
+            const result = await axiosApiInstance.post(axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`, body);
             return result
         }
 
@@ -143,7 +143,7 @@ const ShopPage = () => {
                     <div className="container py-5">
                         <div className="row">
 
-                            <div className="col-lg-3">
+                            <div className="col-lg-2">
                                 <h1 className="h2 pb-4">Danh mục</h1>
                                 <ul className="list-unstyled templatemo-accordion">
                                     {listCate.map((item) => (
@@ -157,36 +157,13 @@ const ShopPage = () => {
                                 </ul>
                             </div>
 
-                            <div className="col-lg-9">
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <ul className="list-inline shop-top-menu pb-3 pt-1">
-                                            <li className="list-inline-item">
-                                                <a className="h3 text-dark text-decoration-none mr-3" href="#">All</a>
-                                            </li>
-                                            <li className="list-inline-item">
-                                                <a className="h3 text-dark text-decoration-none mr-3" href="#">Men's</a>
-                                            </li>
-                                            <li className="list-inline-item">
-                                                <a className="h3 text-dark text-decoration-none" href="#">Women's</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div className="col-md-6 pb-4">
-                                        <div className="d-flex">
-                                            <select className="form-control">
-                                                <option>Featured</option>
-                                                <option>A to Z</option>
-                                                <option>Item</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="col-lg-10">
+
                                 <div className="row">
                                     {list.map((item) => (
                                         <div className="col-md-3">
                                             <div className="card mb-3 product-wap rounded-0">
-                                                <div className="card rounded-0"  >
+                                                <div className="card rounded-0">
                                                     <img className="img-config card-img rounded-0 img-fluid"
                                                          src={item.linkImg}/>
                                                     <div
@@ -262,7 +239,8 @@ const ShopPage = () => {
                                     <div className="row d-flex flex-row">
                                         {/* <!--Controls--> */}
                                         <div className="col-1 align-self-center">
-                                            <a className="h1" href="#multi-item-example" role="button" data-bs-slide="prev">
+                                            <a className="h1" href="#multi-item-example" role="button"
+                                               data-bs-slide="prev">
                                                 <i className="text-light fas fa-chevron-left"></i>
                                             </a>
                                         </div>
@@ -365,7 +343,8 @@ const ShopPage = () => {
 
                                         {/* <!--Controls--> */}
                                         <div className="col-1 align-self-center">
-                                            <a className="h1" href="#multi-item-example" role="button" data-bs-slide="next">
+                                            <a className="h1" href="#multi-item-example" role="button"
+                                               data-bs-slide="next">
                                                 <i className="text-light fas fa-chevron-right"></i>
                                             </a>
                                         </div>
@@ -380,37 +359,38 @@ const ShopPage = () => {
                     <Modal show={show} onHide={handleClose} size={status ? "lg" : "sm"} centered>
                         {status ?
                             <Modal.Body>
-                                <div class="container pb-5">
-                                    <div class="row">
-                                        <div class="col-lg-5 mt-5">
-                                            <div class="card mb-3">
-                                                <img class="card-img img-fluid"
-                                                     src={productDetail.at(0)?.infoProduct?.linkImg} alt="Card image cap"
+                                <div className="container pb-5">
+                                    <div className="row">
+                                        <div className="col-lg-5 mt-5">
+                                            <div className="card mb-3">
+                                                <img className="card-img img-fluid"
+                                                     src={productDetail.at(0)?.infoProduct?.linkImg}
+                                                     alt="Card image cap"
                                                      id="product-detail"/>
                                             </div>
 
                                         </div>
                                         {/* <!-- col end --> */}
-                                        {<div class="col-lg-7 mt-5">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h1 class="h2">{productDetail.at(0)?.infoProduct?.name}</h1>
-                                                    <p class="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
+                                        {<div className="col-lg-7 mt-5">
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <h1 className="h2">{productDetail.at(0)?.infoProduct?.name}</h1>
+                                                    <p className="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
                                                         style: 'currency',
                                                         currency: 'VND'
                                                     })}</p>
-                                                    <ul class="list-inline">
-                                                        <li class="list-inline-item">
+                                                    <ul className="list-inline">
+                                                        <li className="list-inline-item">
                                                             <h6>Avaliable Color :</h6>
                                                         </li>
-                                                        <li class="list-inline-item">
-                                                            <p class="text-muted"><strong>White / Black</strong></p>
+                                                        <li className="list-inline-item">
+                                                            <p className="text-muted"><strong>White / Black</strong></p>
                                                         </li>
                                                     </ul>
 
                                                     {<Form>
                                                         <input type="hidden" name="product-title" value="Activewear"/>
-                                                        <div class="row">
+                                                        <div className="row">
                                                             <div className="col-full">
                                                                 <strong>Color </strong>
                                                                 {<Form onChange={handleChangeColor}>
@@ -427,7 +407,7 @@ const ShopPage = () => {
                                                                 </Form>}
                                                             </div>
 
-                                                            <div class="col-full">
+                                                            <div className="col-full">
                                                                 <strong>Size</strong>
                                                                 <Form onChange={handleChangeSize}>
                                                                     {sizeAvail?.map((i) =>
@@ -443,7 +423,7 @@ const ShopPage = () => {
                                                                 </Form>
                                                             </div>
 
-                                                            <div class="col-full flex align-items-center pb-3">
+                                                            <div className="col-full flex align-items-center pb-3">
                                                                 <div className="list-inline-item">Số lượng</div>
                                                                 <div className="count-input spinner_input">
 
@@ -461,15 +441,16 @@ const ShopPage = () => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="row pb-3">
-                                                            <div class="col d-grid">
-                                                                <button type="submit" class="btn btn-success btn-lg"
+                                                        <div className="row pb-3">
+                                                            <div className="col d-grid">
+                                                                <button type="submit" className="btn btn-success btn-lg"
                                                                         name="submit" value="buy">Buy
                                                                 </button>
                                                             </div>
-                                                            <div class="col d-grid">
-                                                                <button type="submit" class="btn btn-success btn-lg"
-                                                                        name="submit" onClick={handleSubmitAdd}>Add To Cart
+                                                            <div className="col d-grid">
+                                                                <button type="submit" className="btn btn-success btn-lg"
+                                                                        name="submit" onClick={handleSubmitAdd}>Add To
+                                                                    Cart
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -484,7 +465,7 @@ const ShopPage = () => {
                             :
                             <Modal.Body>
                                 <div className="container pb-5">
-                                    <img class="card-img img-fluid" src={imgSelect} width="400" alt="Card image cap"
+                                    <img className="card-img img-fluid" src={imgSelect} width="400" alt="Card image cap"
                                          id="product-detail"/>
                                 </div>
                             </Modal.Body>
@@ -495,8 +476,8 @@ const ShopPage = () => {
                     </Modal>
                 </div>
                 :
-                <div className={"center"}>
-                    <ReactLoading type={'bubbles'} color='#fffff' height={'150px'} width={'10px'}/>
+                <div className={"center loading"}>
+                    <ReactLoading type={'bubbles'} color='#fffff' height={'33px'} width={'9%'}/>
                 </div>
             }
         </>)

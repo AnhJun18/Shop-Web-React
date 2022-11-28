@@ -1,7 +1,7 @@
 import React from "react";
 import userLayout from "../user/userLayout"
 import "./../assets/css/user-view.css";
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import axios from "../api/axios";
 import axiosApiInstance from "../context/interceptor";
 import {toast} from "react-toastify";
@@ -20,8 +20,7 @@ const ForgotPwsPage = () => {
             toast.success(result.data.data.message)
             navigate("/login")
         }
-        else
-        {
+        else {
             toast.error(result.data.data.message)
         }
 

@@ -4,18 +4,11 @@ import "./../assets/css/order.css";
 import userLayout from "../user/userLayout"
 //import axiosApiInstance from "../context/interceptor";
 //import axios from "../api/axios";
-import {Form, useLocation, useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import axiosApiInstance from "../context/interceptor";
 import axios from "../api/axios";
 import {toast} from "react-toastify";
 
-/*var carts = '';
-const Cart = (cart) => {
-    console.log(cart)
-    carts = cart
-    return ''
-}
-export {Cart}*/
 
 const TheOrderPage = () => {
     const location = useLocation();
