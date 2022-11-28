@@ -4,8 +4,6 @@ import {Button, Form, Modal} from "react-bootstrap"
 import "../assets/css/statistical.css";
 import {useLocation} from "react-router-dom";
 import axiosApiInstance from "../context/interceptor";
-import axios from "../api/axios";
-import {Document, Page} from "react-pdf";
 import {toast} from "react-toastify";
 
 const StatisticalPage = () => {
