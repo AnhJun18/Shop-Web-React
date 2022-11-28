@@ -6,17 +6,17 @@ import {Form} from "react-bootstrap"
 import InputSpinner from "react-bootstrap-input-spinner";
 import {toast} from "react-toastify";
 import axios from "../api/axios";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 
 const ChoosingPage = () => {
     let param = useLocation().pathname.split("/").at(2);
+    const  navigate= useNavigate()
     const [productDetail,setProduct] = useState([])
     const [colorAvail, setColorAvail] = useState(new Set());
     const [sizeAvail, setSizeAvail] = useState();
     const [item, setItem] = useState({})
-    const [order, setOrder] = useState([{}]
-    )
+    const [order, setOrder] = useState([])
     async function getProduct() {
         const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${param}`);
         setProduct(result?.data)
@@ -63,11 +63,13 @@ const ChoosingPage = () => {
     }
 
     const buyNow = (e)=>{
+        const tmp={};
         if(item.color && item.size){
-            order.amount=item.size
-            order.product=productDetail.find(i=> i.color === item.color && i.size === item.size)
+            tmp.amount=item.sl?item.sl:1
+            tmp.product=productDetail.find(i=> i.color === item.color && i.size === item.size)
+            order.push(tmp)
             setOrder(order)
-            console.log(order)
+            navigate('/theorder', { state: order });
         }else {
             toast.error("Vui lòng chọn đủ thông tin")
         }
@@ -188,7 +190,7 @@ useEffect(() => {
                                 </div>
                                 <div class="row pb-3">
                                     <div class="col d-grid">
-                                      <Link class="btn btn-success btn-lg" to="/theorder" state={order} onClick={buyNow}>Mua ngay</Link>
+                                      <button class="btn btn-success btn-lg"  onClick={buyNow}>Mua ngay</button>
                                     </div>
                                     <div class="col d-grid">
                                         <button type="submit" class="btn btn-success btn-lg"

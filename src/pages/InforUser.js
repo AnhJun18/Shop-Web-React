@@ -6,7 +6,6 @@ import {Link, Navigate} from 'react-router-dom';
 import "./../assets/css/order.css";
 import userLayout from "../user/userLayout"
 import axiosApiInstance from "../context/interceptor";
-import InputSpinner from 'react-bootstrap-input-spinner'
 import {toast} from "react-toastify";
 import axios from "../api/axios";
 

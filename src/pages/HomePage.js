@@ -6,10 +6,13 @@ import {Form, Modal} from "react-bootstrap"
 import InputSpinner from "react-bootstrap-input-spinner";
 import axios from "../api/axios";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 const HomePage = () => {
+    const  navigate = useNavigate()
     const [list, setList] = useState([]);
     const [load, setLoad] = useState(false);
+    const [loadSize, setLoadSize] = useState(false);
     const [status, setStatus] = useState(0);
     const [listCate, setListCate] = useState([]);
     const [productDetail, setProductSelected] = useState([]);
@@ -18,6 +21,8 @@ const HomePage = () => {
     const [sizeAvail, setSizeAvail] = useState();
     const [item, setItem] = useState({});
     const [show, setShow] = useState(false);
+    const [order, setOrder] = useState([])
+
 
 
     const handleAddCart = async (id, amount) => {
@@ -45,6 +50,7 @@ const HomePage = () => {
         const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${id}`)
         setStatus(1)
         setLoad(true);
+        setLoadSize(false)
         setProductSelected(result?.data)
         setSizeAvail(result?.data)
         const setColor = new Set()
@@ -53,16 +59,6 @@ const HomePage = () => {
         })
 
         setColorAvail(setColor)
-    }
-
-    function parents(node) {
-        let current = node,
-            list = [];
-        while (current.parentNode != null && current.parentNode != document.documentElement) {
-            list.push(current.parentNode);
-            current = current.parentNode;
-        }
-        return list
     }
 
     const handleClose = () => {
@@ -83,16 +79,29 @@ const HomePage = () => {
         item.color = e.target.id
         setItem(item)
         setSizeAvail(productDetail.filter(i => i.color === e.target.id))
+        setLoadSize(true)
     }
     const handleChangeSize = (e) => {
         item.size = e.target.id
         setItem(item)
-        console.log(e.target.id)
     }
     const handleChangeAmount = (e) => {
         item.sl = e
         setItem(item)
-        console.log(e)
+    }
+
+    const buyNow = (e) => {
+        const tmp = {};
+        if (item.color && item.size) {
+            tmp.amount = item.sl ? item.sl : 1
+            tmp.product = productDetail.find(i => i.color === item.color && i.size === item.size)
+            order.push(tmp)
+            setOrder(order)
+            navigate('/theorder', {state: order});
+        } else {
+            toast.error("Vui lòng chọn đủ thông tin")
+        }
+        e.preventDefault()
     }
 
     const handleSubmitAdd = async (e) => {
@@ -388,7 +397,7 @@ const HomePage = () => {
 
                                                 <div class="col-full">
                                                     <strong>Kích thước</strong>
-                                                    <Form onChange={handleChangeSize}>
+                                                    {loadSize?<Form onChange={handleChangeSize}>
                                                         {sizeAvail?.map((i) =>
                                                             <Form.Check
                                                                 inline
@@ -399,7 +408,7 @@ const HomePage = () => {
                                                                 id={i?.size}
                                                             />
                                                         )}
-                                                    </Form>
+                                                    </Form>:null}
                                                 </div>
 
                                                 <div class="col-full flex align-items-center pb-3">
@@ -422,13 +431,13 @@ const HomePage = () => {
                                             </div>
                                             <div class="row pb-3">
                                                 <div class="col d-grid">
-                                                    <button type="submit" class="btn btn-success btn-lg"
-                                                            name="submit" value="buy">Buy
+                                                    <button  class="btn btn-success btn-lg"
+                                                             onClick={buyNow}  value="buy">Mua ngay
                                                     </button>
                                                 </div>
                                                 <div class="col d-grid">
                                                     <button type="submit" class="btn btn-success btn-lg"
-                                                            name="submit" onClick={handleSubmitAdd}>Add To Cart
+                                                            name="submit" onClick={handleSubmitAdd}>Giỏ hàng
                                                     </button>
                                                 </div>
                                             </div>

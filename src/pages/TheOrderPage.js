@@ -11,6 +11,7 @@ import {toast} from "react-toastify";
 
 
 const TheOrderPage = () => {
+
     const location = useLocation();
     const navigate = useNavigate()
     const cart = location.state;
@@ -46,7 +47,7 @@ const TheOrderPage = () => {
     async function getProfile() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/user/profile`);
         setLoad(true)
-        const data=result?.data?.data?.userInfo
+        const data=result?.data?.userInfo
         setProfile(data)
         setName(data?.firstName ? data.firstName : '' + ' ' + data.lastName ? data.lastName : '')
         setPhone(data?.phone)
@@ -303,8 +304,11 @@ const TheOrderPage = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td className="text-center">{item?.amount}</td>
-                                <td className="text-right">{item?.product?.infoProduct?.price}</td>
+                                <td className="text-center">x{item?.amount}</td>
+                                <td className="text-right">{item?.product?.infoProduct?.price.toLocaleString('vi', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                })}</td>
                             </tr>
                         )}
                         </tbody>
