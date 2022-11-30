@@ -65,10 +65,10 @@ const StatisticalPage = () => {
                                 onClick={clickTurnover}>Doanh thu
                         </button>
                         <button className={status == 2 ? "ms-2 buttonHead active" : "ms-2 buttonHead"}
-                                onClick={clickTheOrder}>Đơn đặt
+                                onClick={clickTheOrder}>Sản Phẩm
                         </button>
                         <button className={status == 3 ? "ms-2 buttonHead active" : "ms-2 buttonHead"}
-                                onClick={clickImportOrder}>Đơn nhập
+                                onClick={clickImportOrder}>Đơn hàng
                         </button>
                     </div>
                     <Form onSubmit={handlePreviewReport} className="screen py-2 bg-white">
@@ -77,7 +77,7 @@ const StatisticalPage = () => {
                                 <h3 className="screenHeader">Thống Kê Doanh Thu Trong Tháng</h3>
                                 <div className="screen py-2 bg-white">
                                     <div className="canopy mt-5">
-                                        <p className="basic">Chọn báo cáo tháng: </p>
+                                        <p className="basic">Chọn tháng: </p>
                                         <input id="month" type="month" required></input>
                                     </div>
                                     <div className="text-center mt-3">
@@ -119,7 +119,7 @@ const StatisticalPage = () => {
                                         </div>
                                         <div className="canopy mt-3 px-5">
                                             <p className="basic">Trạng thái đơn hàng: </p>
-                                            <select className="form-control" id="statusChoose">
+                                            <select className="" id="statusChoose">
                                                 <option value="">Tất cả</option>
                                                 {listStatus.map((cate) => (
                                                     <option value={cate} key={cate}>{cate}</option>

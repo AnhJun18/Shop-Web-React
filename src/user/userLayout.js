@@ -2,6 +2,7 @@ import React from "react";
 import UserHeader from './../common/user-header';
 import UserFooter from './../common/user-footer';
 import { Preloader, Bars } from 'react-preloader-icon';
+import ChatBox from "../common/chatbox";
 
 const userLayout = (ChildComponent) => {
     class UserLayout extends React.Component {
@@ -41,6 +42,7 @@ const userLayout = (ChildComponent) => {
                         <ChildComponent {...this.props} />
                     </div>
                     <UserFooter />
+                    <ChatBox/>
                 </div>
             </div>
         }
