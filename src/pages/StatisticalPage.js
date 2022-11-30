@@ -73,51 +73,66 @@ const StatisticalPage = () => {
                     </div>
                     <Form onSubmit={handlePreviewReport} className="screen py-2 bg-white">
                         {status == 1 ?
-                            <div className="screen py-2 bg-white">
-                                <h3 className="screenHeader mb-5">Thống Kê Doanh Thu Trong Tháng</h3>
-                                <div className="canopy">
-                                    <p className="basic">Chọn báo cáo tháng: </p>
-                                    <input id="month" type="month" required></input>
+                            <>
+                                <h3 className="screenHeader">Thống Kê Doanh Thu Trong Tháng</h3>
+                                <div className="screen py-2 bg-white">
+                                    <div className="canopy mt-5">
+                                        <p className="basic">Chọn báo cáo tháng: </p>
+                                        <input id="month" type="month" required></input>
+                                    </div>
+                                    <div className="text-center mt-3">
+                                        <button className="buttonSubmit btn btn-success" type="submit">Xem Báo Cáo</button>
+                                    </div>
                                 </div>
-                                <button className="buttonSubmit" type="submit">Xem Báo Cáo</button>
-                            </div>
+                            </>
+                            
                             :
                             status == 2 ?
-                                <div className="screen py-2 bg-white">
-                                    <h3 className="screenHeader mb-5">Thống Kê Lượng Bán Sản Phẩm</h3>
-                                    <div className="canopy">
-                                        <p className="basic">Từ ngày: </p>
-                                        <input type="date" id="prfrom"></input>
+                                <>
+                                    <h3 className="screenHeader">Thống Kê Lượng Bán Sản Phẩm</h3>
+                                    <div className="screen py-2 bg-white">
+                                        <div className="canopy mt-5">
+                                            <p className="basic">Từ ngày: </p>
+                                            <input type="date" id="prfrom"></input>
 
+                                        </div>
+                                        <div className="canopy mt-3">
+                                            <p className="basic">Đến ngày: </p>
+                                            <input type="date" id="prto"></input>
+                                        </div>
+                                        <div className="text-center mt-3">
+                                            <button className="buttonSubmit btn btn-success">Xem Báo Cáo</button>
+                                        </div>
                                     </div>
-                                    <div className="canopy mt-4">
-                                        <p className="basic">Đến ngày </p>
-                                        <input type="date" id="prto"></input>
-                                    </div>
-                                    <button className="buttonSubmit">Xem Báo Cáo</button>
-                                </div> :
-                                <div className="screen py-2 bg-white">
-                                    <h3 className="screenHeader mb-5">Thống Kê Đơn Nhập Theo Tháng</h3>
-                                    <div className="canopy">
-                                        <p className="basic">Từ ngày: </p>
-                                        <input type="date" id="ddfrom"></input>
-                                    </div>
-                                    <div className="canopy mt-3">
-                                        <p className="basic">Đến ngày: </p>
-                                        <input type="date" id="ddto"></input>
-                                    </div>
-                                    <div className="canopy mt-3">
-                                        <p className="basic">Trạng thái đơn hàng: </p>
-                                        <select className="form-control" id="statusChoose">
-                                            <option value="">Tất cả</option>
-                                            {listStatus.map((cate) => (
-                                                <option value={cate} key={cate}>{cate}</option>
-                                            ))}
+                                </>
+                                 :
+                                 <>
+                                    <h3 className="screenHeader">Thống Kê Đơn Nhập Theo Tháng</h3>
+                                    <div className="screen py-2 bg-white">
+                                        <div className="canopy mt-5">
+                                            <p className="basic">Từ ngày: </p>
+                                            <input type="date" id="ddfrom"></input>
+                                        </div>
+                                        <div className="canopy mt-3">
+                                            <p className="basic">Đến ngày: </p>
+                                            <input type="date" id="ddto"></input>
+                                        </div>
+                                        <div className="canopy mt-3 px-5">
+                                            <p className="basic">Trạng thái đơn hàng: </p>
+                                            <select className="form-control" id="statusChoose">
+                                                <option value="">Tất cả</option>
+                                                {listStatus.map((cate) => (
+                                                    <option value={cate} key={cate}>{cate}</option>
+                                                ))}
 
-                                        </select>
+                                            </select>
+                                        </div>
+                                        <div className="text-center mt-3">
+                                            <button className="buttonSubmit btn btn-success">Xem Báo Cáo</button>
+                                        </div>
                                     </div>
-                                    <button className="buttonSubmit">Xem Báo Cáo</button>
-                                </div>
+                                 </>
+                                
                         }
                     </Form>
                 </div>
