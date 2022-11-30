@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './../assets/css/chatbox.css'
 
 
@@ -8,42 +8,67 @@ const ChatBox = ()=> {
     const [talk, setTalk]= useState([])
     const [message, setMessage]= useState()
 
+
+    const scroll=()=>{
+        const el = document.getElementById('chat-feed');
+        if (el) {
+            el.scrollTop = el.scrollHeight;
+        }
+    }
+
+    const callChatBox=()=>{
+        const kq={
+            response:'...'
+        }
+        talk.push(kq)
+        setTalk(talk)
+    }
+
+
     const handleShow = ()=>{
        setShow(!show);
     }
 
     const handleSend = (e)=>{
-        const tmp={
-            request:message
-        }
-        talk.push(tmp)
-        setTalk(talk)
-        setMessage("")
-    }
-
-    const handleSubmit = (e)=>{
-       if(e.key ==="Enter"){
+       if(message){
            const tmp={
                request:message
            }
            talk.push(tmp)
            setTalk(talk)
+           callChatBox()
            setMessage("")
        }
 
     }
+
+    const handleSubmit = (e)=>{
+       if(e.key ==="Enter" && message){
+           const tmp={
+               request:message
+           }
+           talk.push(tmp)
+           setTalk(talk)
+           callChatBox()
+           setMessage("")
+       }
+    }
+    useEffect(()=>{
+        scroll();
+    },[message])
+
     return <>
             <div className="chat-button ml-3 mb-4">
                 <button type="button" onClick={handleShow} className="btn-xl btn-info btn-circle"><i class="fa fa-comment text-white"></i></button>
             </div>
           {show ?
-              <div class="container chat-container d-flex justify-content-center">
+              <div class="container chat-container d-flex justify-content-center" >
                 <div class="card chat-card ">
                     <div class="chat-header d-flex flex-row justify-content-between p-3 adiv text-white">
                         <span class="pb-3">Trợ lý ảo PTIT</span>
                         <i onClick={handleShow} class="close fa fa-times"></i>
                     </div>
-                    <div class="chat-element">
+                    <div class="chat-element"  id="chat-feed">
                         <div class="d-flex p-3">
                             <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png/" width="30" height="30"/>
                             <div class="chat-response ml-2 p-3">Chào bạn, chúc bạn một ngày tốt lành ❤ <br/>
@@ -51,13 +76,22 @@ const ChatBox = ()=> {
                         </div>
 
                   {talk.map((i)=>
-                      <div className="d-flex flex-row p-3">
-                          <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png/"
-                               width="30" height="30"/>
-                          <div className="chat-request  mr-2 p-3"><span>{i.request}</span>
+                      i.request?
+                          <div className="d-flex  flex-row-reverse p-3">
+                              <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png/"
+                                   width="30" height="30"/>
+                              <div className="chat-request  mr-2 p-3"><span>{i.request}</span>
+                              </div>
                           </div>
-
-                      </div>
+                          :
+                          i.response?
+                              <div className="d-flex p-3">
+                                  <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png/"
+                                       width="30" height="30"/>
+                                  <div className="chat-response ml-2 p-3">{i.response}
+                                  </div>
+                              </div>
+                              :null
                   )     }
 
                      {/*    <div class="d-flex flex-row p-3">

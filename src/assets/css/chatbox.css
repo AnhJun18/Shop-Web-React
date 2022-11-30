@@ -123,6 +123,7 @@ i.close:hover {
     float: left;
     background-color: transparent;
     color: #000000;
+    outline: none;
 }
 
 .icon-send {
