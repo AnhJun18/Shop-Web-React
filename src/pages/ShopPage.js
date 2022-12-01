@@ -37,7 +37,7 @@ const ShopPage = () => {
     async function getProduct() {
         let myList = null
         if (param)
-            myList = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/category/${param}`)
+            myList = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/category=${param}`)
         else
             myList = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
         console.log(myList)
