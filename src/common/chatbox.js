@@ -95,7 +95,7 @@ const ChatBox = () => {
                                     <div className="d-flex p-3">
                                         <img src={require('./../assets/images/chatbox.png')}
                                              width="30" height="30"/>
-                                        <div className="chat-response ml-2 p-3">{i.response.startsWith("list")?<a href="shop/%C3%81o%20kho%C3%A1c">recommend/{i.response}</a>:i.response}
+                                        <div className="chat-response ml-2 p-3">{i.response.startsWith("list")?<a href="/shop/%C3%81o%20kho%C3%A1c">recommend/{i.response}</a>:i.response}
                                         </div>
                                     </div>
                                     : null
