@@ -60,16 +60,25 @@
 
 .chat-response {
     border: none;
-    background: #d5fff5;
+    background: #f2f2f2;
+    border: 1px solid #D3D3D3;
     font-size: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgb(109 156 203 / 20%);
+    color: #1F6987;
 }
 
 .chat-request {
     border: none;
     background: #d8ced5;
     font-size: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
+    animation-name: zoomInRight;
+    animation-duration: 5.6s;
+    color: #ffffff;
+    background: #1F6987;
+    box-shadow: 0px 4px 6px rgb(109 156 203 / 20%);
+    border-radius: 20px;;
 }
 
 
