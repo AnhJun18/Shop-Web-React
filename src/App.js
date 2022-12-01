@@ -19,7 +19,7 @@ import TheOrder from "./pages/TheOrderPage";
 import NotFound from "./components/NotFound";
 import CategoryPage from "./pages/CategoryPage";
 import RegisterPage from "./pages/auth/RegisterPage";
-import InforUser from "./pages/InforUser";
+import InfoUser from "./pages/InfoUser";
 import UserFogotPass from "./pages/UserFogotPass";
 import jwt_decode from 'jwt-decode'
 import ChangePassword from "./pages/ChangePassword";
@@ -49,7 +49,7 @@ function App() {
                             <Route path='/' element={<HomePage/>} />
                             <Route path='/home' element={<HomePage/>} />
                             <Route path='/register' element={<RegisterPage/>} />
-                            <Route path='/profile' element={<InforUser/>} />
+                            <Route path='/profile' element={<InfoUser/>} />
                             <Route path='/forgot-pass' element={<UserFogotPass/>} />
                             <Route path='/change-pass/verify-code=:code' element={<ChangePwsPage/>} />
                             <Route path='/home' element={<HomePage/>} />

@@ -9,7 +9,7 @@ import axiosApiInstance from "../context/interceptor";
 import {toast} from "react-toastify";
 import axios from "../api/axios";
 
-const InforUser = () => {
+const InfoUser = () => {
     const [status, setStatus] = useState(1);
     const [modalForm, setModalForm] = useState(false);
     const [profile, setProfile] = useState({});
@@ -25,7 +25,7 @@ const InforUser = () => {
     async function getProfile() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/user/profile`);
         setLoad(true)
-        setProfile(result?.data?.data?.userInfo)
+        setProfile(result?.data?.userInfo)
 
     }
 
@@ -249,4 +249,4 @@ const InforUser = () => {
 
 }
 
-export default userLayout(InforUser);
+export default userLayout(InfoUser);

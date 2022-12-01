@@ -100,7 +100,7 @@ const ChatBox = ()=> {
                         </div>*/}
                     </div>
                     <div class=" d-flex flex-row align-items-center px-3 chatbox-input">
-                        <input id="txtChatText" className="cssChatText" value={message} onKeyDown={(e)=>handleSubmit(e)} onChange={(e)=>setMessage(e.currentTarget.value)} placeholder="Nhập câu hỏi của bạn..."/>
+                        <input id="txtChatText" autoComplete="off" className="cssChatText" value={message} onKeyDown={(e)=>handleSubmit(e)} onChange={(e)=>setMessage(e.currentTarget.value)} placeholder="Nhập câu hỏi của bạn..."/>
                         <i className="fa fa-paper-plane icon-send" onClick={handleSend}></i>
                     </div>
                 </div>
