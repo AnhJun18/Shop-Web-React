@@ -33,7 +33,10 @@ const ShopPage = () => {
         const result = await axiosApiInstance.post(axiosApiInstance.defaults.baseURL + `/api/cart/AddToCart`, body);
         return result
     }
+    
+    const handleSearch = async (e) => {
 
+    }
     async function getProduct() {
         let myList = null
         if (param)
@@ -162,9 +165,14 @@ const ShopPage = () => {
                                 ))}
                             </ul>
                         </div>
-
                         <div className="col-lg-10">
-
+                            
+                        <div className="flex">
+                            <form className="example style" action="/action_page.php" >
+                                    <input type="text" placeholder="Search" ></input>
+                                    <button type="submit" onclick={handleSearch}><i className="fa fa-search"></i></button>
+                            </form>
+                        </div>
                             <div className="row">
                                 {list.map((item) => (
                                     <div className="col-md-3">

@@ -14,9 +14,6 @@ const CustomerPage = () => {
     const [totalPage, setTotalPage] = useState(1)
 
     const [show, setShow] = useState(false);
-    const handleSearch = async (e) => {
-
-    }
     async function getProduct() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/user/all`)
         console.log(result.data);
@@ -40,13 +37,6 @@ const CustomerPage = () => {
                 <div className="table-container" style={{width: '100%'}}>
                         <div className="customerH1" >
                                 <h3 className="">Danh sách khách hàng</h3>
-                        </div>
-                        <div className="flex ml30">
-                            <h5 className="mt22">Tìm kiếm khách hàng: </h5>
-                            <form className="example style" action="/action_page.php" >
-                                    <input type="text" placeholder="Search" ></input>
-                                    <button type="submit" onclick={handleSearch}><i className="fa fa-search"></i></button>
-                            </form>
                         </div>
                         <div className="d-flex text-muted overflow-auto">
                             <table className="table ">

@@ -29,25 +29,26 @@ const Sidebar = ({isActive}) => {
                 title: "Dashboard",
             },
             {
-                icon: <i className="fa fa-product-hunt me-3"></i>,
-                link: "/product",
-                title: "Product",
-            },
-            {
                 icon: <i className="fa fa-user-circle me-3"></i>,
                 link: "/customer",
                 title: "Customer",
             },
             {
-                icon: <i className="fa fa-cart-plus me-3"></i>,
-                link: "/order",
-                title: "Order",
-            },
-            {
                 icon: <i className="fa fa-tags me-3"></i>,
                 link: "/category",
                 title: "Category",
-            }, {
+            },
+            {
+                icon: <i className="fa fa-product-hunt me-3"></i>,
+                link: "/product",
+                title: "Product",
+            },
+            {
+                icon: <i className="fa fa-cart-plus me-3"></i>,
+                link: "/order",
+                title: "Order",
+            }, 
+            {
                 icon: <i className="fa fa-archive me-3" ></i>,
                 link: "/import",
                 title: "Import",
