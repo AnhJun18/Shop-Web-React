@@ -29,6 +29,19 @@ const InfoUser = () => {
 
     }
 
+    async function handleCancel(e) {
+        const confirm = window.confirm("Xác nhận hủy đơn? ");
+        if (confirm) {
+            const result = await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL + `/api/order/cancel_order?order_id=${e.currentTarget.id}`);
+            if (result.data.status) {
+                toast.success(result.data.message)
+            } else {
+                toast.error(result.data.message)
+            }
+        }
+        await getOrder();
+    }
+
     async function getOrder() {
         setLoad(false)
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/order/status=${tmp}`);
@@ -175,7 +188,7 @@ const InfoUser = () => {
                             }
                         </div>
                         {load ?
-                            order.length ?
+                            (order.length ?
                                 order.map(item =>
                                     <table className="table status-table">
                                         <tr>
@@ -225,7 +238,10 @@ const InfoUser = () => {
                                                 style: 'currency',
                                                 currency: 'VND'
                                             })}</td>
+
                                         </tr>
+                                        {tmp===listST[0] || tmp===listST[1]?
+                                            <button id={item?.id} onClick={handleCancel}>Hủy Đơn</button>:null}
 
                                     </table>
                                 )
@@ -236,7 +252,7 @@ const InfoUser = () => {
                                         <div class="buttonBackHome">
                                         <Link class="btn btn-success" to="/shop"> Tiếp tục mua sắm </Link></div>
                                     </div>
-                                </div>
+                                </div>)
                             :
                             <div>Loading....</div>
                         }

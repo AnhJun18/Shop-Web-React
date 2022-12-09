@@ -24,6 +24,7 @@ import UserFogotPass from "./pages/UserFogotPass";
 import jwt_decode from 'jwt-decode'
 import ChangePassword from "./pages/ChangePassword";
 import ChangePwsPage from "./pages/ChangePassword";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
     const tokens = JSON.parse(localStorage.getItem('tokens'));
@@ -54,6 +55,7 @@ function App() {
                             <Route path='/change-pass/verify-code=:code' element={<ChangePwsPage/>} />
                             <Route path='/home' element={<HomePage/>} />
                             <Route path='/product/:id' element={<ChoosingPage/>} />
+                            <Route path='/search'  element={<SearchPage/>} />
                             <Route path='/cart' element={<CartPage/>} />
                             <Route path='/theOrder' element={<TheOrder/>} />
                             <Route path='/home' element={<HomePage/>} />

@@ -271,7 +271,7 @@ p.content{
 .user-header{
     background: inherit;
     padding-left: 51px;
-    padding-right: 68px;
+    /*padding-right: 68px;*/
     margin: 0px !important;
 }
 
