@@ -137,6 +137,35 @@ const ProductPage = () => {
 
     }
 
+    const handleBlock = async (e) => {
+        e.preventDefault();
+        const tmpID = parents(e.target).find(function (c) {
+            return c.tagName === "TR"
+        }).children[0].innerText
+        console.log(tmpID);
+       const kq = await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL + `/api/product/block?productID=${tmpID}`)
+        if (kq.data.status === true) {
+            toast.success("Sản phẩm đã được khóa");
+            setShow(false);
+        } else
+            toast.error(kq.data.message);
+      await getProduct(param.search === '' ? '?page=1' : param.search, 5);
+    }
+    const handleUnBlock = async (e) => {
+        e.preventDefault();
+        const tmpID = parents(e.target).find(function (c) {
+            return c.tagName === "TR"
+        }).children[0].innerText
+        console.log(tmpID);
+        const kq = await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL + `/api/product/un_block?productID=${tmpID}`)
+        if (kq.data.status === true) {
+            toast.success("Sản phẩm đã được mở khóa");
+            setShow(false);
+        } else
+            toast.error(kq.data.message);
+        await getProduct(param.search === '' ? '?page=1' : param.search, 5);
+    }
+
     async function getProduct(page, size) {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/get_paging${page}&size=${size}`)
         setLoad(true);
@@ -270,11 +299,19 @@ const ProductPage = () => {
                                                     title="Chỉnh sửa" onClick={handleShow}><i className="fa fa-pencil"
                                                                                               aria-hidden="true"></i>
                                             </button>
-                                            <button type="button"
-                                                    className="btn btn-outline-danger btn-light btn-sm mx-sm-1 px-lg-2 w-32"
-                                                    title="Xóa"><i className="fa fa-times"
-                                                                   aria-hidden="true"></i>
-                                            </button>
+                                            {item.status ?
+                                                <button type="button"
+                                                        className="btn btn-outline-danger btn-light btn-sm mx-sm-1 px-lg-2 w-32"
+                                                        title="Mở khóa" onClick={handleUnBlock}><i className="fa fa-unlock"
+                                                                                             aria-hidden="true"></i>
+                                                </button>:
+                                                <button type="button"
+                                                        className="btn btn-outline-danger btn-light btn-sm mx-sm-1 px-lg-2 w-32"
+                                                        title="Khóa" onClick={handleBlock}><i className="fa fa-lock"
+                                                                                             aria-hidden="true"></i>
+                                                </button>
+                                            }
+
                                         </td>
                                     </tr>))}
 
