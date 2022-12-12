@@ -59,17 +59,19 @@ const UserHeader = () => {
                     </ul>
                 </div>
 
-                {(JSON.parse(localStorage.getItem('tokens'))) ?
+
                     <div class="navbar align-self-center d-flex ">
 
-                        {isOpen ? <input type="text" className="form-control w-140" autoFocus={true} onBlur={handleBlur} onChange={handleChange} onKeyDown={handleSubmit}
+                        {isOpen ? <input type="text" className="form-control w-140 me-2" autoFocus={true} onBlur={handleBlur} onChange={handleChange} onKeyDown={handleSubmit}
                                          id="inputMobileSearch" placeholder="Search ..."/> :
                             <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
                                data-bs-target="#templatemo_search">
                                 <i class="fa fa-fw fa-search text-dark mr-2" onClick={() => {
                                     setOpen(true)
                                 }}></i>
-                            </a>}
+                            </a>
+                        }
+                        {(JSON.parse(localStorage.getItem('tokens'))) ?<>
                         <a class="nav-icon position-relative text-decoration-none padding-cart" href="/cart">
                             <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                             <span
@@ -87,12 +89,13 @@ const UserHeader = () => {
                             }}>Đăng xuất</a></li>
                         </ul>
                     </span>
-                    </div> :
-
-                    <form method="get" action="/login">
-                        <Button className="header-login" type="submit">Login</Button>
-                    </form>
-                }
+                        </>
+                            :
+                            <form method="get" action="/login">
+                            <Button className="header-login" type="submit">Login</Button>
+                            </form>
+                        }
+                    </div>
             </div>
 
         </div>
