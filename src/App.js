@@ -24,6 +24,7 @@ import UserFogotPass from "./pages/UserFogotPass";
 import jwt_decode from 'jwt-decode'
 import ChangePassword from "./pages/ChangePassword";
 import ChangePwsPage from "./pages/ChangePassword";
+import RecommendPage from "./pages/RecommendPage";
 import SearchPage from "./pages/SearchPage";
 
 function App() {
@@ -47,22 +48,20 @@ function App() {
                     </>
                     :(
                         <>
-                            <Route path='/' element={<HomePage/>} />
-                            <Route path='/home' element={<HomePage/>} />
-                            <Route path='/register' element={<RegisterPage/>} />
-                            <Route path='/profile' element={<InfoUser/>} />
-                            <Route path='/forgot-pass' element={<UserFogotPass/>} />
-                            <Route path='/change-pass/verify-code=:code' element={<ChangePwsPage/>} />
-                            <Route path='/home' element={<HomePage/>} />
-                            <Route path='/product/:id' element={<ChoosingPage/>} />
-                            <Route path='/search'  element={<SearchPage/>} />
-                            <Route path='/cart' element={<CartPage/>} />
-                            <Route path='/theOrder' element={<TheOrder/>} />
-                            <Route path='/home' element={<HomePage/>} />
-                            <Route path='/' element={<HomePage/>} />
-                            <Route path='/product/:id' element={<ChoosingPage/>} />
-                            <Route path='/shop' element={<ShopPage/>}/>
-                            <Route path='/shop/:id' element={<ShopPage/>}/>
+                        <Route path='/' element={<HomePage/>} />
+                        <Route path='/home' element={<HomePage/>} />
+                        <Route path='/register' element={<RegisterPage/>} />
+                        <Route path='/profile' element={<InfoUser/>} />
+                        <Route path='/forgot-pass' element={<UserFogotPass/>} />
+                        <Route path='/change-pass/verify-code=:code' element={<ChangePwsPage/>} />
+                        <Route path='/product/:id' element={<ChoosingPage/>} />
+                        <Route path='/search'  element={<SearchPage/>} />
+                        <Route path='/cart' element={<CartPage/>} />
+                        <Route path='/theOrder' element={<TheOrder/>}/>
+                        <Route path='/product/:id' element={<ChoosingPage/>} />
+                        <Route path='/recommend' element={<RecommendPage/>} />
+                        <Route path='/shop' element={<ShopPage/>}/>
+                        <Route path='/shop/:id' element={<ShopPage/>}/>
                         </>)
                 }
                 <Route path='*' element={<NotFound/>} />

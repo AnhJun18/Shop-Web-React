@@ -42,19 +42,19 @@ const UserHeader = () => {
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/home">Home</a>
+                            <a class="nav-link" href="/home">Trang Chủ</a>
                         </li>
                         <li class="nav-item nav-parent">
                             <a class="nav-link" href="/shop">
-                                Shop
+                                Cửa hàng
                             </a>
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
+                            <a class="nav-link" href="about.html">Thông tin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
+                            <a class="nav-link" href="contact.html">Liên hệ</a>
                         </li>
                     </ul>
                 </div>
@@ -92,7 +92,7 @@ const UserHeader = () => {
                         </>
                             :
                             <form method="get" action="/login">
-                            <Button className="header-login" type="submit">Login</Button>
+                            <Button className="header-login" type="submit">Đăng nhập</Button>
                             </form>
                         }
                     </div>

@@ -36,6 +36,7 @@
 }
 
 .chat-container {
+    z-index: 100;
     position: fixed;
     right: 80px;
     bottom: 19px;
@@ -146,4 +147,16 @@ i.close:hover {
     border-top: 2px;
     border-style: groove;
     background: #e4e4e4;
+}
+
+.link-recommend{
+    display: inline;
+    color: #0c4ab1;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.describer-recommend{
+  display: inline-block;
+    color: #070707;
 }

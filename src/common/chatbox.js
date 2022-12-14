@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from "react";
 import './../assets/css/chatbox.css'
 import axios from "../api/axios";
+import axiosApiInstance from "../context/interceptor";
+import {useLocation, useNavigate} from "react-router-dom"
 
 
 const ChatBox = () => {
+    const navigate= useNavigate()
     const [show, setShow] = useState(false)
     const [talk, setTalk] = useState([])
     const [message, setMessage] = useState()
-
+    const [collect,setCollect] =useState([])
+    const [isRecommend,setIsRecommend]= useState(false)
 
     const scroll = () => {
         const el = document.getElementById('chat-feed');
@@ -18,12 +22,39 @@ const ChatBox = () => {
 
     const callChatBox = async (msg) => {
         const response = await axios(`http://127.0.0.1:5000/get?msg=${msg}`, {
-            method: 'GET', // *GET, POST, PUT, DELETE, etc.
-            mode: 'no-cors', // no-cors, *cors, same-origin
+            method: 'GET',
+            mode: 'no-cors',
         })
         const kq = {
-            response: response.data
+            response: response.data,
+            link: response.data.startsWith("list") ? `/recommend?l=${response.data}` : null
         }
+
+       if(isRecommend){
+            setIsRecommend(false)
+            collect.splice(0)
+            setCollect(collect)
+       }
+
+        collect.push({
+            request:msg,
+            response:response.data
+        })
+        setCollect(collect)
+        if (kq.link) {
+            try {
+                setIsRecommend(true);
+                const rp = await axios.get(axiosApiInstance.defaults.baseURL + `/api/chatbot/tags/describer?nameTag=${kq.response}`)
+                kq.response = rp.data.data?rp.data.data:response.data
+
+            } catch (e) {
+                kq.response = {
+                    name: response.data
+                }
+            }
+        }
+
+        console.log(collect)
         talk.push(kq)
         setTalk(talk)
     }
@@ -40,7 +71,8 @@ const ChatBox = () => {
             }
             talk.push(tmp)
             setTalk(talk)
-            await callChatBox()
+            setMessage(" ")
+            await callChatBox(message)
             setMessage("")
         }
 
@@ -53,9 +85,15 @@ const ChatBox = () => {
             }
             talk.push(tmp)
             setTalk(talk)
+            setMessage(" ")
             await callChatBox(message)
             setMessage("")
         }
+    }
+    const  handleClick = (e)=>{
+        e.preventDefault(false);
+        axios.post(axiosApiInstance.defaults.baseURL + `/api/chatbot/collect`,collect)
+        window.location.href=`${e.currentTarget.title}`
     }
     useEffect(() => {
         scroll();
@@ -86,19 +124,24 @@ const ChatBox = () => {
                         </div>
 
                         {talk.map((i) =>
-                                i.request ?
-                                    <div className="d-flex  flex-row-reverse p-3">
-                                        <div className="chat-request  mr-2 p-3 text-justify"><span>{i.request}</span>
-                                        </div>
+                            i.request ?
+                                <div className="d-flex  flex-row-reverse p-3">
+                                    <div className="chat-request  mr-2 p-3 text-justify"><span>{i.request}</span>
                                     </div>
+                                </div>
                                 : i.response ?
-                                    <div className="d-flex p-3">
-                                        <img src={require('./../assets/images/chatbox.png')}
-                                             width="30" height="30"/>
-                                        <div className="chat-response ml-2 p-3">{i.response.startsWith("list")?<a href="/shop/%C3%81o%20kho%C3%A1c">recommend/{i.response}</a>:i.response}
-                                        </div>
+                                <div className="d-flex p-3">
+                                    <img src={require('./../assets/images/chatbox.png')}
+                                         width="30" height="30"/>
+                                    <div className="chat-response ml-2 p-3">{i.link ?
+                                        <div className="describer-recommend">{i.response?.describer}: <a
+                                       onClick={handleClick}  title={`${i.link}`}>
+                                            <div className="link-recommend">{i.response.name?i.response.name:i.link}</div>
+                                        </a></div>
+                                        : i.response}
                                     </div>
-                                    : null
+                                </div>
+                                : null
                         )}
                     </div>
                     <div class=" d-flex flex-row align-items-center px-3 chatbox-input">
