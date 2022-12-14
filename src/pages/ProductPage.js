@@ -15,6 +15,7 @@ const ProductPage = () => {
     const [totalPage, setTotalPage] = useState(1)
     const [quantity, setQuantity] = useState(1)
     const [listCate, setListCate] = useState([]);
+    const [listTag, setListTag] = useState([]);
     const [editForm, setEditForm] = useState(false);
     const [modalForm, setModalForm] = useState(false);
     const [productDetail, setProductDetail] = useState([]);
@@ -24,6 +25,7 @@ const ProductPage = () => {
     const [product_name, setName] = useState();
     const [product_image, setImage] = useState();
     const [product_category, setCategory] = useState();
+    const [product_tag, setTag] = useState();
     const [product_sold, setSold] = useState();
     const [product_describe, setDescribe] = useState();
 
@@ -60,6 +62,17 @@ const ProductPage = () => {
         setDescribe(parents(e.target).find(function (c) {
             return c.tagName === "TR"
         }).children[5].innerText)
+        const tag=parents(e.target).find(function (c) {
+            return c.tagName === "TR"
+        }).children[6].innerText;
+        if(tag)
+            for (const i of listTag) {
+                if (i.id == tag) {
+                    setTag(i.name)
+                    break
+                }
+            }
+        else  setTag(null)
         setShow(true);
         setEditForm(true);
     }
@@ -90,6 +103,7 @@ const ProductPage = () => {
         setDescribe(parents(e.target).find(function (c) {
             return c.tagName === "TR"
         }).children[5].innerText)
+
         setShow(true);
     }
     const handleShowAdd = (e) => {
@@ -100,6 +114,7 @@ const ProductPage = () => {
         setName(null);
         setDescribe(null);
         setCategory(null);
+        setTag(null);
         setSold(null);
         setImage(null);
 
@@ -112,6 +127,7 @@ const ProductPage = () => {
             name: product_name,
             category: product_category,
             price: product_sold,
+            tag:product_tag
         }
         const methodForm = editForm ? 'put' : 'post';
         const urlForm = editForm ? `/api/product/edit/${product_id}` : `/api/product/create`;
@@ -180,6 +196,13 @@ const ProductPage = () => {
         console.log(result)
     }
 
+    async function getAllTags() {
+        const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/chatbot/tags/list`)
+        setLoad(true);
+        setListTag(result?.data)
+    }
+
+
     async function getCategory() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/category/all`)
         setLoad(true);
@@ -189,7 +212,7 @@ const ProductPage = () => {
     useEffect(() => {
         getProduct(param.search === '' ? '?page=1' : param.search, 5)
         getCategory();
-
+        getAllTags();
     }, [param]);
 
 
@@ -269,7 +292,8 @@ const ProductPage = () => {
                                     <th scope="col" className="col-2">Danh mục</th>
                                     <th scope="col" className="col-1">Giá bán</th>
                                     <th scope="col" className="col-1">Tồn Kho</th>
-                                    <th style={{display: 'none'}} scope="col" className="col-2">Mô tả</th>
+                                    <th style={{display: 'none'}} scope="col" className="col-1">Mô tả</th>
+                                    <th style={{display: 'none'}} scope="col" className="col-1">Tag</th>
                                     <th scope="col" className="col-2">Tác vụ</th>
                                 </tr>
                                 </thead>
@@ -287,6 +311,7 @@ const ProductPage = () => {
                                         <td className="tdCategory">{item.category}</td>
                                         <td className="tdPrice">{item.price}</td>
                                         <td style={{display: 'none'}} className="tdDescribe">{item.describe}</td>
+                                        <td style={{display: 'none'}} className="tdDescribe">{item.tag}</td>
                                         <td className="tdPrice">{item?.quantityInStock}</td>
                                         <td style={{whiteSpace: 'nowrap'}}>
                                             <button type="button"
@@ -368,6 +393,15 @@ const ProductPage = () => {
                                     <Form.Group className="mb-2">
                                         <Form.Control type="number" placeholder="Giá " name="price" value={product_sold}
                                                       onChange={(e) => setSold(e.target.value)}/>
+                                    </Form.Group>
+                                    <Form.Group className="mb-2">
+                                        <Form.Control as="select" name="Tag" required value={product_tag}
+                                                      onChange={(e) => setTag(e.target.value)} id="select">
+                                            <option value="">Nhãn gợi ý</option>
+                                            {listTag.map((cate) => (
+                                                <option value={cate.name} key={cate.id}>{cate.name}-{cate.describer}</option>
+                                            ))}
+                                        </Form.Control>
                                     </Form.Group>
                                     <Button variant="success" type="submit">
                                         {editForm ? "Chỉnh sửa" : "Tạo sản phẩm"}
