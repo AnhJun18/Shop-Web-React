@@ -35,6 +35,7 @@ const CategoryPage = () => {
         }
 
         const handleSubmit = async (e) => {
+            e.preventDefault()
             const payload = {
                 name: category_name
             }

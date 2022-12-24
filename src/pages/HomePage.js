@@ -15,6 +15,7 @@ const HomePage = () => {
     const [loadSize, setLoadSize] = useState(false);
     const [status, setStatus] = useState(0);
     const [listCate, setListCate] = useState([]);
+    const [listBestSeller, setBestSeller] = useState([]);
     const [productDetail, setProductSelected] = useState([]);
     const [imgSelect, setImgSelect] = useState();
     const [colorAvail, setColorAvail] = useState(new Set());
@@ -38,6 +39,13 @@ const HomePage = () => {
         const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/all`);
         setLoad(true);
         setList(result?.data)
+    }
+
+    async function getBestSeller() {
+        const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/best-seller`);
+        setLoad(true);
+        setBestSeller(result?.data)
+
     }
 
     async function getCategory() {
@@ -132,8 +140,10 @@ const HomePage = () => {
     }
 
     useEffect(() => {
+        getBestSeller();
         getProduct();
         getCategory();
+
     }, []);
 
 
@@ -276,7 +286,72 @@ const HomePage = () => {
                 <div class="row text-center py-3">
                     <div class="col-lg-6 m-auto">
                         <h1 class="h1 py-1">BEST SELLER</h1>
-                        <p>Sản phẩm được bán chạy nhất.</p>
+                        <p>Top sản phẩm bán chạy nhất</p>
+                    </div>
+                </div>
+                <div className="row">
+                    {listBestSeller.map((item) => (
+                        <div className="col-md-3">
+                            <div className="card mb-3 product-wap rounded-0">
+                                <div className="card rounded-0">
+                                    <img className="img-config card-img rounded-0 img-fluid"
+                                         src={item.linkImg}/>
+                                    <div
+                                        className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <button type="button" className="btn btn-success text-white"
+                                                title={item.linkImg} id={item?.id}
+                                                onClick={handleShow}>
+                                            XEM NGAY!
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="card-body">
+                                    <div className="">
+                                        <a href={`/product/${item?.id}`}
+                                           className="h3 text-decoration-none text-config"
+                                           title={item.name}>{item.name}</a>
+                                    </div>
+
+                                    <ul className="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>M/L/X/XL</li>
+                                        <li className="pt-2">
+                                <span
+                                    className="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                            <span
+                                                className="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                            <span
+                                                className="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                            <span
+                                                className="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                            <span
+                                                className="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                        </li>
+                                    </ul>
+                                    <ul className="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            <i className="text-warning fa fa-star"></i>
+                                            <i className="text-warning fa fa-star"></i>
+                                            <i className="text-warning fa fa-star"></i>
+                                            <i className="text-muted fa fa-star"></i>
+                                            <i className="text-muted fa fa-star"></i>
+                                        </li>
+                                    </ul>
+                                    <p className="text-center mb-0 price_txt">{item.price.toLocaleString('vi', {
+                                        style: 'currency',
+                                        currency: 'VND'
+                                    })}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="container py-5">
+                <div className="row text-center py-3">
+                    <div className="col-lg-6 m-auto">
+                        <h1 className="h1 py-1">Sản Phẩm</h1>
+                        <p>Tất cả sản phẩm của cửa hàng</p>
                     </div>
                 </div>
                 <div className="row">
@@ -334,9 +409,9 @@ const HomePage = () => {
                             </div>
                         </div>
                     ))}
-                    <div class="col-md-12 d-flex justify-content-center">
+                    <div className="col-md-12 d-flex justify-content-center">
                         <a href="">
-                            <button type="button" class="btn btn-outline-primary">Xem tất cả</button>
+                            <button type="button" className="btn btn-outline-primary">Xem tất cả</button>
                         </a>
                     </div>
                 </div>

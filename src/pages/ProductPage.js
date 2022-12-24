@@ -309,7 +309,10 @@ const ProductPage = () => {
                                                 alt="Sheep"/>
                                         </td>
                                         <td className="tdCategory">{item.category}</td>
-                                        <td className="tdPrice">{item.price}</td>
+                                        <td className="tdPrice">{item.price.toLocaleString('vi', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        })}</td>
                                         <td style={{display: 'none'}} className="tdDescribe">{item.describe}</td>
                                         <td style={{display: 'none'}} className="tdDescribe">{item.tag}</td>
                                         <td className="tdPrice">{item?.quantityInStock}</td>
