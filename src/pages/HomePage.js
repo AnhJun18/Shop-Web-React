@@ -9,7 +9,7 @@ import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
 const HomePage = () => {
-    const  navigate = useNavigate()
+    const navigate = useNavigate()
     const [list, setList] = useState([]);
     const [load, setLoad] = useState(false);
     const [loadSize, setLoadSize] = useState(false);
@@ -23,7 +23,6 @@ const HomePage = () => {
     const [item, setItem] = useState({});
     const [show, setShow] = useState(false);
     const [order, setOrder] = useState([])
-
 
 
     const handleAddCart = async (id, amount) => {
@@ -101,14 +100,21 @@ const HomePage = () => {
     const buyNow = (e) => {
         const tmp = {};
         if (item.color && item.size) {
-            tmp.amount = item.sl ? item.sl : 1
-            tmp.product = productDetail.find(i => i.color === item.color && i.size === item.size)
-            order.push(tmp)
-            setOrder(order)
-            navigate('/theorder', {state: order});
-        } else {
+            const newItem = productDetail.find(i => i?.color === item.color && i?.size == item.size)
+            if (newItem) {
+                if (newItem?.current_number < item?.sl || newItem?.current_number < 1)
+                    toast.error("Sản phẩm không đủ số lượng bạn cần! \n Vui lòng giảm số lượng!")
+                else {
+                    tmp.amount = item.sl ? item.sl : 1
+                    tmp.product = productDetail.find(i => i.color === item.color && i.size === item.size)
+                    order.push(tmp)
+                    setOrder(order)
+                    navigate('/theorder', {state: order});
+                }
+            }
+        } else
             toast.error("Vui lòng chọn đủ thông tin")
-        }
+
         e.preventDefault()
     }
 
@@ -116,7 +122,7 @@ const HomePage = () => {
         e.preventDefault()
         const newItem = productDetail.find(i => i?.color === item.color && i?.size == item.size)
         if (newItem) {
-            if (newItem?.current_number < item?.sl)
+            if (newItem?.current_number < item?.sl || newItem?.current_number < 1)
                 toast.error("Sản phẩm không đủ số lượng bạn cần! \n Vui lòng giảm số lượng!")
             else {
                 let kq = null;
@@ -158,25 +164,29 @@ const HomePage = () => {
                 <div class="carousel-item active">
                     <div class="container banner">
                         <div class="row">
-                            <img src="https://theme.hstatic.net/200000305259/1000963148/14/slide_index_2.jpg?v=74"
-                                 alt=""/>
+                            <img
+                                src="https://theme.hstatic.net/200000305259/1000963148/14/slide_index_2.jpg?v=74"
+                                alt=""/>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item ">
                     <div class="container banner">
                         <div class="row">
-                            <img src="https://theme.hstatic.net/200000305259/1000963148/14/slide_index_1.jpg?v=74"
-                                 alt=""/>
+                            <img
+                                src="https://theme.hstatic.net/200000305259/1000963148/14/slide_index_1.jpg?v=74"
+                                alt=""/>
                         </div>
                     </div>
                 </div>
             </div>
-            <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel"
+            <a class="carousel-control-prev text-decoration-none w-auto ps-3"
+               href="#template-mo-zay-hero-carousel"
                role="button" data-bs-slide="prev">
                 <i class="fa fa-chevron-left"></i>
             </a>
-            <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel"
+            <a class="carousel-control-next text-decoration-none w-auto pe-3"
+               href="#template-mo-zay-hero-carousel"
                role="button" data-bs-slide="next">
                 <i class="fa fa-chevron-right"></i>
             </a>
@@ -193,7 +203,8 @@ const HomePage = () => {
                     <h3 class="h6 text-decoration-none">
                         GIAO HÀNG TOÀN QUỐC
                     </h3>
-                    <p class="content">Thời gian giao hàng linh động từ 3 - 4 - 5 ngày tùy khu vực, đôi khi sẽ nhanh hơn
+                    <p class="content">Thời gian giao hàng linh động từ 3 - 4 - 5 ngày tùy khu vực, đôi khi sẽ
+                        nhanh hơn
                         hoặc chậm hơn. Mong Quý Khách hàng thông cảm.</p>
                 </div>
 
@@ -428,7 +439,7 @@ const HomePage = () => {
                             <div class="col-lg-5 mt-5">
                                 <div class="card mb-3">
                                     <img class="card-img img-fluid"
-                                         src={productDetail.at(0)?.infoProduct?.linkImg} alt="Card image cap"
+                                         src={imgSelect} alt="Card image cap"
                                          id="product-detail"/>
                                 </div>
 
@@ -472,7 +483,7 @@ const HomePage = () => {
 
                                                 <div class="col-full">
                                                     <strong>Kích thước</strong>
-                                                    {loadSize?<Form onChange={handleChangeSize}>
+                                                    {loadSize ? <Form onChange={handleChangeSize}>
                                                         {sizeAvail?.map((i) =>
                                                             <Form.Check
                                                                 inline
@@ -483,7 +494,7 @@ const HomePage = () => {
                                                                 id={i?.size}
                                                             />
                                                         )}
-                                                    </Form>:null}
+                                                    </Form> : null}
                                                 </div>
 
                                                 <div class="col-full flex align-items-center pb-3">
@@ -506,8 +517,8 @@ const HomePage = () => {
                                             </div>
                                             <div class="row pb-3">
                                                 <div class="col d-grid">
-                                                    <button  class="btn btn-success btn-lg"
-                                                             onClick={buyNow}  value="buy">Mua ngay
+                                                    <button class="btn btn-success btn-lg"
+                                                            onClick={buyNow} value="buy">Mua ngay
                                                     </button>
                                                 </div>
                                                 <div class="col d-grid">

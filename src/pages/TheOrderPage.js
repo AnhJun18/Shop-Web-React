@@ -269,7 +269,7 @@ const TheOrderPage = () => {
                                 <span className="radio-input font">Giao hàng tận nơi (thời gian giao hàng dự kiến từ 3 ~ 4 ngày, 
                                     có thể lâu hơn vì các vấn đề bất khả kháng, mong Quý KH đợi đơn hàng giúp shop. 
                                     Chân thành cảm ơn)</span>
-                                <span className="font">30.000đ</span>
+                                <span className="font"></span>
                             </label>
                         </div>
                     <h5 className="ms-4 mb-2 mt-1">Phương thức thanh toán</h5>

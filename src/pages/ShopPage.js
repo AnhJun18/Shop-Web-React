@@ -104,7 +104,7 @@ const ShopPage = () => {
         e.preventDefault()
         const newItem = productDetail.find(i => i?.color === item.color && i?.size == item.size)
         if (newItem) {
-            if (newItem?.current_number < item?.sl)
+            if (newItem?.current_number < item?.sl || newItem?.current_number < 1)
                 toast.error("Sản phẩm không đủ số lượng bạn cần! \n Vui lòng giảm số lượng!")
             else {
                 let kq = null;
@@ -130,14 +130,21 @@ const ShopPage = () => {
     const buyNow = (e) => {
         const tmp = {};
         if (item.color && item.size) {
-            tmp.amount = item.sl ? item.sl : 1
-            tmp.product = productDetail.find(i => i.color === item.color && i.size === item.size)
-            order.push(tmp)
-            setOrder(order)
-            navigate('/theorder', {state: order});
-        } else {
+            const newItem = productDetail.find(i => i?.color === item.color && i?.size == item.size)
+            if (newItem) {
+                if (newItem?.current_number < item?.sl || newItem?.current_number < 1)
+                    toast.error("Sản phẩm không đủ số lượng bạn cần! \n Vui lòng giảm số lượng!")
+                else {
+                    tmp.amount = item.sl ? item.sl : 1
+                    tmp.product = productDetail.find(i => i.color === item.color && i.size === item.size)
+                    order.push(tmp)
+                    setOrder(order)
+                    navigate('/theorder', {state: order});
+                }
+            }
+        } else
             toast.error("Vui lòng chọn đủ thông tin")
-        }
+
         e.preventDefault()
     }
 
@@ -166,7 +173,7 @@ const ShopPage = () => {
                             </ul>
                         </div>
                         <div className="col-lg-10">
-                            
+
                         <div className="flex">
                             <form className="example style" action="/action_page.php" >
                                     <input type="text" placeholder="Search" ></input>
@@ -378,7 +385,7 @@ const ShopPage = () => {
                                     <div className="col-lg-5 mt-5">
                                         <div className="card mb-3">
                                             <img className="card-img img-fluid"
-                                                 src={productDetail.at(0)?.infoProduct?.linkImg}
+                                                 src={imgSelect}
                                                  alt="Card image cap"
                                                  id="product-detail"/>
                                         </div>

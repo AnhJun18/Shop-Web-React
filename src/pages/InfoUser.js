@@ -16,6 +16,7 @@ const InfoUser = () => {
     const [order, setOrder] = useState([]);
     const [load, setLoad] = useState(false);
     const handleClose = () => setModalForm(false);
+    const [tmpGender,setTmpGender] = useState('Nam');
     const [infoChange, setChange] = useState({});
     const listST = ["Chờ Xác Nhận", "Đang Chuẩn Bị Hàng", "Đang Vận Chuyển", "Đã Thanh Toán", "Đã Hủy"];
     const [tmp, setTmp] = useState(listST.at(0));
@@ -26,7 +27,7 @@ const InfoUser = () => {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/user/profile`);
         setLoad(true)
         setProfile(result?.data?.userInfo)
-
+        setTmpGender(result?.data?.userInfo.gender)
     }
 
     async function handleCancel(e) {
@@ -52,6 +53,7 @@ const InfoUser = () => {
     const handleChangProfile = (e) => {
         const id = e.target.id
         infoChange[id] = e.currentTarget.value
+        setTmpGender(e.currentTarget.value)
     }
 
     useEffect(() => {
@@ -140,11 +142,11 @@ const InfoUser = () => {
                                 
                                 <div className="display-flex">
                                     <p className="mt-3 ms-2">Giới tính:</p>
-                                    <input type="radio" id="gender" value="Nam" name="fav_language"
+                                    <input type="radio" id="gender" value="Nam" name="fav_language" checked={tmpGender==='Nam'}
                                            onChange={handleChangProfile}
                                            className="me-2 mt-3 ms-5"></input>
                                     <label htmlFor="nam" className="mt-3">Nam</label>
-                                    <input type="radio" value="Nu" id="gender" name="fav_language"
+                                    <input type="radio" value="Nu" id="gender" name="fav_language" checked={tmpGender==='Nu'}
                                            onChange={handleChangProfile}
                                            className="me-2 ms-4 mt-3"></input>
                                     <label htmlFor="nu" className="mt-3">Nữ</label>
