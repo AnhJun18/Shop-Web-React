@@ -296,7 +296,7 @@ const HomePage = () => {
             <div class="container py-5">
                 <div class="row text-center py-3">
                     <div class="col-lg-6 m-auto">
-                        <h1 class="h1 py-1">BEST SELLER</h1>
+                        <h1 class="h1 py-1">Bán chạy</h1>
                         <p>Top sản phẩm bán chạy nhất</p>
                     </div>
                 </div>
@@ -554,11 +554,6 @@ const HomePage = () => {
             <div className="container my-4">
                 <div className="row text-center py-3">
                     <div className="col-lg-6 m-auto">
-                        <h1 className="h1">Our Brands</h1>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            Lorem ipsum dolor sit amet.
-                        </p>
                     </div>
                     <div className="col-lg-9 m-auto tempaltemo-carousel">
                         <div className="row d-flex flex-row">

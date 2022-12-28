@@ -174,12 +174,7 @@ const ShopPage = () => {
                         </div>
                         <div className="col-lg-10">
 
-                        <div className="flex">
-                            <form className="example style" action="/action_page.php" >
-                                    <input type="text" placeholder="Search" ></input>
-                                    <button type="submit" onclick={handleSearch}><i className="fa fa-search"></i></button>
-                            </form>
-                        </div>
+
                             <div className="row">
                                 {list.map((item) => (
                                     <div className="col-md-3">
@@ -249,13 +244,7 @@ const ShopPage = () => {
                 <section className="bg-light py-5">
                     <div className="container my-4">
                         <div className="row text-center py-3">
-                            <div className="col-lg-6 m-auto">
-                                <h1 className="h1">Our Brands</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    Lorem ipsum dolor sit amet.
-                                </p>
-                            </div>
+
                             <div className="col-lg-9 m-auto tempaltemo-carousel">
                                 <div className="row d-flex flex-row">
                                     {/* <!--Controls--> */}
