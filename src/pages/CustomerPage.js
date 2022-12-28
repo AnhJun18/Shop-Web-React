@@ -54,7 +54,7 @@ const CustomerPage = () => {
                                 {list.map((item) => (
                                     <tr key={item.id}>
                                         <td className="tdName">{item.firstName + " " + item.lastName}</td>
-                                        <td className="tdImage">{item.gende}</td>
+                                        <td className="tdImage">{item.gender}</td>
                                         <td className="tdCategory">{item.phone}</td>
                                         <td className="tdCategory">{item.address}</td>
                                         <td className="tdCategory">{item.account.email}</td>

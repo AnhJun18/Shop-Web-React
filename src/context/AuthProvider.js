@@ -28,7 +28,8 @@ export const AuthContextProvider = ({ children }) => {
       window.location.href = "/";
     }
     else
-      toast.error((apiResponse.data.data.message));
+      apiResponse.data.data.message.startsWith("Invalid")?toast.error("Tên đăng nhập hoặc mật khẩu không chính xác"):toast.error(apiResponse.data.data.message)
+
 
   };
   const logout = async () => {
