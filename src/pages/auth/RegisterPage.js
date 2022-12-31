@@ -92,11 +92,7 @@ const RegisterPage = () => {
                                         <input type="password" id="passwordRepeat" name="passwordRepeat" required="required" />
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-remember">
-                                        <input type="checkbox" />Nhớ tài khoản
-                                    </label>
-                                </div>
+
                                 <div class="form-group">
                                     <button type="submit">Đăng Ký</button>
                                 </div>

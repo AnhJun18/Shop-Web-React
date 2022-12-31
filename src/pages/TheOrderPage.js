@@ -49,7 +49,8 @@ const TheOrderPage = () => {
         setLoad(true)
         const data=result?.data?.userInfo
         setProfile(data)
-        setName(data?.firstName ? data.firstName : '' + ' ' + data.lastName ? data.lastName : '')
+
+        setName((data?.firstName ? data.firstName : '') + ' ' + (data?.lastName ? data.lastName : ''))
         setPhone(data?.phone)
         setAddress(data?.address)
     }
