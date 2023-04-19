@@ -66,6 +66,26 @@ html {
     text-transform: uppercase;
     letter-spacing: 0.2em;
   }
+  .auth-form__social-google {
+    background-color: #df4a32;
+    color: var(--white-color);
+    height: 45px;
+    font-size: 1.6rem;
+}
+.btn--width-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.auth-form__social {
+  background-color: var(--white-color);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
   .form-group input {
     outline: none;
     display: block;
