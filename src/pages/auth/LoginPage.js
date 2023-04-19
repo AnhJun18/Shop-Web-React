@@ -4,6 +4,7 @@ import userLayout from "../../user/userLayout"
 import "./../../assets/css/user-view.css";
 import {Link, useNavigate} from 'react-router-dom';
 import AuthContext from '../../context/AuthProvider';
+import { LOGIN_URL_GOOGLE } from "../../common/url";
 
 const LoginPage = () => {
 
@@ -11,6 +12,9 @@ const LoginPage = () => {
     const password = useRef("");
     const {login}= useContext(AuthContext)
    
+    const handleRedirectGoogle = () => {
+        window.open(LOGIN_URL_GOOGLE, "_self", '').close();
+    }
     const loginSubmit = async (e) => {
         e.preventDefault()
       let payload = {
@@ -54,6 +58,13 @@ const LoginPage = () => {
                                     <Link className="form-recovery link-item"  to="/register"> Đăng ký</Link>
                                 </p>
                             </form>
+
+                            <div className="auth-form__social">
+                                <Link to="#"  onClick={handleRedirectGoogle} className="auth-form__social-google btn btn--size-s btn--width-icon">
+                                    <i className="auth-form__social-icon fa fa-google-plus"></i>
+                                    <span className="auth-form__social-text">Kết nối với Google</span>
+                                </Link>
+                           </div>
                         </div>
                     </div>
                 </div>
