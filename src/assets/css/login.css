@@ -175,3 +175,18 @@ html {
   .right {
      padding-right: 16px; 
   }
+  .Payment button{
+    outline: none;
+    background:#daf1ff;
+    width: 80%;
+    border: 5;
+    border-radius: 3px;
+    padding: 5px 5px;
+    color: #000;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 400;
+    line-height: inherit;
+    text-transform: uppercase;
+    cursor: pointer;
+  }

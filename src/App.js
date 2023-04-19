@@ -27,6 +27,7 @@ import ChangePwsPage from "./pages/ChangePassword";
 import RecommendPage from "./pages/RecommendPage";
 import SearchPage from "./pages/SearchPage";
 import OAuth2RedirectHandler from './pages/auth/OAuth2RedirectHandler';
+import PaymentPage from './pages/PaymentPage';
 
 function App() {
     const tokens = JSON.parse(localStorage.getItem('tokens'));
@@ -65,6 +66,7 @@ function App() {
                         <Route path='/recommend' element={<RecommendPage/>} />
                         <Route path='/shop' element={<ShopPage/>}/>
                         <Route path='/shop/:id' element={<ShopPage/>}/>
+                        <Route path='/payment' element={<PaymentPage/>}/>
                         </>)
                 }
                 <Route path='*' element={<NotFound/>} />

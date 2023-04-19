@@ -57,6 +57,9 @@ const LoginPage = () => {
                                     Bạn chưa có tài khoản?
                                     <Link className="form-recovery link-item"  to="/register"> Đăng ký</Link>
                                 </p>
+                                <p className="form-group text">
+                                    <Link className="form-recovery link-item"  to="/payment"> test</Link>
+                                </p>
                             </form>
 
                             <div className="auth-form__social">
