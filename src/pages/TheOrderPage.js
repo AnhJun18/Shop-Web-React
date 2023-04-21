@@ -49,8 +49,13 @@ const TheOrderPage = () => {
         order.province = data.province
         order.ward = data.ward
         order.address = data.address
+        if (!data.province || !data.district || !data.ward || !data.address) {
+            handleInfor()
+        }else{
+            setAddressShow(data?.address + ', ' + data?.ward + ', ' + data?.district + ', ' + data?.province)
+        }
         setOrder(order)
-        setAddressShow(data?.address + ', ' + data?.ward + ', ' + data?.district + ', '+ data?.province)
+        
     }
 
     async function getProvince() {
@@ -63,9 +68,8 @@ const TheOrderPage = () => {
     }
 
     const getFeeShip = async () => {
-        console.log("PPASPo")
-        if(!order.province || !order.district)
-           return;
+        if (!order.province || !order.district)
+            return;
         const param = {
             "province": order?.province,
             "district": order.district,
@@ -73,11 +77,11 @@ const TheOrderPage = () => {
             "value": tmpMoney,
         }
         console.log(param)
-        const result = await axiosApiInstance.get(axios.defaults.baseURL + '/api/ship/ghtk/fee', { params: param });
+        const result = await axiosApiInstance.get(axios.defaults.baseURL + '/api/shipment/ghtk/fee', { params: param });
         setFeeShip(result?.data?.total_ship_fee)
 
     }
-    const handleInfor = (e) => {
+    const handleInfor = () => {
         setAddressShow(order?.address)
         setLoad(false)
     }
@@ -99,7 +103,7 @@ const TheOrderPage = () => {
         order.ward = null
         setOrder(order)
         setDistricts(province.find(i => i.name === e.target.value).districts)
-        
+
     }
 
     const changeDistricts = (e) => {
@@ -121,15 +125,18 @@ const TheOrderPage = () => {
         })
         const payload = {
             "nameReceiver": nameReceiver,
-            "address": `${address}, ${order.address}, ${order.district}, ${order.province}`,
+            "province":order.province,
+            "district":order.district,
+            "ward":order.ward,
+            "address":address,
             "phoneReceiver": phoneReceiver,
             "feeShip": feeShip,
             "note": "none",
             "listProduct": productOrder
         }
-       
 
-        if (payload.address && payload.phoneReceiver && payload.nameReceiver) {
+
+        if (payload.address &&  payload.province && payload.district && payload.ward &&payload.phoneReceiver && payload.nameReceiver) {
             const result = await axiosApiInstance.post(axiosApiInstance.defaults.baseURL + `/api/order/create`, payload)
             if (result?.data.status) {
                 toast.success("Đơn hàng đã được tạo")
@@ -139,6 +146,7 @@ const TheOrderPage = () => {
                 toast.success("Vui lòng kiểm tra thông tin! " + result?.data.message)
             }
         } else {
+            console.log(payload)
             toast.error("Vui lòng nhập đầy đủ thông tin!")
         }
 
@@ -151,7 +159,7 @@ const TheOrderPage = () => {
 
     }, [])
 
-   
+
     return <>{
         location ?
             <div className="margin-left-right padding-bottom-3x marginTop marginBot row">

@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import adminLayout from "../admin/adminLayout";
-import {Button, Form, Modal} from "react-bootstrap"
+import { Button, Form, Modal } from "react-bootstrap"
 import "../assets/css/statistical.css";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axiosApiInstance from "../context/interceptor";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 const StatisticalPage = () => {
     const param = useLocation();
@@ -33,19 +33,45 @@ const StatisticalPage = () => {
 
     const handlePreviewReport = (e) => {
         e.preventDefault();
+        let url_report = null;
         if (status === 1) {
-            window.open(axiosApiInstance.defaults.baseURL + `/api/report/monthly_revenue?month=${e.target.elements.month.value}`, '_blank').focus();
+            url_report = axiosApiInstance.defaults.baseURL + `/api/report/monthly_revenue?month=${e.target.elements.month.value}`;
         } else if (status === 2) {
-            if(checkDate(e.target.elements.prfrom.value, e.target.elements.prto.value))
-                window.open(axiosApiInstance.defaults.baseURL + `/api/report/product_revenue?from=${e.target.elements.prfrom.value}&to=${e.target.elements.prto.value}`, '_blank').focus();
+            if (checkDate(e.target.elements.prfrom.value, e.target.elements.prto.value))
+                url_report = axiosApiInstance.defaults.baseURL + `/api/report/product_revenue?from=${e.target.elements.prfrom.value}&to=${e.target.elements.prto.value}`;
             else
                 toast.error("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc")
 
         } else if (status === 3)
-            if(checkDate(e.target.elements.ddfrom.value, e.target.elements.ddto.value))
-                    window.open(axiosApiInstance.defaults.baseURL + `/api/report/list-order?from=${e.target.elements.ddfrom.value}&to=${e.target.elements.ddto.value}&status=${e.target.elements.statusChoose.value}`, '_blank').focus();
+            if (checkDate(e.target.elements.ddfrom.value, e.target.elements.ddto.value))
+                url_report = axiosApiInstance.defaults.baseURL + `/api/report/list-order?from=${e.target.elements.ddfrom.value}&to=${e.target.elements.ddto.value}&status=${e.target.elements.statusChoose.value}`;
             else
                 toast.error("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc")
+
+        if(url_report!==null){
+            const token = JSON.parse(localStorage.getItem("tokens")).data.accessToken;
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url_report, true);
+            xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+            xhr.responseType = 'arraybuffer';
+          
+            xhr.onload = function () {
+              if (xhr.status === 200) {
+                const blob = new Blob([xhr.response], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                const newWindow = window.open(url, '_blank');
+                newWindow.focus();
+              } else {
+                console.error(xhr.statusText);
+              }
+            };
+          
+            xhr.onerror = function () {
+              console.error('Request failed.');
+            };
+          
+            xhr.send();
+        }
     }
 
     const clickImportOrder = (e) => {
@@ -62,13 +88,13 @@ const StatisticalPage = () => {
                 <div className="container padding-bottom-3x">
                     <div className="marginTop">
                         <button className={status == 1 ? "ms-2 buttonHead active" : "ms-2 buttonHead"}
-                                onClick={clickTurnover}>Doanh thu
+                            onClick={clickTurnover}>Doanh thu
                         </button>
                         <button className={status == 2 ? "ms-2 buttonHead active" : "ms-2 buttonHead"}
-                                onClick={clickTheOrder}>Sản Phẩm
+                            onClick={clickTheOrder}>Sản Phẩm
                         </button>
                         <button className={status == 3 ? "ms-2 buttonHead active" : "ms-2 buttonHead"}
-                                onClick={clickImportOrder}>Đơn hàng
+                            onClick={clickImportOrder}>Đơn hàng
                         </button>
                     </div>
                     <Form onSubmit={handlePreviewReport} className="screen py-2 bg-white">
@@ -85,7 +111,7 @@ const StatisticalPage = () => {
                                     </div>
                                 </div>
                             </>
-                            
+
                             :
                             status == 2 ?
                                 <>
@@ -105,8 +131,8 @@ const StatisticalPage = () => {
                                         </div>
                                     </div>
                                 </>
-                                 :
-                                 <>
+                                :
+                                <>
                                     <h3 className="screenHeader">Thống Kê Đơn Nhập Theo Tháng</h3>
                                     <div className="screen py-2 bg-white">
                                         <div className="canopy mt-5">
@@ -131,8 +157,8 @@ const StatisticalPage = () => {
                                             <button className="buttonSubmit btn btn-success">Xem Báo Cáo</button>
                                         </div>
                                     </div>
-                                 </>
-                                
+                                </>
+
                         }
                     </Form>
                 </div>
