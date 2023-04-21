@@ -349,6 +349,20 @@ p.fontSizeInfor {
 span.font {
     font-size: 15px;
 }
+.pay {
+    color: #6c757d;
+  border-color: #585d61;
+}
+.pay:hover{
+  background-color: #e5e6e7;
+  border-color: #80949b;
+}
+.select-pay{
+    color: #0b6474;
+    background-color: #e2fbff;
+  border-color: #2db4cc;
+  border: 5;
+}
   
   
   

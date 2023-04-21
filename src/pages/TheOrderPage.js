@@ -25,7 +25,7 @@ const TheOrderPage = () => {
     const [nameReceiver, setName] = useState()
     const [phoneReceiver, setPhone] = useState()
     const [address, setAddressShow] = useState()
-
+    const [payment,setPayment] = useState(1);
     useEffect(() => {
         let t = 0
         cart.forEach((i) => {
@@ -35,7 +35,12 @@ const TheOrderPage = () => {
     }, [])
 
     const [order, setOrder] = useState({})
-
+    const checkPayCOD = (e) => {
+        setPayment(2)
+    }
+    const checkPayVNPay = (e) => {
+        setPayment(1)
+    }
     async function getProfile() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/user/profile`);
         setLoad(true)
@@ -266,21 +271,28 @@ const TheOrderPage = () => {
                     <div className="radio-wrapper">
                         <label className="radio-lable borderForm">
                             <div className="radio-input">
-                                <input type="radio" checked="true" className="me-2 mt-3 ms-5 "></input>
+                                <input type="radio" checked="true" className="me-2 mt-1 ms-5 "></input>
                             </div>
-                            <span className="radio-input font">Giao hàng tận nơi (thời gian giao hàng dự kiến từ 3 ~ 4 ngày,
-                                có thể lâu hơn vì các vấn đề bất khả kháng, mong Quý KH đợi đơn hàng giúp shop.
-                                Chân thành cảm ơn)</span>
-                            <span className="font"></span>
+                            
+                            <span className="radio-input font">Sử dụng dịch vụ giao hàng trung gian (GHTK)</span>
                         </label>
+                        
                     </div>
                     <h5 className="ms-4 mb-2 mt-1">Phương thức thanh toán</h5>
 
                     <div className="field field_v1 ms-4 mb-5">
                         <label for="first-name" className="ha-screen-reader">Phương thức thanh toán</label>
-                        <input type="radio" id="gender" value="Nam" name="fav_language" checked="true"
-                            className="me-2 mt-3 ms-5 "></input>
-                        <label htmlFor="nam" className="mt-3">Thanh toán khi nhận hàng</label>
+                        
+                        <div tabindex="0"  className="me-2 mt-3 ms-5">
+                            <button className={payment==1 ? "btn select-pay" : "btn pay"} label="VNpay" onClick={checkPayVNPay}>
+                                {/* <image src="./../assets/images/logo-VNPAY-QR.png"></image> */}
+                                Ví VNpay</button>
+                        </div>
+                        <div tabindex="0"  className="me-2 mt-2 ms-5">
+                            <button className={payment==2 ? "btn select-pay" : "btn pay"} label="TM" onClick={checkPayCOD}>Thanh toán khi nhận hàng(COD)</button>
+                        </div>
+
+                        
 
                     </div>
                     <div className="shopping-cart-footer">
