@@ -26,6 +26,8 @@ import ChangePassword from "./pages/ChangePassword";
 import ChangePwsPage from "./pages/ChangePassword";
 import RecommendPage from "./pages/RecommendPage";
 import SearchPage from "./pages/SearchPage";
+import OAuth2RedirectHandler from './pages/auth/OAuth2RedirectHandler';
+import PaymentPage from './pages/PaymentPage';
 
 function App() {
     const tokens = JSON.parse(localStorage.getItem('tokens'));
@@ -34,6 +36,8 @@ function App() {
         <AuthContextProvider>
             <Routes>
                 <Route path='/login' element={<LoginPage/>} />
+                <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler/>}/>
+
                 {permission === 'ROLE_ADMIN' ?
                     <>
                         <Route path='/' element={<DashboardPage/>} />
@@ -62,6 +66,7 @@ function App() {
                         <Route path='/recommend' element={<RecommendPage/>} />
                         <Route path='/shop' element={<ShopPage/>}/>
                         <Route path='/shop/:id' element={<ShopPage/>}/>
+                        <Route path='/result-payment' element={<PaymentPage/>}/>
                         </>)
                 }
                 <Route path='*' element={<NotFound/>} />
