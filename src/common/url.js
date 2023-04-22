@@ -1,1 +1,1 @@
-export const LOGIN_URL_GOOGLE = `https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8081/api/auth/oauth2/google&response_type=code&client_id=387422189053-5ojrdmslj960485j5u7n0p0kaheldf2l.apps.googleusercontent.com&approval_prompt=force`;
+export const LOGIN_URL_GOOGLE = `https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=https://pa-shop-api.up.railway.app/api/auth/oauth2/google&response_type=code&client_id=387422189053-5ojrdmslj960485j5u7n0p0kaheldf2l.apps.googleusercontent.com&approval_prompt=force`;
