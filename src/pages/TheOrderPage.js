@@ -123,6 +123,11 @@ const TheOrderPage = () => {
         setOrder(order)
     }
 
+    const paymetVNPAY=async (id)=>{
+          const vnp_result= await axiosApiInstance.get(axiosApiInstance.defaults.baseURL+`/api/payment/vnpay/make_url?order_id=${id}`);
+          console.log(vnp_result)
+    }
+
     const handleConfirmOrder = async () => {
         const productOrder = []
         cart.forEach((i) => {
@@ -145,7 +150,13 @@ const TheOrderPage = () => {
             const result = await axiosApiInstance.post(axiosApiInstance.defaults.baseURL + `/api/order/create`, payload)
             if (result?.data.status) {
                 toast.success("Đơn hàng đã được tạo")
-                navigate('/home');
+                console.log("checkPayVNPay")
+                if(checkPayVNPay){
+                    console.log(result.data?.order.id)
+                    await  paymetVNPAY(result.data?.order.id);
+                }else{
+                    navigate('/home');
+                }
             }
             else {
                 toast.success("Vui lòng kiểm tra thông tin! " + result?.data.message)
