@@ -25,7 +25,7 @@ const TheOrderPage = () => {
     const [nameReceiver, setName] = useState()
     const [phoneReceiver, setPhone] = useState()
     const [address, setAddressShow] = useState()
-    const [payment,setPayment] = useState(1);
+    const [payment, setPayment] = useState(1);
     useEffect(() => {
         let t = 0
         cart.forEach((i) => {
@@ -56,11 +56,11 @@ const TheOrderPage = () => {
         order.address = data.address
         if (!data.province || !data.district || !data.ward || !data.address) {
             handleInfor()
-        }else{
+        } else {
             setAddressShow(data?.address + ', ' + data?.ward + ', ' + data?.district + ', ' + data?.province)
         }
         setOrder(order)
-        
+
     }
 
     async function getProvince() {
@@ -123,9 +123,9 @@ const TheOrderPage = () => {
         setOrder(order)
     }
 
-    const paymetVNPAY=async (id)=>{
-          const vnp_result= await axiosApiInstance.get(axiosApiInstance.defaults.baseURL+`/api/payment/vnpay/make_url?order_id=${id}`);
-          console.log(vnp_result)
+    const paymetVNPAY = async (id) => {
+        toast.info("Đang chuyển hướng đến VNPay")
+        window.location.href = axiosApiInstance.defaults.baseURL + `/api/payment/vnpay/make_url?order_id=${id}`
     }
 
     const handleConfirmOrder = async () => {
@@ -135,10 +135,10 @@ const TheOrderPage = () => {
         })
         const payload = {
             "nameReceiver": nameReceiver,
-            "province":order.province,
-            "district":order.district,
-            "ward":order.ward,
-            "address":address,
+            "province": order.province,
+            "district": order.district,
+            "ward": order.ward,
+            "address": address,
             "phoneReceiver": phoneReceiver,
             "feeShip": feeShip,
             "note": "none",
@@ -146,15 +146,14 @@ const TheOrderPage = () => {
         }
 
 
-        if (payload.address &&  payload.province && payload.district && payload.ward &&payload.phoneReceiver && payload.nameReceiver) {
+        if (payload.address && payload.province && payload.district && payload.ward && payload.phoneReceiver && payload.nameReceiver) {
             const result = await axiosApiInstance.post(axiosApiInstance.defaults.baseURL + `/api/order/create`, payload)
             if (result?.data.status) {
                 toast.success("Đơn hàng đã được tạo")
                 console.log("checkPayVNPay")
-                if(checkPayVNPay){
-                    console.log(result.data?.order.id)
-                    await  paymetVNPAY(result.data?.order.id);
-                }else{
+                if (payment === 1) {
+                    paymetVNPAY(result.data?.order.id);
+                } else {
                     navigate('/home');
                 }
             }
@@ -286,32 +285,33 @@ const TheOrderPage = () => {
 
                     }
 
-                    <h5 className="ms-4 mb-3 mt-1">Phương thức vận chuyển</h5>
+                    <h5 className="ms-4 mb-3 mt-2">Phương thức vận chuyển</h5>
                     <div className="radio-wrapper">
                         <label className="radio-lable borderForm">
                             <div className="radio-input">
                                 <input type="radio" checked="true" className="me-2 mt-1 ms-5 "></input>
                             </div>
-                            
-                            <span className="radio-input font">Sử dụng dịch vụ giao hàng trung gian (GHTK)</span>
+
+                            <span className="radio-input font">
+                                <img className="method-icon" width="50" src="https://cdn.haitrieu.com/wp-content/uploads/2022/05/Logo-GHTK-Green.png" alt="GHTK" />
+                                Sử dụng dịch vụ giao hàng trung gian (GHTK)
+                            </span>
                         </label>
-                        
+
                     </div>
-                    <h5 className="ms-4 mb-2 mt-1">Phương thức thanh toán</h5>
+                    <h5 className="ms-4 mb-2 mt-3">Phương thức thanh toán</h5>
 
-                    <div className="field field_v1 ms-4 mb-5">
-                        <label for="first-name" className="ha-screen-reader">Phương thức thanh toán</label>
-                        
-                        <div tabindex="0"  className="me-2 mt-3 ms-5">
-                            <button className={payment==1 ? "btn select-pay" : "btn pay"} label="VNpay" onClick={checkPayVNPay}>
-                                {/* <image src="./../assets/images/logo-VNPAY-QR.png"></image> */}
-                                Ví VNpay</button>
+                    <div className=" field field_v1 ms-4 mb-5 borderForm">
+                        <div tabindex="0" className="me-2 mt-2 ms-4">
+                            <button className={payment == 1 ? "btn select-pay" : "btn pay"} label="VNpay" onClick={checkPayVNPay}>
+                                <img className="method-icon" width="32" src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Icon-VNPAY-QR.png" alt="VNPay" />
+                                Ví VNPay</button>
                         </div>
-                        <div tabindex="0"  className="me-2 mt-2 ms-5">
-                            <button className={payment==2 ? "btn select-pay" : "btn pay"} label="TM" onClick={checkPayCOD}>Thanh toán khi nhận hàng(COD)</button>
+                        <div tabindex="0" className="me-2 mt-2 mb-2 ms-4">
+                            <button className={payment == 2 ? "btn select-pay" : "btn pay"} label="TM" onClick={checkPayCOD}>Thanh toán khi nhận hàng(COD)</button>
                         </div>
 
-                        
+
 
                     </div>
                     <div className="shopping-cart-footer">

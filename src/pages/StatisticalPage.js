@@ -5,6 +5,7 @@ import "../assets/css/statistical.css";
 import { useLocation } from "react-router-dom";
 import axiosApiInstance from "../context/interceptor";
 import { toast } from "react-toastify";
+import ReactLoading from "react-loading";
 
 const StatisticalPage = () => {
     const param = useLocation();
@@ -48,28 +49,28 @@ const StatisticalPage = () => {
             else
                 toast.error("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc")
 
-        if(url_report!==null){
+        if (url_report !== null) {
             const token = JSON.parse(localStorage.getItem("tokens")).data.accessToken;
             const xhr = new XMLHttpRequest();
             xhr.open('GET', url_report, true);
             xhr.setRequestHeader('Authorization', `Bearer ${token}`);
             xhr.responseType = 'arraybuffer';
-          
+
             xhr.onload = function () {
-              if (xhr.status === 200) {
-                const blob = new Blob([xhr.response], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-                const newWindow = window.open(url, '_blank');
-                newWindow.focus();
-              } else {
-                console.error(xhr.statusText);
-              }
+                if (xhr.status === 200) {
+                    const blob = new Blob([xhr.response], { type: 'application/pdf' });
+                    const url = URL.createObjectURL(blob);
+                    const newWindow = window.open(url, '_blank');
+                    newWindow.focus();
+                } else {
+                    console.error(xhr.statusText);
+                }
             };
-          
+
             xhr.onerror = function () {
-              console.error('Request failed.');
+                console.error('Request failed.');
             };
-          
+
             xhr.send();
         }
     }
@@ -164,7 +165,9 @@ const StatisticalPage = () => {
                 </div>
 
                 :
-                <div>Loading</div>
+                <div className={"center loading"}>
+                    <ReactLoading type={'cylon'} color='#fffff' height={'33px'} width={'9%'} />
+                </div>
         }
         </>
     );
