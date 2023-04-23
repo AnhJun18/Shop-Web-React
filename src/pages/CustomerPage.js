@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import adminLayout from "../admin/adminLayout";
 import axiosApiInstance from "../context/interceptor";
+import ReactLoading from "react-loading";
+
 import "../assets/css/customer.css";
 
 import Pagination from "../components/Pagination";
@@ -69,7 +71,9 @@ const CustomerPage = () => {
                     </div>
             </div>
             :
-            <div>Loading</div>
+            <div className={"center loading"}>
+                <ReactLoading type={'cylon'} color='#fffff' height={'33px'} width={'9%'} />
+            </div>
         }
         </>
     );

@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import userLayout from "../user/userLayout"
 import "./../assets/css/user-view.css";
 import axiosApiInstance from "../context/interceptor";
-import {Form, Modal} from "react-bootstrap"
+import { Form, Modal } from "react-bootstrap"
 import InputSpinner from "react-bootstrap-input-spinner";
 import axios from "../api/axios";
-import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
+import ReactLoading from "react-loading";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
     const navigate = useNavigate()
     const [list, setList] = useState([]);
-    const [load, setLoad] = useState(false);
+    const [loadBestSell, setLoadBestSell] = useState(true);
+    const [load, setLoad] = useState(true);
     const [loadSize, setLoadSize] = useState(false);
     const [status, setStatus] = useState(0);
     const [listCate, setListCate] = useState([]);
@@ -36,27 +38,25 @@ const HomePage = () => {
 
     async function getProduct() {
         const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/all`);
-        setLoad(true);
+        setLoad(false);
         setList(result?.data)
     }
 
     async function getBestSeller() {
         const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/best-seller`);
-        setLoad(true);
+        setLoadBestSell(false);
         setBestSeller(result?.data)
 
     }
 
     async function getCategory() {
         const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/category/all`)
-        setLoad(true);
         setListCate(result?.data)
     }
 
     async function getDetails(id) {
         const result = await axios.get(axiosApiInstance.defaults.baseURL + `/api/product/detail/${id}`)
         setStatus(1)
-        setLoad(true);
         setLoadSize(false)
         setProductSelected(result?.data)
         setSizeAvail(result?.data)
@@ -109,7 +109,7 @@ const HomePage = () => {
                     tmp.product = productDetail.find(i => i.color === item.color && i.size === item.size)
                     order.push(tmp)
                     setOrder(order)
-                    navigate('/theorder', {state: order});
+                    navigate('/theorder', { state: order });
                 }
             }
         } else
@@ -134,7 +134,7 @@ const HomePage = () => {
                 if (kq?.data?.status === 200) {
                     setItem({})
                     setShow(false)
-                    toast.success("Sản phẩm đã được thêm vao giỏ hàng của bạn!", {position: "top-center"})
+                    toast.success("Sản phẩm đã được thêm vao giỏ hàng của bạn!", { position: "top-center" })
                 } else {
                     toast.error("Thất bại! Vui lòng thử lại")
                 }
@@ -166,7 +166,7 @@ const HomePage = () => {
                         <div class="row">
                             <img
                                 src="https://theme.hstatic.net/200000305259/1000963148/14/slide_index_2.jpg?v=74"
-                                alt=""/>
+                                alt="" />
                         </div>
                     </div>
                 </div>
@@ -175,19 +175,19 @@ const HomePage = () => {
                         <div class="row">
                             <img
                                 src="https://theme.hstatic.net/200000305259/1000963148/14/slide_index_1.jpg?v=74"
-                                alt=""/>
+                                alt="" />
                         </div>
                     </div>
                 </div>
             </div>
             <a class="carousel-control-prev text-decoration-none w-auto ps-3"
-               href="#template-mo-zay-hero-carousel"
-               role="button" data-bs-slide="prev">
+                href="#template-mo-zay-hero-carousel"
+                role="button" data-bs-slide="prev">
                 <i class="fa fa-chevron-left"></i>
             </a>
             <a class="carousel-control-next text-decoration-none w-auto pe-3"
-               href="#template-mo-zay-hero-carousel"
-               role="button" data-bs-slide="next">
+                href="#template-mo-zay-hero-carousel"
+                role="button" data-bs-slide="next">
                 <i class="fa fa-chevron-right"></i>
             </a>
         </div>
@@ -256,35 +256,35 @@ const HomePage = () => {
                     <div class="col-md-3 py-2">
                         <div className="card rounded-0">
                             <a href="shop/Áo Thun"><img className="card-img rounded-0 img-fluid"
-                                                        src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_1.jpg?v=12"/></a>
+                                src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_1.jpg?v=12" /></a>
                         </div>
                     </div>
 
                     <div class="col-md-3 py-2">
                         <div className="card rounded-0">
                             <a href="shop/Áo Thun"><img className="card-img rounded-0 img-fluid"
-                                                        src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_2.jpg?v=12"/></a>
+                                src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_2.jpg?v=12" /></a>
                         </div>
                     </div>
 
                     <div class="col-md-3 py-2">
                         <div className="card rounded-0">
                             <a href="shop/Áo Thun"><img className="card-img rounded-0 img-fluid"
-                                                        src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_3.jpg?v=12"/></a>
+                                src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_3.jpg?v=12" /></a>
                         </div>
                     </div>
 
                     <div class="col-md-3 py-2">
                         <div className="card rounded-0">
                             <a href="shop/Áo Thun"><img className="card-img rounded-0 img-fluid"
-                                                        src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_4.jpg?v=12"/></a>
+                                src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_4.jpg?v=12" /></a>
                         </div>
                     </div>
 
                     <div class="col-md-3 py-2">
                         <div className="card rounded-0">
                             <a href="shop/Áo Thun"><img className="card-img rounded-0 img-fluid"
-                                                        src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_5.jpg?v=12"/></a>
+                                src="https://theme.hstatic.net/200000305259/1000967293/14/banner_index_5.jpg?v=12" /></a>
                         </div>
                     </div>
                 </div>
@@ -301,60 +301,64 @@ const HomePage = () => {
                     </div>
                 </div>
                 <div className="row">
-                    {listBestSeller.map((item) => (
-                        <div className="col-md-3">
-                            <div className="card mb-3 product-wap rounded-0">
-                                <div className="card rounded-0">
-                                    <img className="img-config card-img rounded-0 img-fluid"
-                                         src={item.linkImg}/>
-                                    <div
-                                        className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <button type="button" className="btn btn-success text-white"
+                    {loadBestSell ?
+                        <div className={"center loading"}>
+                            <ReactLoading type={'cylon'} color='#fffff' height={'33px'} width={'9%'} />
+                        </div> :
+                        listBestSeller.map((item) => (
+                            <div className="col-md-3">
+                                <div className="card mb-3 product-wap rounded-0">
+                                    <div className="card rounded-0">
+                                        <img className="img-config card-img rounded-0 img-fluid"
+                                            src={item.linkImg} />
+                                        <div
+                                            className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                            <button type="button" className="btn btn-success text-white"
                                                 title={item.linkImg} id={item?.id}
                                                 onClick={handleShow}>
-                                            XEM NGAY!
-                                        </button>
+                                                XEM NGAY!
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="card-body">
-                                    <div className="">
-                                        <a href={`/product/${item?.id}`}
-                                           className="h3 text-decoration-none text-config"
-                                           title={item.name}>{item.name}</a>
-                                    </div>
+                                    <div className="card-body">
+                                        <div className="">
+                                            <a href={`/product/${item?.id}`}
+                                                className="h3 text-decoration-none text-config"
+                                                title={item.name}>{item.name}</a>
+                                        </div>
 
-                                    <ul className="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                        <li>M/L/X/XL</li>
-                                        <li className="pt-2">
-                                <span
-                                    className="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                            <span
-                                                className="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                            <span
-                                                className="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                            <span
-                                                className="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                            <span
-                                                className="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                        </li>
-                                    </ul>
-                                    <ul className="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i className="text-warning fa fa-star"></i>
-                                            <i className="text-warning fa fa-star"></i>
-                                            <i className="text-warning fa fa-star"></i>
-                                            <i className="text-muted fa fa-star"></i>
-                                            <i className="text-muted fa fa-star"></i>
-                                        </li>
-                                    </ul>
-                                    <p className="text-center mb-0 price_txt">{item.price.toLocaleString('vi', {
-                                        style: 'currency',
-                                        currency: 'VND'
-                                    })}</p>
+                                        <ul className="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                            <li>M/L/X/XL</li>
+                                            <li className="pt-2">
+                                                <span
+                                                    className="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                                <span
+                                                    className="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                                <span
+                                                    className="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                                <span
+                                                    className="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                                <span
+                                                    className="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                            </li>
+                                        </ul>
+                                        <ul className="list-unstyled d-flex justify-content-center mb-1">
+                                            <li>
+                                                <i className="text-warning fa fa-star"></i>
+                                                <i className="text-warning fa fa-star"></i>
+                                                <i className="text-warning fa fa-star"></i>
+                                                <i className="text-muted fa fa-star"></i>
+                                                <i className="text-muted fa fa-star"></i>
+                                            </li>
+                                        </ul>
+                                        <p className="text-center mb-0 price_txt">{item.price.toLocaleString('vi', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        })}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                 </div>
             </div>
 
@@ -366,60 +370,64 @@ const HomePage = () => {
                     </div>
                 </div>
                 <div className="row">
-                    {list.map((item) => (
-                        <div className="col-md-3">
-                            <div className="card mb-3 product-wap rounded-0">
-                                <div className="card rounded-0">
-                                    <img className="img-config card-img rounded-0 img-fluid"
-                                         src={item.linkImg}/>
-                                    <div
-                                        className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <button type="button" className="btn btn-success text-white"
+                    {load ?
+                        <div className={"center loading"}>
+                            <ReactLoading type={'cylon'} color='#fffff' height={'33px'} width={'9%'} />
+                        </div>
+                        : list.map((item) => (
+                            <div className="col-md-3">
+                                <div className="card mb-3 product-wap rounded-0">
+                                    <div className="card rounded-0">
+                                        <img className="img-config card-img rounded-0 img-fluid"
+                                            src={item.linkImg} />
+                                        <div
+                                            className="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                            <button type="button" className="btn btn-success text-white"
                                                 title={item.linkImg} id={item?.id}
                                                 onClick={handleShow}>
-                                            XEM NGAY!
-                                        </button>
+                                                XEM NGAY!
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="card-body">
-                                    <div className="">
-                                        <a href={`/product/${item?.id}`}
-                                           className="h3 text-decoration-none text-config"
-                                           title={item.name}>{item.name}</a>
-                                    </div>
+                                    <div className="card-body">
+                                        <div className="">
+                                            <a href={`/product/${item?.id}`}
+                                                className="h3 text-decoration-none text-config"
+                                                title={item.name}>{item.name}</a>
+                                        </div>
 
-                                    <ul className="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                        <li>M/L/X/XL</li>
-                                        <li className="pt-2">
-                                <span
-                                    className="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                            <span
-                                                className="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                            <span
-                                                className="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                            <span
-                                                className="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                            <span
-                                                className="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                        </li>
-                                    </ul>
-                                    <ul className="list-unstyled d-flex justify-content-center mb-1">
-                                        <li>
-                                            <i className="text-warning fa fa-star"></i>
-                                            <i className="text-warning fa fa-star"></i>
-                                            <i className="text-warning fa fa-star"></i>
-                                            <i className="text-muted fa fa-star"></i>
-                                            <i className="text-muted fa fa-star"></i>
-                                        </li>
-                                    </ul>
-                                    <p className="text-center mb-0 price_txt">{item.price.toLocaleString('vi', {
-                                        style: 'currency',
-                                        currency: 'VND'
-                                    })}</p>
+                                        <ul className="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                            <li>M/L/X/XL</li>
+                                            <li className="pt-2">
+                                                <span
+                                                    className="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                                <span
+                                                    className="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                                <span
+                                                    className="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                                <span
+                                                    className="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                                <span
+                                                    className="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                            </li>
+                                        </ul>
+                                        <ul className="list-unstyled d-flex justify-content-center mb-1">
+                                            <li>
+                                                <i className="text-warning fa fa-star"></i>
+                                                <i className="text-warning fa fa-star"></i>
+                                                <i className="text-warning fa fa-star"></i>
+                                                <i className="text-muted fa fa-star"></i>
+                                                <i className="text-muted fa fa-star"></i>
+                                            </li>
+                                        </ul>
+                                        <p className="text-center mb-0 price_txt">{item.price.toLocaleString('vi', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        })}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                     <div className="col-md-12 d-flex justify-content-center">
                         <a href="">
                             <button type="button" className="btn btn-outline-primary">Xem tất cả</button>
@@ -439,99 +447,104 @@ const HomePage = () => {
                             <div class="col-lg-5 mt-5">
                                 <div class="card mb-3">
                                     <img class="card-img img-fluid"
-                                         src={imgSelect} alt="Card image cap"
-                                         id="product-detail"/>
+                                        src={imgSelect} alt="Card image cap"
+                                        id="product-detail" />
                                 </div>
 
                             </div>
                             {/* <!-- col end --> */}
-                            {<div class="col-lg-7 mt-5">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h1 class="h2">{productDetail.at(0)?.infoProduct?.name}</h1>
-                                        <p class="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
-                                            style: 'currency',
-                                            currency: 'VND'
-                                        })}</p>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <h6>Avaliable Color :</h6>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <p class="text-muted"><strong>White / Black</strong></p>
-                                            </li>
-                                        </ul>
 
-                                        {<Form>
-                                            <input type="hidden" name="product-title" value="Activewear"/>
-                                            <div class="row">
-                                                <div className="col-full">
-                                                    <strong>Màu </strong>
-                                                    {<Form onChange={handleChangeColor}>
-                                                        {Array.from(colorAvail).map((i) =>
-                                                            <Form.Check
-                                                                inline
-                                                                reverse
-                                                                label={i}
-                                                                name="group1"
-                                                                type="radio"
-                                                                id={i}
+                            {productDetail.length !== 0 ?
+                                <div class="col-lg-7 mt-5">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h1 class="h2">{productDetail.at(0)?.infoProduct?.name}</h1>
+                                            <p class="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            })}</p>
+
+
+                                            {<Form>
+                                                <input type="hidden" name="product-title" value="Activewear" />
+                                                <div class="row">
+                                                    <div className="col-full">
+                                                        <strong>Màu </strong>
+                                                        {<Form onChange={handleChangeColor}>
+                                                            {Array.from(colorAvail).map((i) =>
+                                                                <Form.Check
+                                                                    inline
+                                                                    reverse
+                                                                    label={i}
+                                                                    name="group1"
+                                                                    type="radio"
+                                                                    id={i}
+                                                                />
+                                                            )}
+                                                        </Form>}
+                                                    </div>
+
+                                                    <div class="col-full">
+                                                        <strong>Kích thước</strong>
+                                                        {loadSize ? <Form onChange={handleChangeSize}>
+                                                            {sizeAvail?.map((i) =>
+                                                                <Form.Check
+                                                                    inline
+                                                                    reverse
+                                                                    label={i?.size}
+                                                                    name="group_size"
+                                                                    type="radio"
+                                                                    id={i?.size}
+                                                                />
+                                                            )}
+                                                        </Form> : null}
+                                                    </div>
+
+                                                    <div class="col-full flex align-items-center pb-3">
+                                                        <strong className="me-3">Số lượng</strong>
+                                                        <div className="count-input spinner_input">
+
+                                                            <InputSpinner
+                                                                type={'int'}
+                                                                precision={0}
+                                                                max={100}
+                                                                min={1}
+                                                                step={1}
+                                                                value={1}
+                                                                onChange={handleChangeAmount}
+                                                                variant={'info'}
+                                                                size="sm"
                                                             />
-                                                        )}
-                                                    </Form>}
-                                                </div>
-
-                                                <div class="col-full">
-                                                    <strong>Kích thước</strong>
-                                                    {loadSize ? <Form onChange={handleChangeSize}>
-                                                        {sizeAvail?.map((i) =>
-                                                            <Form.Check
-                                                                inline
-                                                                reverse
-                                                                label={i?.size}
-                                                                name="group_size"
-                                                                type="radio"
-                                                                id={i?.size}
-                                                            />
-                                                        )}
-                                                    </Form> : null}
-                                                </div>
-
-                                                <div class="col-full flex align-items-center pb-3">
-                                                    <strong className="me-3">Số lượng</strong>
-                                                    <div className="count-input spinner_input">
-
-                                                        <InputSpinner
-                                                            type={'int'}
-                                                            precision={0}
-                                                            max={100}
-                                                            min={1}
-                                                            step={1}
-                                                            value={1}
-                                                            onChange={handleChangeAmount}
-                                                            variant={'info'}
-                                                            size="sm"
-                                                        />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row pb-3">
-                                                <div class="col d-grid">
-                                                    <button class="btn btn-success btn-lg"
+                                                <div class="row pb-3">
+                                                    <div class="col d-grid">
+                                                        <button class="btn btn-success btn-lg"
                                                             onClick={buyNow} value="buy">Mua ngay
-                                                    </button>
-                                                </div>
-                                                <div class="col d-grid">
-                                                    <button type="submit" class="btn btn-success btn-lg"
+                                                        </button>
+                                                    </div>
+                                                    <div class="col d-grid">
+                                                        <button type="submit" class="btn btn-success btn-lg"
                                                             name="submit" onClick={handleSubmitAdd}>Giỏ hàng
-                                                    </button>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </Form>}
+                                            </Form>}
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>}
+                                :
+                                <div class="col-lg-7 mt-5">
+                                    <div class="card">
+                                        <div class="card-body" style={{ background: " #f8d7da", color: " #721c24" }}>
+                                            <h6>Sold Out</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
                         </div>
                     </div>
                 </Modal.Body>
@@ -539,7 +552,7 @@ const HomePage = () => {
                 <Modal.Body>
                     <div className="container pb-5">
                         <img class="card-img img-fluid" src={imgSelect} width="400" alt="Card image cap"
-                             id="product-detail"/>
+                            id="product-detail" />
                     </div>
                 </Modal.Body>
             }
@@ -568,8 +581,8 @@ const HomePage = () => {
                             {/* <!--Carousel Wrapper--> */}
                             <div className="col">
                                 <div className="carousel slide carousel-multi-item pt-2 pt-md-0"
-                                     id="multi-item-example"
-                                     data-bs-ride="carousel">
+                                    id="multi-item-example"
+                                    data-bs-ride="carousel">
                                     {/* <!--Slides--> */}
                                     <div className="carousel-inner product-links-wap" role="listbox">
 
@@ -578,23 +591,23 @@ const HomePage = () => {
                                             <div className="row">
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_01.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_01.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_02.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_02.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_03.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_03.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_04.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_04.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -605,23 +618,23 @@ const HomePage = () => {
                                             <div className="row">
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_01.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_01.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_02.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_02.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_03.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_03.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_04.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_04.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -632,23 +645,23 @@ const HomePage = () => {
                                             <div className="row">
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_01.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_01.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_02.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_02.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_03.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_03.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                                 <div className="col-3 p-md-5">
                                                     <a href="#"><img className="img-fluid brand-img"
-                                                                     src={require('./../assets/images/brand_04.png')}
-                                                                     alt="Brand Logo"/></a>
+                                                        src={require('./../assets/images/brand_04.png')}
+                                                        alt="Brand Logo" /></a>
                                                 </div>
                                             </div>
                                         </div>
