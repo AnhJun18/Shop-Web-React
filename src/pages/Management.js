@@ -50,8 +50,10 @@ const Management = () => {
             setLoadData(false)
             const tmp = {}
             Object.assign(tmp, param);
-            if (e.target.id === "searchContent")
-                tmp.info = e.target.value ? e.target.value : '';
+            if (e.target.id === "submitSearch"){
+                const infoSearch= document.getElementById('searchContent').value ;
+                 tmp.info=infoSearch ? infoSearch:'';
+            }
             if (e.target.id === "statusChoose")
                 tmp.status = e.target.value ? e.target.value : '';
             if (e.target.id === "fromDate")
@@ -124,9 +126,9 @@ const Management = () => {
                             <div className="input-group">
                                 <div className="form-outline">
                                     <input type="search" className="form-control" id="searchContent"
-                                           placeholder="Tìm kiếm..." onChange={handleSearch}/>
+                                           placeholder="Tìm kiếm..." />
                                 </div>
-                                <button type="button" className="btn btn-primary"><i className="fa fa-search"></i></button>
+                                <button type="button"  id="submitSearch" className="btn btn-primary" onClick={handleSearch}><i className="fa fa-search"></i></button>
                             </div>
                         </div>
                         <div className="col-lg-2 col-md-3">
@@ -172,10 +174,10 @@ const Management = () => {
                                             {(item.createdDate).slice(0, 19).replace("T", " ")}
                                         </td>
                                         <td>
-                                            {item?.nameReceiver}
+                                            {item?.shipment?.nameReceiver}
                                         </td>
                                         <td>
-                                            {item?.phoneReceiver}
+                                            {item?.shipment?.phoneReceiver}
                                         </td>
                                         <td>
                                             <span
