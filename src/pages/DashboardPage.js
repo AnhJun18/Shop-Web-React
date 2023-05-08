@@ -1,77 +1,94 @@
-import React from "react";
+import React, { useState } from "react";
 import adminLayout from "../admin/adminLayout"
+import Chart from 'react-apexcharts'
+import { useEffect } from "react";
+import axios from "../api/axios";
+import axiosApiInstance from "../context/interceptor";
+
 
 const DashboardPage = () => {
-  return (
-    <>
-            <div className="row">
-        <div className="col-xl-3 col-sm-6 mb-3">
-          <div className="card text-white bg-primary o-hidden h-100">
-            <div className="card-body">
-              <div className="card-body-icon">
-                <i className="fa fa-fw fa-comments"></i>
-              </div>
-              <div className="mr-5">26 New Messages!</div>
-            </div>
-            <a className="card-footer text-white clearfix small z-1" href="#">
-              <span className="float-left">View Details</span>
-              <span className="float-right">
-                <i className="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div className="col-xl-3 col-sm-6 mb-3">
-          <div className="card text-white bg-warning o-hidden h-100">
-            <div className="card-body">
-              <div className="card-body-icon">
-                <i className="fa fa-fw fa-list"></i>
-              </div>
-              <div className="mr-5">11 New Tasks!</div>
-            </div>
-            <a className="card-footer text-white clearfix small z-1" href="#">
-              <span className="float-left">View Details</span>
-              <span className="float-right">
-                <i className="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div className="col-xl-3 col-sm-6 mb-3">
-          <div className="card text-white bg-success o-hidden h-100">
-            <div className="card-body">
-              <div className="card-body-icon">
-                <i className="fa fa-fw fa-shopping-cart"></i>
-              </div>
-              <div className="mr-5">123 New Orders!</div>
-            </div>
-            <a className="card-footer text-white clearfix small z-1" href="#">
-              <span className="float-left">View Details</span>
-              <span className="float-right">
-                <i className="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-        <div className="col-xl-3 col-sm-6 mb-3">
-          <div className="card text-white bg-danger o-hidden h-100">
-            <div className="card-body">
-              <div className="card-body-icon">
-                <i className="fa fa-fw fa-support"></i>
-              </div>
-              <div className="mr-5">13 New Tickets!</div>
-            </div>
-            <a className="card-footer text-white clearfix small z-1" href="#">
-              <span className="float-left">View Details</span>
-              <span className="float-right">
-                <i className="fa fa-angle-right"></i>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-        </>
-  )
-}
+  const [monthTitle, setMonthTitle] = useState([]);
+  const [dataRevenue, setData] = useState([]);
+  const [arrayYear, setYear] = useState([])
+  const [yearSelected, setYearSelected] = useState('2023')
+  const setFiveYear = () => {
+    const currentYear = new Date().getFullYear();
+    setYearSelected(currentYear);
+    let years = [];
+    for (let i = 0; i < 5; i++) {
+      years.push(currentYear - i);
+    }
+    setYear(years);
+  }
 
+  const getData = async () => {
+    const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/test?year=${yearSelected}`);
+    setMonthTitle(result.data.map((item) => {
+      return 'T' + item["Thang"]
+    }
+    ))
+    setData(result.data.map((item) =>
+      item["DoanhThu"]
+    ))
+  }
+  const handleChangeYear = (e) => {
+    setYearSelected(e.target.value)
+  }
+  useEffect(() => {
+    setFiveYear();
+  }, [])
+
+  useEffect(() => {
+    getData()
+  }, [yearSelected])
+  const Sitting = {
+    options: {
+      chart: {
+        id: 'apexchart-example'
+      },
+      dataLabels: {
+        enabled: false
+      }, stroke: {
+        curve: 'straight'
+      }, title: {
+        text: 'Thống kê doanh thu',
+        align: 'left'
+      },
+      subtitle: {
+        text: `Năm ${yearSelected}`,
+        align: 'left'
+      },
+      xaxis: {
+        categories: monthTitle
+      },
+      yaxis: {
+        opposite: true
+      },
+      legend: {
+        horizontalAlign: 'left'
+      }
+    },
+    series: [{
+      name: 'Doanh Thu',
+      data: dataRevenue
+    }]
+  }
+
+
+  return (
+
+    <>
+      <div className="row" style={{ padding: 80 }}>
+        <select className="form-control" id="statusChoose" onChange={handleChangeYear}>
+          <option value={arrayYear?.at(0)}>{arrayYear?.at(0)}</option>
+          {arrayYear?.map((y) => (
+            <option value={y} key={y}>{y}</option>
+          ))}
+        </select>
+        <Chart options={Sitting.options} series={Sitting.series} type="area" height={320} />
+      </div>
+    </>
+  )
+
+}
 export default adminLayout(DashboardPage);
