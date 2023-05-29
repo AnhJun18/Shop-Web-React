@@ -28,6 +28,7 @@ import RecommendPage from "./pages/RecommendPage";
 import SearchPage from "./pages/SearchPage";
 import OAuth2RedirectHandler from './pages/auth/OAuth2RedirectHandler';
 import PaymentPage from './pages/PaymentPage';
+import Promotion from "./pages/PromotionPage";
 
 function App() {
     const tokens = JSON.parse(localStorage.getItem('tokens'));
@@ -48,6 +49,7 @@ function App() {
                         <Route path='/product' element={<ProductPage/>} />
                         <Route path='/customer' element={<CustomerPage/>} />
                         <Route path='/import' element={<Import/>} />
+                        <Route path='/promotion' element={<Promotion/>} />
                         <Route path='/statistical' element={<Statistical/>} />
                     </>
                     :(
