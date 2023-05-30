@@ -11,7 +11,6 @@ import ReactLoading from "react-loading";
 const PromotionPage = () => {
     const [load, setLoad] = useState(false);
     const [show, setShow] = useState(false);
-
     const [promotion_id, setId] = useState();
     const [promotion_value, setValue] = useState();
     const [promotion_name, setName] = useState();
@@ -19,7 +18,7 @@ const PromotionPage = () => {
     const [promotion_startDate, setstartDate] = useState();
     const [promotion_endDate, setendDate] = useState();
     const [listProductApply, setListProductApply] = useState([]);
-    const [listAllProduct,setAllProduct]=useState([]);
+    const [listAllProduct, setAllProduct] = useState([]);
     const [listPromotion, setListPromotion] = useState([]);
     const [showDetail, setShowDetail] = useState(false);
 
@@ -34,10 +33,10 @@ const PromotionPage = () => {
 
     async function getProduct() {
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
-        let listTMP =[]
+        let listTMP = []
         result?.data.forEach(element => {
-            const {id,name,linkImg}=element
-            listTMP.push({id,name,linkImg,status:false})
+            const { id, name, linkImg } = element
+            listTMP.push({ id, name, linkImg, status: false })
         });
         setAllProduct(listTMP)
         setLoad(true);
@@ -52,7 +51,21 @@ const PromotionPage = () => {
         setId(tmpID)
         const re = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/admin/promotion/list-product/${tmpID}`)
         setListProductApply(re.data)
-        
+
+        var listNew = []
+        listAllProduct.forEach((item) => {
+            var st = false;
+            re.data.forEach((i) => {
+                if (i[0] === item.id)
+                    st = true
+            })
+            if (st)
+                item.status = true
+            else
+                item.status = false
+            listNew.push(item)
+        })
+        setListProductApply(listNew)
     }
     const ClickDeletePromotion = async (e) => {
 
@@ -106,6 +119,26 @@ const PromotionPage = () => {
             current = current.parentNode;
         }
         return list
+    }
+    const handleCheck = (e) => {
+        console.log(e.target.title)
+        console.log(promotion_id)
+        var body={
+            "promotionID": promotion_id,
+            "listProductID": [
+                e.target.title
+            ]
+          }
+        const re = axiosApiInstance.post('/api/admin/promotion/addProduct',body)
+        console.log(re.data)
+        var listNew = []
+        listAllProduct.forEach((item) => {
+            if (e.target.title == item.id){
+                item.status = !item.status
+            }
+            listNew.push(item)
+        })
+        setListProductApply(listNew)
     }
     useEffect(() => {
         getPromotion()
@@ -235,10 +268,14 @@ const PromotionPage = () => {
                                                             width="50" height="50" className="img-fluid img-thumbnail"
                                                             alt="Sheep" />
                                                     </td>
-                                                    <th >{item.status?"có":"Chưa"}</th>
+
+                                                    <th ><input type="checkbox"
+                                                        title={item.id}
+                                                        onChange={handleCheck}
+                                                        checked={item.status}></input></th>
                                                 </tr>
                                             )}
-                                            
+
                                         </tbody>
                                     </table>
                                     : "Không có sản phẩm nào áp dụng"
