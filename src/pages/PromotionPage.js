@@ -18,62 +18,85 @@ const PromotionPage = () => {
     const [promotion_description, setDescription] = useState();
     const [promotion_startDate, setstartDate] = useState();
     const [promotion_endDate, setendDate] = useState();
-
+    const [listProductApply, setListProductApply] = useState([]);
+    const [listAllProduct,setAllProduct]=useState([]);
+    const [listPromotion, setListPromotion] = useState([]);
     const [showDetail, setShowDetail] = useState(false);
+
+
     const handleClose = () => {
         setShow(false);
         setShowDetail(false)
     };
-    const [listPromotion, setListPromotion] = useState([]);
     const handleShowAdd = (e) => {
         setShow(true);
     }
-    const ClickShowProduct= (e) => {
+
+    async function getProduct() {
+        const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/all`)
+        let listTMP =[]
+        result?.data.forEach(element => {
+            const {id,name,linkImg}=element
+            listTMP.push({id,name,linkImg,status:false})
+        });
+        setAllProduct(listTMP)
+        setLoad(true);
+
+    }
+
+    const ClickShowProduct = async (e) => {
         setShowDetail(true);
         const tmpID = parents(e.target).find(function (c) {
             return c.tagName === "TR"
         }).children[0].innerText;
         setId(tmpID)
-        console.log(tmpID)
-    }
-    const ClickDeletePromotion= async (e) =>{
+        const re = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/admin/promotion/list-product/${tmpID}`)
+        setListProductApply(re.data)
         
+    }
+    const ClickDeletePromotion = async (e) => {
+
         const tmpID = parents(e.target).find(function (c) {
             return c.tagName === "TR"
         }).children[0].innerText;
         const urlForm = `/api/admin/promotion/${tmpID}`;
-        const re = await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL+urlForm)
+        const re = await axiosApiInstance.delete(axiosApiInstance.defaults.baseURL + urlForm)
         if (re.data.status === 200) {
             toast.success("Khuyến mãi đã được xóa");
+            await getPromotion()
             setShow(false);
         } else
-            toast.error(re.data.message);
-        await getPromotion()
+            toast.error("Khuyến mãi đã được sử dụng. Không thể xóa");
     }
     async function getPromotion() {
-        
+
         const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/admin/promotion/all`);
         setLoad(true)
         setListPromotion(result.data);
         console.log(result.data)
     }
     const handleSubmit = async (e) => {
-        
-        let startDate=promotion_startDate + "T00:00:00.740Z"
+        e.preventDefault();
+        let startDate = promotion_startDate + "T00:00:00.740Z"
         let endDate = promotion_endDate + "T23:59:00.740Z"
         //"2023-05-29T09:54:17.740Z"
         const params = {
-            value : promotion_value,
-            name : promotion_name,
-            description : promotion_description,
+            value: promotion_value,
+            name: promotion_name,
+            description: promotion_description,
 
-            startDate : startDate,
-            endDate : endDate,
+            startDate: startDate,
+            endDate: endDate,
         }
-        
+
         const urlForm = `/api/admin/promotion`;
-        const re=await axiosApiInstance.post(axiosApiInstance.defaults.baseURL+urlForm,params)
-        console.log(params)
+        const re = await axiosApiInstance.post(axiosApiInstance.defaults.baseURL + urlForm, params)
+        if (re.status === 200) {
+            toast.success("Thêm khuyến mãi thành công");
+            await getPromotion()
+            setShow(false);
+        } else
+            toast.error("Thêm khuyến mãi không thành công! Thử lại ");
     }
     function parents(node) {
         let current = node,
@@ -84,9 +107,10 @@ const PromotionPage = () => {
         }
         return list
     }
-    useEffect(()=>{
+    useEffect(() => {
         getPromotion()
-    },{})
+        getProduct()
+    }, {})
     return (
         <>{
             load ?
@@ -104,7 +128,7 @@ const PromotionPage = () => {
                         </div>
                         <div className="d-flex text-muted overflow-auto">
                             <table className="table table-image">
-                            <thead>
+                                <thead>
                                     <tr>
                                         <th scope="col" className="col-1">Mã KM</th>
                                         <th scope="col" className="col-2">Tên</th>
@@ -118,30 +142,30 @@ const PromotionPage = () => {
                                 <tbody>
                                     {listPromotion.map((item) => (
                                         <tr key={item.id}>
-                                        <td>{item.id}</td>
-                                        <td>{item?.name}</td>
-                                        <td>{item?.value}</td>
-                                        <td>{item?.description}</td>
-                                        <td>{(item?.startDate)?.slice(0, 19).replace("T", " ")}</td>
-                                        <td>{(item?.endDate)?.slice(0, 19).replace("T", " ")}</td>
-                                        <td style={{ whiteSpace: 'nowrap' }}>
-                                            <button type="button"
-                                                className="btn btn-outline-primary btn-light btn-sm mx-sm-1 px-lg-2 w-32"
-                                                title="Chi tiết" onClick={ClickShowProduct}><i className="fa fa-info"
-                                                    aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button"
-                                                className="btn btn-outline-warning btn-light btn-sm mx-sm-1 px-lg-2 w-32"
-                                                title="Chỉnh sửa"><i className="fa fa-pencil"
-                                                    aria-hidden="true"></i>
-                                            </button>
-                                            <button type="button"
-                                                className="btn btn-outline-danger btn-light btn-sm mx-sm-1 px-lg-2 w-32"
-                                                title="Delete" onClick={ClickDeletePromotion}><i className="fa fa-lock"
-                                                    aria-hidden="true"></i>
-                                            </button>
-                                        </td>
-                                    </tr>))}
+                                            <td>{item.id}</td>
+                                            <td>{item?.name}</td>
+                                            <td>{item?.value}</td>
+                                            <td>{item?.description}</td>
+                                            <td>{(item?.startDate)?.slice(0, 19).replace("T", " ")}</td>
+                                            <td>{(item?.endDate)?.slice(0, 19).replace("T", " ")}</td>
+                                            <td style={{ whiteSpace: 'nowrap' }}>
+                                                <button type="button"
+                                                    className="btn btn-outline-primary btn-light btn-sm mx-sm-1 px-lg-2 w-32"
+                                                    title="Chi tiết" onClick={ClickShowProduct}><i className="fa fa-info"
+                                                        aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button"
+                                                    className="btn btn-outline-warning btn-light btn-sm mx-sm-1 px-lg-2 w-32"
+                                                    title="Chỉnh sửa"><i className="fa fa-pencil"
+                                                        aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button"
+                                                    className="btn btn-outline-danger btn-light btn-sm mx-sm-1 px-lg-2 w-32"
+                                                    title="Delete" onClick={ClickDeletePromotion}><i className="fa fa-lock"
+                                                        aria-hidden="true"></i>
+                                                </button>
+                                            </td>
+                                        </tr>))}
                                 </tbody>
                             </table>
                         </div>
@@ -153,24 +177,24 @@ const PromotionPage = () => {
                         <Modal.Body>
                             <Form onSubmit={handleSubmit}>
                                 <Form.Group className="mb-2">
-                                    <Form.Control type="text" placeholder="Tên Khuyến Mãi" name="name" 
+                                    <Form.Control type="text" placeholder="Tên Khuyến Mãi" name="name"
                                         value={promotion_name} onChange={(e) => setName(e.target.value)} />
                                 </Form.Group>
                                 <Form.Group className="mb-2">
                                     <Form.Control type="text" placeholder="% Khuyến Mãi" name="value"
-                                    value={promotion_value} onChange={(e) => setValue(e.target.value)} />
+                                        value={promotion_value} onChange={(e) => setValue(e.target.value)} />
                                 </Form.Group>
                                 <Form.Group className="mb-2">
-                                    <Form.Control type="text" placeholder="Mô tả" name="description" 
-                                    value={promotion_description} onChange={(e) => setDescription(e.target.value)}/>
+                                    <Form.Control type="text" placeholder="Mô tả" name="description"
+                                        value={promotion_description} onChange={(e) => setDescription(e.target.value)} />
                                 </Form.Group>
                                 <Form.Group className="mb-2">
-                                    <Form.Control type="date"  name="startDate"
-                                    value={promotion_startDate} onChange={(e) => setstartDate(e.target.value)} />
+                                    <Form.Control type="date" name="startDate"
+                                        value={promotion_startDate} onChange={(e) => setstartDate(e.target.value)} />
                                 </Form.Group>
                                 <Form.Group className="mb-4">
-                                    <Form.Control type="date"  name="endDate" 
-                                    value={promotion_endDate} onChange={(e) => setendDate(e.target.value)}/>
+                                    <Form.Control type="date" name="endDate"
+                                        value={promotion_endDate} onChange={(e) => setendDate(e.target.value)} />
                                 </Form.Group>
                                 <Button variant="success" type="submit" >
                                     Tạo Khuyến Mãi
@@ -189,17 +213,36 @@ const PromotionPage = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <Form>
-                            <table className="table ">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" className="col-2">id</th>
-                                            <th scope="col" className="col-2">Tên Sản Phẩm</th>
-                                            <th scope="col" className="col-2">Hình ảnh</th>
-                                            <th scope="col" className="col-2">Giá</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                            </table>
+                                {listProductApply.length ?
+                                    <table className="table ">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" className="col-2">id</th>
+                                                <th scope="col" className="col-2">Tên Sản Phẩm</th>
+                                                <th scope="col" className="col-2">Hình ảnh</th>
+                                                <th scope="col" className="col-2">Giá</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>{
+                                            listAllProduct.map((item) =>
+                                                <tr>
+                                                    <th >{item.id}</th>
+                                                    <th >{item.name}</th>
+                                                    <td className="tdImage w-25">
+                                                        <img
+                                                            src={item.linkImg}
+                                                            width="50" height="50" className="img-fluid img-thumbnail"
+                                                            alt="Sheep" />
+                                                    </td>
+                                                    <th >{item.status?"có":"Chưa"}</th>
+                                                </tr>
+                                            )}
+                                            
+                                        </tbody>
+                                    </table>
+                                    : "Không có sản phẩm nào áp dụng"
+                                }
                                 {/* <Button variant="success" type="submit" >
                                     Tạo Khuyến Mãi
                                 </Button> */}
@@ -212,7 +255,7 @@ const PromotionPage = () => {
                         </Modal.Footer>
                     </Modal>
                 </div>
-                
+
                 :
                 <div className={"center loading"}>
                     <ReactLoading type={'cylon'} color='#fffff' height={'33px'} width={'9%'} />
