@@ -54,6 +54,11 @@ const Sidebar = ({isActive}) => {
                 title: "Import",
             },
             {
+                icon: <i className="fa fa-gift me-3" ></i>,
+                link: "/promotion",
+                title: "Promotion",
+            },
+            {
                 icon: <i className="fa fa-bar-chart me-3" ></i>,
                 link: "/statistical",
                 title: "Statistical",
@@ -68,10 +73,6 @@ const Sidebar = ({isActive}) => {
                     <div className="ms-4 mt-3">
                         <img alt="" width="120" height="120" src={require('./../assets/images/logo.png')}/>
                     </div>
-                    {/* <div href="#" className="ms-3 align-items-center text-decoration-none" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src={require('./../assets/images/logo.png')} alt="" width="110" height="110" className="rounded-circle me-2" />
-                    <h5></h5>
-                </div> */}
                 </div>
                 <PerfectScrollbar className="sidebar-items mt-3">
                     <ul className="list-unstyled ps-0">

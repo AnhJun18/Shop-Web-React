@@ -22,12 +22,10 @@ const ProductPage = () => {
     const [modalForm, setModalForm] = useState(false);
     const [productDetail, setProductDetail] = useState([]);
 
-
     const [product_id, setId] = useState();
     const [product_name, setName] = useState();
     const [product_image, setImage] = useState();
     const [product_category, setCategory] = useState();
-    const [product_tag, setTag] = useState();
     const [product_sold, setSold] = useState();
     const [product_describe, setDescribe] = useState();
 
@@ -67,14 +65,7 @@ const ProductPage = () => {
         const tag = parents(e.target).find(function (c) {
             return c.tagName === "TR"
         }).children[6].innerText;
-        if (tag)
-            for (const i of listTag) {
-                if (i.id == tag) {
-                    setTag(i.name)
-                    break
-                }
-            }
-        else setTag(null)
+      
         setShow(true);
         setEditForm(true);
     }
@@ -116,10 +107,32 @@ const ProductPage = () => {
         setName(null);
         setDescribe(null);
         setCategory(null);
-        setTag(null);
         setSold(null);
         setImage(null);
 
+    }
+    const sendNotifyForApp=async(pro)=>{
+        const paramSend = {
+            "data": {
+                "productId":  pro?.id
+            },
+            "notification": {
+                "body": "Sản phẩm mới đã có tại của hàng",
+                "title": "Thông báo",
+                "image": pro?.linkImg,
+                "badge": "1"
+            },
+            "to": "/topics/new-product"
+        }
+        const headers = {
+            'Authorization': 'key=AAAAIE6_JeY:APA91bFpnQfZqn-vCdYPdvPDLIAG-KrqQR6U9v1xtzJ3yCrAsnySS6WNvETNBV1eymDQm0m7ouwySiIfIMftHpOMW1mbeAEnpv83FPLvjcXyk_YrdJRONTUsg-y-BKyCN0wImmYsKkG1',
+          };
+          try {
+            const response = await axios.post('https://fcm.googleapis.com/fcm/send', paramSend, { headers });
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -129,7 +142,6 @@ const ProductPage = () => {
             name: product_name,
             category: product_category,
             price: product_sold,
-            tag: product_tag
         }
         const methodForm = editForm ? 'put' : 'post';
         const urlForm = editForm ? `/api/product/edit/${product_id}` : `/api/product/create`;
@@ -150,6 +162,9 @@ const ProductPage = () => {
             toast.success(kq.data.message);
             getProduct(param.search === '' ? '?page=1' : param.search, 5);
             setShow(false);
+            if (!editForm) {
+                await sendNotifyForApp(kq.data?.product)
+            }
         } else
             toast.error(kq.data.message);
 
@@ -399,15 +414,7 @@ const ProductPage = () => {
                                         <Form.Control type="number" placeholder="Giá " name="price" value={product_sold}
                                             onChange={(e) => setSold(e.target.value)} />
                                     </Form.Group>
-                                    <Form.Group className="mb-2">
-                                        <Form.Control as="select" name="Tag" required value={product_tag}
-                                            onChange={(e) => setTag(e.target.value)} id="select">
-                                            <option value="">Nhãn gợi ý</option>
-                                            {listTag.map((cate) => (
-                                                <option value={cate.name} key={cate.id}>{cate.name}-{cate.describer}</option>
-                                            ))}
-                                        </Form.Control>
-                                    </Form.Group>
+                                    
                                     <Button variant="success" type="submit">
                                         {editForm ? "Chỉnh sửa" : "Tạo sản phẩm"}
                                     </Button>
