@@ -22,7 +22,7 @@ const DashboardPage = () => {
   }
 
   const getData = async () => {
-    const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/product/test?year=${yearSelected}`);
+    const result = await axiosApiInstance.get(axiosApiInstance.defaults.baseURL + `/api/report/chart-revenue?year=${yearSelected}`);
     setMonthTitle(result.data.map((item) => {
       return 'T' + item["Thang"]
     }
