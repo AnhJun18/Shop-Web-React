@@ -47,7 +47,7 @@ const Sidebar = ({isActive}) => {
                 icon: <i className="fa fa-cart-plus me-3"></i>,
                 link: "/order",
                 title: "Order",
-            }, 
+            },
             {
                 icon: <i className="fa fa-archive me-3" ></i>,
                 link: "/import",
@@ -62,7 +62,12 @@ const Sidebar = ({isActive}) => {
                 icon: <i className="fa fa-bar-chart me-3" ></i>,
                 link: "/statistical",
                 title: "Statistical",
-            }
+            },
+            {
+            icon: <i className="fa fa-bar-chart me-3"></i>,
+            link: "/warehousePage",
+            title: "WarehousePage",
+          },
         ]
     }, [])
 
