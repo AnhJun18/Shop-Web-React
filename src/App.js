@@ -30,50 +30,57 @@ import OAuth2RedirectHandler from './pages/auth/OAuth2RedirectHandler';
 import PaymentPage from './pages/PaymentPage';
 import Promotion from "./pages/PromotionPage";
 
+import PriventoryPage from './pages/PriventoryPage';
+
+
 function App() {
     const tokens = JSON.parse(localStorage.getItem('tokens'));
     const permission=(tokens?(jwt_decode(tokens?.data?.accessToken)?.authorities):null)
     return (
+          
         <AuthContextProvider>
+             {
             <Routes>
-                <Route path='/login' element={<LoginPage/>} />
-                <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler/>}/>
+                  <Route path='/login' element={<LoginPage/>} />
+                  <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler/>}/>
 
-                {permission === 'ROLE_ADMIN' ?
-                    <>
+                  {permission === 'ROLE_ADMIN' ?
+                      <>
                         <Route path='/' element={<DashboardPage/>} />
                         <Route path='/profile' element={<ProfilePage/>} />
                         <Route path='/table' element={<TablePage/>} />
-                        <Route path='/order' element={<Management/>} />
-                        <Route path='/category' element={<CategoryPage/>} />
-                        <Route path='/product' element={<ProductPage/>} />
-                        <Route path='/customer' element={<CustomerPage/>} />
-                        <Route path='/import' element={<Import/>} />
-                        <Route path='/promotion' element={<Promotion/>} />
-                        <Route path='/statistical' element={<Statistical/>} />
-                    </>
-                    :(
-                        <>
-                        <Route path='/' element={<HomePage/>} />
-                        <Route path='/home' element={<HomePage/>} />
-                        <Route path='/register' element={<RegisterPage/>} />
-                        <Route path='/profile' element={<InfoUser/>} />
-                        <Route path='/forgot-pass' element={<UserFogotPass/>} />
-                        <Route path='/change-pass/verify-code=:code' element={<ChangePwsPage/>} />
-                        <Route path='/product/:id' element={<ChoosingPage/>} />
-                        <Route path='/search'  element={<SearchPage/>} />
-                        <Route path='/cart' element={<CartPage/>} />
-                        <Route path='/theOrder' element={<TheOrder/>}/>
-                        <Route path='/product/:id' element={<ChoosingPage/>} />
-                        <Route path='/recommend' element={<RecommendPage/>} />
-                        <Route path='/shop' element={<ShopPage/>}/>
-                        <Route path='/shop/:id' element={<ShopPage/>}/>
-                        <Route path='/result-payment' element={<PaymentPage/>}/>
-                        </>)
-                }
-                <Route path='*' element={<NotFound/>} />
-            </Routes>
-        </AuthContextProvider>
+                         <Route path='/order' element={<Management/>} />
+                         <Route path='/category' element={<CategoryPage/>} />
+                         <Route path='/product' element={<ProductPage/>} />
+                         <Route path='/customer' element={<CustomerPage/>} />
+                         <Route path='/import' element={<Import/>} />
+                         <Route path='/promotion' element={<Promotion/>} />
+                         <Route path='/statistical' element={<Statistical/>} />
+                        {/* <Route path='/priventory' element={<PriventoryPage/>} /> */}
+                     </>
+                      :(
+                         <>
+                         <Route path='/' element={<HomePage/>} />
+                          <Route path='/home' element={<HomePage/>} />
+                          <Route path='/register' element={<RegisterPage/>} />
+                          <Route path='/profile' element={<InfoUser/>} />
+                          <Route path='/forgot-pass' element={<UserFogotPass/>} />
+                          <Route path='/change-pass/verify-code=:code' element={<ChangePwsPage/>} />
+                          <Route path='/product/:id' element={<ChoosingPage/>} />
+                          <Route path='/search'  element={<SearchPage/>} />
+                          <Route path='/cart' element={<CartPage/>} />
+                          <Route path='/theOrder' element={<TheOrder/>}/>
+                          <Route path='/product/:id' element={<ChoosingPage/>} />
+                          <Route path='/recommend' element={<RecommendPage/>} />
+                         <Route path='/shop' element={<ShopPage/>}/>
+                          <Route path='/shop/:id' element={<ShopPage/>}/>
+                          <Route path='/result-payment' element={<PaymentPage/>}/>
+                          </>)
+                  }
+                  <Route path='*' element={<NotFound/>} />
+              </Routes> 
+        } 
+         </AuthContextProvider>
     )
 }
 

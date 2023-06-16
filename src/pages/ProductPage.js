@@ -317,7 +317,7 @@ const ProductPage = () => {
                                 <tbody>
                                     {list.map((item) => (
                                         <tr key={item.id}>
-                                            <th scope="row">{item.id}</th>
+                                            <td scope="row">{item.id}</td>
                                             <td className="tdName">{item.name}</td>
                                             <td className="tdImage w-25">
                                                 <img
