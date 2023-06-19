@@ -24,7 +24,9 @@ const HomePage = () => {
     const [sizeAvail, setSizeAvail] = useState();
     const [item, setItem] = useState({});
     const [show, setShow] = useState(false);
-    const [order, setOrder] = useState([])
+    const [order, setOrder] = useState([]);
+    const currentDate = new Date();
+
 
 
     const handleAddCart = async (id, amount) => {
@@ -144,6 +146,16 @@ const HomePage = () => {
             toast.error("Vui lòng chọn màu và kích thước phù hợp!")
         }
     }
+    
+    function bestPromotion(item){
+        let result = 0;
+        item.promotions.map((promotion) =>{
+            if (new Date(promotion.endDate) >= currentDate && promotion.value > result) {
+                result = promotion.value;
+            }
+        });
+        return result;
+      };
 
     useEffect(() => {
         getBestSeller();
@@ -351,10 +363,24 @@ const HomePage = () => {
                                                 <i className="text-muted fa fa-star"></i>
                                             </li>
                                         </ul>
-                                        <p className="text-center mb-0 price_txt">{item.price.toLocaleString('vi', {
-                                            style: 'currency',
-                                            currency: 'VND'
-                                        })}</p>
+                                        {
+                                        (item.promotions.length)   ?
+                                            (<><p className="text-center mb-0 price_txt price_discount">{item.price.toLocaleString('vi', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            })}</p>
+                                            <p className="text-center mb-0 price_txt">
+                                            {(item.price * (100 - bestPromotion(item)) / 100).toLocaleString('vi', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                                })}</p></>
+                                            )
+                                        :
+                                            (<p className="text-center mb-0 price_txt">{item.price.toLocaleString('vi', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            })}</p>)
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -420,10 +446,24 @@ const HomePage = () => {
                                                 <i className="text-muted fa fa-star"></i>
                                             </li>
                                         </ul>
-                                        <p className="text-center mb-0 price_txt">{item.price.toLocaleString('vi', {
-                                            style: 'currency',
-                                            currency: 'VND'
-                                        })}</p>
+                                        {
+                                        (item.promotions.length)   ?
+                                            (<><p className="text-center mb-0 price_txt price_discount">{item.price.toLocaleString('vi', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            })}</p>
+                                            <p className="text-center mb-0 price_txt">
+                                            {(item.price * (100 - bestPromotion(item)) / 100).toLocaleString('vi', {
+                                                style: 'currency',
+                                                currency: 'VND',
+                                                })}</p></>
+                                            )
+                                        :
+                                            (<p className="text-center mb-0 price_txt">{item.price.toLocaleString('vi', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            })}</p>)
+                                        }
                                     </div>
                                 </div>
                             </div>

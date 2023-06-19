@@ -348,6 +348,11 @@ p.content{
     margin-right: 10px;
 }
 
+.price_discount{
+    text-decoration: line-through;
+    font-style: italic;
+}
+
 .swatch input {
     display: none;
 }
