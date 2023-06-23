@@ -499,11 +499,23 @@ const HomePage = () => {
                                     <div class="card">
                                         <div class="card-body">
                                             <h1 class="h2">{productDetail.at(0)?.infoProduct?.name}</h1>
-                                            <p class="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
-                                                style: 'currency',
-                                                currency: 'VND'
-                                            })}</p>
-
+                                            {
+                                            (productDetail.at(0)?.infoProduct?.promotions.length)   ?
+                                                (<><p className="h3 py-2 price_txt price_discount">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
+                                                    style: 'currency',
+                                                    currency: 'VND'
+                                                })}</p>
+                                                <p className="h3 py-2 price_txt">{(productDetail.at(0)?.infoProduct?.price * (100-bestPromotion(productDetail.at(0)?.infoProduct))/100).toLocaleString('vi', {
+                                                    style: 'currency',
+                                                    currency: 'VND'
+                                                })}</p></>
+                                                )
+                                            :
+                                                (<p className="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
+                                                    style: 'currency',
+                                                    currency: 'VND'
+                                                })}</p>)
+                                            }
 
                                             {<Form>
                                                 <input type="hidden" name="product-title" value="Activewear" />

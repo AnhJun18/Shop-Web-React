@@ -69,6 +69,7 @@ const ShopPage = () => {
         })
 
         setColorAvail(setColor)
+        console.log(result?.data)
     }
 
     const handleClose = () => {
@@ -411,10 +412,23 @@ const ShopPage = () => {
                                         <div className="card">
                                             <div className="card-body">
                                                 <h1 className="h2">{productDetail.at(0)?.infoProduct?.name}</h1>
-                                                <p className="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
-                                                    style: 'currency',
-                                                    currency: 'VND'
-                                                })}</p>
+                                                {
+                                                (productDetail.at(0)?.infoProduct?.promotions.length)   ?
+                                                    (<><p className="h3 py-2 price_txt price_discount">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
+                                                        style: 'currency',
+                                                        currency: 'VND'
+                                                    })}</p>
+                                                    <p className="h3 py-2 price_txt">{(productDetail.at(0)?.infoProduct?.price * (100-bestPromotion(productDetail.at(0)?.infoProduct))/100).toLocaleString('vi', {
+                                                        style: 'currency',
+                                                        currency: 'VND'
+                                                    })}</p></>
+                                                    )
+                                                :
+                                                    (<p className="h3 py-2 price_txt">{productDetail.at(0)?.infoProduct?.price.toLocaleString('vi', {
+                                                        style: 'currency',
+                                                        currency: 'VND'
+                                                    })}</p>)
+                                                }
                                                 <ul className="list-inline">
                                                     <li className="list-inline-item">
                                                         <h6>Avaliable Color :</h6>
