@@ -26,10 +26,12 @@ const TheOrderPage = () => {
     const [phoneReceiver, setPhone] = useState()
     const [address, setAddressShow] = useState()
     const [payment, setPayment] = useState(1);
+    const currentDate = new Date();
+
     useEffect(() => {
         let t = 0
         cart.forEach((i) => {
-            t += i?.amount * i.product.infoProduct.price
+            t += i?.amount * i.product.infoProduct.price *(100-bestPromotion(i.product.infoProduct))/100
         })
         setMoney(t)
     }, [])
@@ -127,6 +129,16 @@ const TheOrderPage = () => {
         toast.info("Đang chuyển hướng đến VNPay")
         window.location.href = axiosApiInstance.defaults.baseURL + `/api/payment/vnpay/make_url?order_id=${id}`
     }
+
+    function bestPromotion(item){
+        let result = 0;
+        item.promotions.map((promotion) =>{
+            if (new Date(promotion.endDate) >= currentDate && promotion.value > result) {
+                result = promotion.value;
+            }
+        });
+        return result;
+      };
 
     const handleConfirmOrder = async () => {
         const productOrder = []
@@ -338,7 +350,7 @@ const TheOrderPage = () => {
                                         </div>
                                     </td>
                                     <td className="text-center">x{item?.amount}</td>
-                                    <td className="text-right">{item?.product?.infoProduct?.price.toLocaleString('vi', {
+                                    <td className="text-right">{(item.product?.infoProduct?.price * (100-bestPromotion(item.product?.infoProduct))/100).toLocaleString('vi', {
                                         style: 'currency',
                                         currency: 'VND'
                                     })}</td>

@@ -61,12 +61,10 @@ const CartPage = () => {
     function bestPromotion(item){
         let result = 0;
         item.promotions.map((promotion) =>{
-            console.log(promotion)
             if (new Date(promotion.endDate) >= currentDate && promotion.value > result) {
                 result = promotion.value;
             }
         });
-        console.log(result);
         return result;
       };
 
