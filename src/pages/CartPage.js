@@ -15,6 +15,8 @@ const CartPage = () => {
     const [checkedState, setCheckedState] = useState([]);
     const [total, setTotal] = useState(0);
     const [cart, setCart] = useState([]);
+    const currentDate = new Date();
+
 
 
     async function getCart() {
@@ -55,12 +57,23 @@ const CartPage = () => {
         } else
             toast.error("Lỗi! Vui lòng thử lại")
     }
-
+ 
+    function bestPromotion(item){
+        let result = 0;
+        item.promotions.map((promotion) =>{
+            console.log(promotion)
+            if (new Date(promotion.endDate) >= currentDate && promotion.value > result) {
+                result = promotion.value;
+            }
+        });
+        console.log(result);
+        return result;
+      };
 
     const getTotal = (itemChange) => {
         let t = 0
         cart.forEach(i => {
-            t += i.amount * i?.product?.infoProduct?.price
+            t += i.amount * i?.product?.infoProduct?.price * (100-bestPromotion(i?.product?.infoProduct))/100
         })
         setTotal(t)
     }
@@ -132,10 +145,11 @@ const CartPage = () => {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="text-center text-lg text-medium price_txt">{item.product?.infoProduct?.price.toLocaleString('vi', {
-                                        style: 'currency',
-                                        currency: 'VND'
-                                    })}</td>
+                                    <td className="text-center text-lg text-medium price_txt">{(item.product?.infoProduct?.price * (100-bestPromotion(item.product?.infoProduct))/100).toLocaleString('vi', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        })}</td>
+                                    
                                     <td className="text-center ">
                                         <div className="count-input spinner_input">
                                             <InputSpinner
@@ -151,10 +165,10 @@ const CartPage = () => {
                                             />
                                         </div>
                                     </td>
-                                    <td className="text-center text-lg text-medium">{(item.product?.infoProduct?.price * item?.amount).toLocaleString('vi', {
+                                    <td className="text-center text-lg text-medium price_txt">{(item.product?.infoProduct?.price * item?.amount * (100-bestPromotion(item.product?.infoProduct))/100).toLocaleString('vi', {
                                         style: 'currency',
                                         currency: 'VND'
-                                    })}</td>
+                                    })}</td>                                    
                                     <td className="text-center">
                                         <button className="remove-from-cart" onClick={handleDeleteItem}
                                                 data-toggle="tooltip" title=""
